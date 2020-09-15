@@ -380,7 +380,7 @@
                                 </div>
 
                                 <div class="col4">
-                                    <label for="lastDayOfVisit">Last Visit</label>
+                                    <label>Last Visit</label>
                                     ${ui.includeFragment("uicommons", "field/datetimepicker", [formFieldName: 'lastDayOfVisit', id: 'lastDayOfVisit', label: '', useTime: false, defaultToday: false, class: ['newdtp'], endDate: new Date()])}
                                 </div>
 

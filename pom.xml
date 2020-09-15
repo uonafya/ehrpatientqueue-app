@@ -53,7 +53,12 @@
 			
 						
 			<!-- Begin OpenMRS modules -->
-			
+			<dependency>
+				<groupId>org.openmrs.module</groupId>
+				<artifactId>kenyacore-api</artifactId>
+				<version>${kenyacoreVersion}</version>
+				<scope>provided</scope>
+			</dependency>
 						
 			<dependency>
 			
@@ -102,7 +107,7 @@
 				<scope>provided</scope>
 
 			</dependency>
-
+               <!--
 			<dependency>
 
 				<groupId>org.openmrs.module</groupId>
@@ -114,7 +119,20 @@
 				<scope>provided</scope>
 
 			</dependency>
-						
+				-->
+			<dependency>
+				<groupId>org.openmrs.module</groupId>
+				<artifactId>kenyaemr-api</artifactId>
+				<version>17.1.0</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.openmrs.module</groupId>
+				<artifactId>kenyaui-api</artifactId>
+				<version>${kenyauiVersion}</version>
+				<scope>provided</scope>
+			</dependency>
+
 			<!-- End OpenMRS modules -->
             <dependency>
 

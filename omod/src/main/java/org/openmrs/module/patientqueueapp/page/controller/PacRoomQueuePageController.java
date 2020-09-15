@@ -12,8 +12,9 @@ import javax.servlet.http.HttpSession;
 import java.util.Date;
 
 /**
- * Created by qqnarf on 5/13/16.
+ *
  */
+
 public class PacRoomQueuePageController {
     private static final String PAC_ROOM_CONCEPT_UUID = "2d32b641-83ea-4cb5-be77-bc2b5c250b66";
     public String get(

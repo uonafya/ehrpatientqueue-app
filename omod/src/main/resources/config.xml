@@ -27,7 +27,7 @@
 			org.openmrs.module.uilibrary
 		</require_module>
 
-		<require_module version="1.0.2">
+		<require_module version="1.0.0">
 			org.openmrs.module.mchapp
 		</require_module>
         
@@ -35,19 +35,23 @@
             org.openmrs.module.appframework
         </require_module>
 		
-		<require_module version="1.5.1">
+		<require_module version="1.0.0">
 			org.openmrs.module.hospitalcore
+		</require_module>
+
+		<require_module version="17.0.4">
+			org.openmrs.module.kenyaemr
 		</require_module>
 
 		<require_module version="1.4">
 			org.openmrs.module.appui
 		</require_module>
-
+		<!--
 		<require_module version="1.0.1">
 			org.openmrs.module.referenceapplication
 		</require_module>
-
-		<require_module version="1.0.2">
+        -->
+		<require_module version="1.0.0">
 			org.openmrs.module.mchapp
 		</require_module>
 			

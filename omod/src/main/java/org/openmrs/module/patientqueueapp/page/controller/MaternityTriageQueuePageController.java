@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 import java.util.Date;
 
 /**
- * Created by qqnarf on 5/12/16.
+ *
  */
 public class MaternityTriageQueuePageController {
     private static final String MATERNITY_TRIAGE_CONCEPT_UUID = "1b8840c8-69d1-4daf-9689-c9a739759b66";

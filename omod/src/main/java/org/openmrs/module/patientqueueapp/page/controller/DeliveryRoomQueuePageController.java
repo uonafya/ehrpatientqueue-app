@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 import java.util.Date;
 
 /**
- * Created by qqnarf on 5/13/16.
+ *
  */
 public class DeliveryRoomQueuePageController {
     private static final String DELIVERY_ROOM_CONCEPT_UUID = "daea450b-4c2c-49ea-a241-afa152b52145";

@@ -19,7 +19,7 @@ import org.openmrs.ui.framework.page.PageRequest;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
- * Created by Dennys Henry on 2/17/2016.
+ *
  */
 public class TriageQueuePageController {
     public String get(

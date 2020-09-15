@@ -298,7 +298,7 @@
 		color: #363463;
 		cursor: pointer;
 		float: right;
-		margin-left: 2pxmchclinic;
+		margin-left: 2px;
 		padding: 1px 6px;
 	}
 </style>
@@ -382,7 +382,7 @@
                                 </div>
 
                                 <div class="col4">
-                                    <label for="lastDayOfVisit">Last Visit</label>
+                                    <label>Last Visit</label>
                                     ${ui.includeFragment("uicommons", "field/datetimepicker", [formFieldName: 'lastDayOfVisit', id: 'lastDayOfVisit', label: '', useTime: false, defaultToday: false, class: ['newdtp'], endDate: new Date()])}
                                 </div>
 
