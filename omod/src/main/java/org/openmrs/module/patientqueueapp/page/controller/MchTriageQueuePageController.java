@@ -22,7 +22,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created by qqnarf on 5/12/16. Edited by GB-HealthIT 15/09/2020
+ *
  */
 public class MchTriageQueuePageController {
     private static final String MCH_TRIAGE_CONCEPT_NAME = "MCH TRIAGE";

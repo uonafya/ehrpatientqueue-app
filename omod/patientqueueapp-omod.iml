@@ -149,7 +149,5 @@
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.openmrs.module:appframework-api:2.4" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.openmrs.module:appui-omod:1.4" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.openmrs.module:appui-api:1.4" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.openmrs.module:referenceapplication-omod:1.0.1" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.openmrs.module:referenceapplication-api:1.0.1" level="project" />
   </component>
 </module>
