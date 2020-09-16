@@ -35,6 +35,8 @@
 	<properties>
 		<openMRSVersion>1.9.7</openMRSVersion>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<kenyauiVersion>2.1.1</kenyauiVersion>
+		<kenyacoreVersion>2.4.1</kenyacoreVersion>
 	</properties>
 
 	<dependencyManagement>
@@ -129,6 +131,18 @@
 				<groupId>org.openmrs.module</groupId>
 				<artifactId>mchapp-api</artifactId>
 				<version>1.0.0-SNAPSHOT</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.openmrs.module</groupId>
+				<artifactId>kenyacore-api</artifactId>
+				<version>${kenyacoreVersion}</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.openmrs.module</groupId>
+				<artifactId>kenyaui-api</artifactId>
+				<version>${kenyauiVersion}</version>
 				<scope>provided</scope>
 			</dependency>
 

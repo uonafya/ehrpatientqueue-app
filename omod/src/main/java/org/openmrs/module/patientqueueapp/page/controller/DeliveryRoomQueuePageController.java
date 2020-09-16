@@ -3,6 +3,8 @@ package org.openmrs.module.patientqueueapp.page.controller;
 import org.openmrs.Concept;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.appui.UiSessionContext;
+import org.openmrs.module.kenyaui.annotation.AppPage;
+import org.openmrs.module.patientqueueapp.PatientQueueConstants;
 import org.openmrs.module.patientqueueapp.PatientQueueUtils;
 import org.openmrs.module.referenceapplication.ReferenceApplicationWebConstants;
 import org.openmrs.ui.framework.UiUtils;
@@ -13,8 +15,9 @@ import javax.servlet.http.HttpSession;
 import java.util.Date;
 
 /**
- * Created by qqnarf on 5/13/16.
+ *
  */
+@AppPage(PatientQueueConstants.APP_DELIVERY_ROOM)
 public class DeliveryRoomQueuePageController {
     private static final String DELIVERY_ROOM_CONCEPT_UUID = "daea450b-4c2c-49ea-a241-afa152b52145";
     public String get(
