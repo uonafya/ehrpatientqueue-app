@@ -9,7 +9,7 @@
 	<package>${project.parent.groupId}.${project.parent.artifactId}</package>
 	<author>HealthIT</author>
 	<description>
-		${project.parent.description}
+		Contains OPD, Triage, Maternity, Delivery room, PACS and MCH
 	</description>
 	<updateURL>https://modules.openmrs.org/modules/download/${project.parent.artifactId}/update.rdf</updateURL>
 	<require_version>${openMRSVersion}</require_version>
@@ -18,45 +18,17 @@
 	
 	<!-- Required Modules -->
 	<require_modules>
-
-		<require_module version="${uiframeworkModuleVersion}">
-		org.openmrs.module.uiframework
-		</require_module>
-																											
-		<require_module version="${uilibraryVersion}">
-			org.openmrs.module.uilibrary
-		</require_module>
-
-		<require_module version="${mchappVersion}">
-			org.openmrs.module.mchapp
-		</require_module>
-        
-        <require_module version="${appframeworkVersion}">
-            org.openmrs.module.appframework
-        </require_module>
-		
-		<require_module version="${hospitalcoreVersion}">
-			org.openmrs.module.hospitalcore
-		</require_module>
-
-		<require_module version="17.0.4">
-			org.openmrs.module.kenyaemr
-		</require_module>
-
-		<require_module version="${appuiVersion}">
-			org.openmrs.module.appui
-		</require_module>
-<!--
-		<require_module version="2.11.0-SNAPSHOT">
-			org.openmrs.module.referenceapplication
-		</require_module>
--->
-			
+		<require_module>org.openmrs.module.uiframework</require_module>
+		<require_module>org.openmrs.module.uilibrary</require_module>
+		<require_module>org.openmrs.module.mchapp</require_module>
+        <require_module>org.openmrs.module.appframework</require_module>
+		<require_module>org.openmrs.module.hospitalcore</require_module>
+		<require_module>org.openmrs.module.appui</require_module>
 	</require_modules>
 	<!-- / Required Modules -->
 	
 	<!-- Module Activator -->
-	<activator>${project.parent.groupId}.${project.parent.artifactId}.PatientQueueAppActivator</activator>
+	<activator>org.openmrs.module.patientqueueapp.PatientQueueAppActivator</activator>
 	
 	
 	<!-- Maps hibernate file's, if present -->

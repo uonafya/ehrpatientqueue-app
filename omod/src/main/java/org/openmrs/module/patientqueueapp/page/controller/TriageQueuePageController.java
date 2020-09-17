@@ -10,6 +10,8 @@ import org.openmrs.ConceptAnswer;
 import org.openmrs.User;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.appframework.domain.AppDescriptor;
+import org.openmrs.module.kenyaui.annotation.AppPage;
+import org.openmrs.module.patientqueueapp.PatientQueueConstants;
 import org.openmrs.module.referenceapplication.ReferenceApplicationWebConstants;
 import org.openmrs.ui.framework.UiUtils;
 import org.openmrs.ui.framework.page.PageModel;
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 /**
  *
  */
+@AppPage(PatientQueueConstants.APP_TRIAGE)
 public class TriageQueuePageController {
     public String get(
             @RequestParam("app") AppDescriptor appDescriptor,

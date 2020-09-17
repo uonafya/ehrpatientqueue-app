@@ -11,6 +11,8 @@ import org.openmrs.ConceptAnswer;
 import org.openmrs.User;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.appframework.domain.AppDescriptor;
+import org.openmrs.module.kenyaui.annotation.AppPage;
+import org.openmrs.module.patientqueueapp.PatientQueueConstants;
 import org.openmrs.ui.framework.UiUtils;
 import org.openmrs.ui.framework.page.PageModel;
 import org.openmrs.module.hospitalcore.util.ConceptAnswerComparator;
@@ -23,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 /**
  *
  */
+@AppPage(PatientQueueConstants.APP_OPD)
 public class OpdQueuePageController {
     public String get(
             @RequestParam("app") AppDescriptor appDescriptor,

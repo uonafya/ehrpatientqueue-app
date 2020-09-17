@@ -3,6 +3,8 @@ package org.openmrs.module.patientqueueapp.page.controller;
 import org.openmrs.Concept;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.appui.UiSessionContext;
+import org.openmrs.module.kenyaui.annotation.AppPage;
+import org.openmrs.module.patientqueueapp.PatientQueueConstants;
 import org.openmrs.module.patientqueueapp.PatientQueueUtils;
 import org.openmrs.module.referenceapplication.ReferenceApplicationWebConstants;
 import org.openmrs.ui.framework.UiUtils;
@@ -15,6 +17,7 @@ import java.util.Date;
 /**
  *
  */
+@AppPage(PatientQueueConstants.APP_MATERNITY_TRIAGE)
 public class MaternityTriageQueuePageController {
     private static final String MATERNITY_TRIAGE_CONCEPT_UUID = "1b8840c8-69d1-4daf-9689-c9a739759b66";
     public String get(

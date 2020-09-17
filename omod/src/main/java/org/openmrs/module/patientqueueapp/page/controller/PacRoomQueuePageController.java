@@ -3,6 +3,8 @@ package org.openmrs.module.patientqueueapp.page.controller;
 import org.openmrs.Concept;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.appui.UiSessionContext;
+import org.openmrs.module.kenyaui.annotation.AppPage;
+import org.openmrs.module.patientqueueapp.PatientQueueConstants;
 import org.openmrs.module.referenceapplication.ReferenceApplicationWebConstants;
 import org.openmrs.ui.framework.UiUtils;
 import org.openmrs.ui.framework.page.PageModel;
@@ -14,7 +16,7 @@ import java.util.Date;
 /**
  *
  */
-
+@AppPage(PatientQueueConstants.APP_PAC)
 public class PacRoomQueuePageController {
     private static final String PAC_ROOM_CONCEPT_UUID = "2d32b641-83ea-4cb5-be77-bc2b5c250b66";
     public String get(
