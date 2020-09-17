@@ -3,10 +3,10 @@
 	
     ui.includeCss("uicommons", "datatables/dataTables_jui.css")
     ui.includeCss("coreapps", "patientsearch/patientSearchWidget.css")
-	ui.includeCss("registration", "onepcssgrid.css")
-	ui.includeCss("registration", "main.css")
+	ui.includeCss("ehrcashier", "onepcssgrid.css")
+	ui.includeCss("patientqueueapp", "main.css")
 	
-    ui.includeJavascript("billingui", "moment.js")
+    ui.includeJavascript("ehrcashier", "moment.js")
     ui.includeJavascript("patientqueueapp", "jquery.dataTables.min.js")
     ui.includeJavascript("patientqueueapp", "queue.js")
     ui.includeJavascript("patientqueueapp", "searchInSystem.js")
@@ -16,7 +16,7 @@
     function handlePatientRowSelection() {
         this.handle = function (row) {
             console.log("Row status: " + row.status);
-            location.href = '/' + OPENMRS_CONTEXT_PATH + emr.applyContextModel('${ ui.escapeJs(afterSelectedUrl) }', { patientId: row.patient.id, queueId: row.id, opdId: jq('#queue-choice').val()});
+            location.href = '/' + OPENMRS_CONTEXT_PATH + ui.applyContextModel('${ ui.escapeJs(afterSelectedUrl) }', { patientId: row.patient.id, queueId: row.id, opdId: jq('#queue-choice').val()});
         }
     }
 	

@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Dennys Henry on 8/29/2016.
+ *
  */
 public class PatientQueueUtils {
     public static final String MCH_TRIAGE_USER_ANC_QUEUE = "58ef4c93-8554-4b59-beed-ef4bce98daef";

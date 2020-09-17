@@ -9,13 +9,13 @@
 <script>
     function handlePatientRowSelection() {
         this.handle = function (row) {
-            window.location = emr.pageLink("maternityapp", "triage", { "patientId" : row.patient.id, "queueId" : row.id })
+            window.location = ui.pageLink("maternityapp", "triage", { "patientId" : row.patient.id, "queueId" : row.id })
         }
     }
     var handlePatientRowSelection =  new handlePatientRowSelection();
     var getPatientsFromQueue = function(){
-        tableObject.find('td.dataTables_empty').html('<span><img class="search-spinner" src="'+emr.resourceLink('uicommons', 'images/spinner.gif')+'" /></span>');
-        jq.getJSON(emr.fragmentActionLink("patientqueueapp", "patientQueue", "getPatientsInMaternityTriageQueue"),
+        tableObject.find('td.dataTables_empty').html('<span><img class="search-spinner" src="'+ui.resourceLink('uicommons', 'images/spinner.gif')+'" /></span>');
+        jq.getJSON(ui.fragmentActionLink("patientqueueapp", "patientQueue", "getPatientsInMaternityTriageQueue"),
                 {
                     'maternityConceptId': ${maternityConceptId}
                 })
