@@ -39,7 +39,7 @@ public class TriageQueuePageController {
         if(!isPriviledged){
             return "redirect: index.htm";
         }
-        model.addAttribute("afterSelectedUrl", appDescriptor.getConfig().get("onSelectUrl").getTextValue());
+        //model.addAttribute("afterSelectedUrl", appDescriptor.getConfig().get("onSelectUrl").getTextValue());
         User usr = Context.getAuthenticatedUser();
         model.addAttribute("title", "Triage Queue");
         model.addAttribute("date", new Date());

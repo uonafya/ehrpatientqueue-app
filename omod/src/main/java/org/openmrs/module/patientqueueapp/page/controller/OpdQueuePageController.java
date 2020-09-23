@@ -41,7 +41,7 @@ public class OpdQueuePageController {
         if(!isPriviledged){
             return "redirect: index.htm";
         }
-        model.addAttribute("afterSelectedUrl", appDescriptor.getConfig().get("onSelectUrl").getTextValue());
+        //model.addAttribute("afterSelectedUrl", appDescriptor.getConfig().get("onSelectUrl").getTextValue());
         User usr = Context.getAuthenticatedUser();
         model.addAttribute("title", "OPD Queue");
         model.addAttribute("date", new Date());
