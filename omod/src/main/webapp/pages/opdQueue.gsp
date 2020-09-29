@@ -16,7 +16,7 @@
     function handlePatientRowSelection() {
         this.handle = function (row) {
             console.log("Row status: " + row.status);
-           /* location.href = '/' + OPENMRS_CONTEXT_PATH + ui.applyContextModel('${ ui.escapeJs(afterSelectedUrl) }', { patientId: row.patient.id, queueId: row.id, opdId: jq('#queue-choice').val()});*/
+            location.href = '/' + OPENMRS_CONTEXT_PATH + ui.applyContextModel('${ ui.escapeJs(afterSelectedUrl) }', { patientId: row.patient.id, queueId: row.id, opdId: jq('#queue-choice').val()});
         }
     }
 	
@@ -274,7 +274,7 @@
 		<div class="example">
 			<ul id="breadcrumbs">
 				<li>
-					<a href="${ui.pageLink('referenceapplication','home')}">
+					<a href="${ui.pageLink('kenyaemr','userHome')}">
 						<i class="icon-home small"></i></a>
 				</li>
 				
