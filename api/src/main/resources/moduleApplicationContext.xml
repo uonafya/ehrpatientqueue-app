@@ -61,7 +61,7 @@
 		<constructor-arg value="2005" />
 	</bean>-->
 	<bean id="patientqueueapp.app.triage" factory-bean="kenyacore.appFactoryBean" factory-method="createInstance">
-		<constructor-arg value="patientdashboardapp.opdqueue.triage" />
+		<constructor-arg value="patientdashboardapp.triage" />
 		<constructor-arg value="Triage" />
 		<constructor-arg value="patientqueueapp/triageQueue.page?app=patientdashboardapp.triage" />
 		<constructor-arg value="patientqueueapp:apps/triage.png" />
