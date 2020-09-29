@@ -42,7 +42,6 @@ public class OpdQueuePageController {
         if(!isPriviledged){
             return "redirect: index.htm";
         }
-        System.out.println("The app id is >>>"+appDescriptor.getId()+" and the config is >"+appDescriptor.getConfig());
         model.addAttribute("afterSelectedUrl", "/patientdashboardapp/main.page?patientId={{patientId}}&opdId={{opdId}}&queueId={{queueId}}&visitStatus={{visitStatus}}");
         User usr = Context.getAuthenticatedUser();
         model.addAttribute("title", "OPD Queue");
