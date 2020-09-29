@@ -3,10 +3,10 @@
 
     ui.includeCss("uicommons", "datatables/dataTables_jui.css")
     ui.includeCss("coreapps", "patientsearch/patientSearchWidget.css")
-    ui.includeCss("registration", "onepcssgrid.css")
-    ui.includeCss("registration", "main.css")
+    ui.includeCss("ehrcashier", "onepcssgrid.css")
+    ui.includeCss("patientqueueapp", "main.css")
 
-    ui.includeJavascript("billingui", "moment.js")
+    ui.includeJavascript("ehrcashier", "moment.js")
     ui.includeJavascript("patientqueueapp", "jquery.dataTables.min.js")
     ui.includeJavascript("patientqueueapp", "queue.js")
     ui.includeJavascript("patientqueueapp", "searchInSystem.js")
@@ -15,15 +15,15 @@
 <script type="text/javascript">
     function handlePatientRowSelection() {
         this.handle = function (row) {
-            window.location = emr.pageLink("maternityapp", "postAbortalCare", { "patientId" : row.patient.id, "queueId" : row.id })
+            window.location = ui.pageLink("maternityapp", "postAbortalCare", { "patientId" : row.patient.id, "queueId" : row.id })
         }
     }
 	
     var handlePatientRowSelection =  new handlePatientRowSelection();
     var getPatientsFromQueue = function(){
 
-        tableObject.find('td.dataTables_empty').html('<span><img class="search-spinner" src="'+emr.resourceLink('uicommons', 'images/spinner.gif')+'" /></span>');
-        jq.getJSON(emr.fragmentActionLink("patientqueueapp", "patientQueue", "getPatientsInMaternityClinicQueue"),
+        tableObject.find('td.dataTables_empty').html('<span><img class="search-spinner" src="'+ui.resourceLink('uicommons', 'images/spinner.gif')+'" /></span>');
+        jq.getJSON(ui.fragmentActionLink("patientqueueapp", "patientQueue", "getPatientsInMaternityClinicQueue"),
                 {
                     'maternityRoomConceptId': ${maternityPacRoomConceptId},
                 })

@@ -1,22 +1,23 @@
 <%
-    ui.decorateWith("appui", "standardEmrPage", [title: "OPD Queue"])
+	ui.decorateWith("kenyaemr", "standardPage")
 	
     ui.includeCss("uicommons", "datatables/dataTables_jui.css")
     ui.includeCss("coreapps", "patientsearch/patientSearchWidget.css")
-	ui.includeCss("registration", "onepcssgrid.css")
-	ui.includeCss("registration", "main.css")
+	ui.includeCss("ehrconfigs", "onepcssgrid.css")
+	ui.includeCss("patientqueueapp", "main.css")
 	
-    ui.includeJavascript("billingui", "moment.js")
+    ui.includeJavascript("ehrconfigs", "moment.js")
     ui.includeJavascript("patientqueueapp", "jquery.dataTables.min.js")
     ui.includeJavascript("patientqueueapp", "queue.js")
     ui.includeJavascript("patientqueueapp", "searchInSystem.js")
     ui.includeJavascript("patientqueueapp", "jquery.session.js")
+	ui.includeCss("ehrconfigs", "referenceapplication.css")
 %>
 <script type="text/javascript">
     function handlePatientRowSelection() {
         this.handle = function (row) {
             console.log("Row status: " + row.status);
-            location.href = '/' + OPENMRS_CONTEXT_PATH + emr.applyContextModel('${ ui.escapeJs(afterSelectedUrl) }', { patientId: row.patient.id, queueId: row.id, opdId: jq('#queue-choice').val()});
+            location.href = '/' + OPENMRS_CONTEXT_PATH + ui.applyContextModel('${ ui.escapeJs(afterSelectedUrl) }', { patientId: row.patient.id, queueId: row.id, opdId: jq('#queue-choice').val()});
         }
     }
 	
@@ -274,7 +275,7 @@
 		<div class="example">
 			<ul id="breadcrumbs">
 				<li>
-					<a href="${ui.pageLink('referenceapplication','home')}">
+					<a href="${ui.pageLink('kenyaemr','userHome')}">
 						<i class="icon-home small"></i></a>
 				</li>
 				

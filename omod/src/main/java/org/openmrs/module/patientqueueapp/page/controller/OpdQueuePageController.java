@@ -11,6 +11,7 @@ import org.openmrs.ConceptAnswer;
 import org.openmrs.User;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.appframework.domain.AppDescriptor;
+import org.openmrs.module.appframework.service.AppFrameworkService;
 import org.openmrs.module.kenyaui.annotation.AppPage;
 import org.openmrs.module.patientqueueapp.PatientQueueConstants;
 import org.openmrs.ui.framework.UiUtils;
@@ -41,7 +42,7 @@ public class OpdQueuePageController {
         if(!isPriviledged){
             return "redirect: index.htm";
         }
-        model.addAttribute("afterSelectedUrl", appDescriptor.getConfig().get("onSelectUrl").getTextValue());
+        model.addAttribute("afterSelectedUrl", "/patientdashboardapp/main.page?patientId={{patientId}}&opdId={{opdId}}&queueId={{queueId}}&visitStatus={{visitStatus}}");
         User usr = Context.getAuthenticatedUser();
         model.addAttribute("title", "OPD Queue");
         model.addAttribute("date", new Date());

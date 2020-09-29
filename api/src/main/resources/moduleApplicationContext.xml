@@ -18,54 +18,54 @@
   		    http://www.springframework.org/schema/util/spring-util-3.0.xsd">
 
 	<!-- Add here beans related to the API context -->
-	<bean id="patientqueueapp.maternityapp.delivery" factory-bean="kenyacore.appFactoryBean" factory-method="createInstance">
+	<!--<bean id="patientqueueapp.maternityapp.delivery" factory-bean="kenyacore.appFactoryBean" factory-method="createInstance">
 		<constructor-arg value="patientqueueapp.delivery" />
 		<constructor-arg value="Delivery Room" />
 		<constructor-arg value="patientqueueapp/deliveryRoomQueue.page" />
 		<constructor-arg value="patientqueueapp:apps/delivery.png" />
 		<constructor-arg value="2000" />
-	</bean>
-	<bean id="patientqueueapp.maternityapp.triage" factory-bean="kenyacore.appFactoryBean" factory-method="createInstance">
+	</bean>-->
+	<!--<bean id="patientqueueapp.maternityapp.triage" factory-bean="kenyacore.appFactoryBean" factory-method="createInstance">
 		<constructor-arg value="patientqueueapp.maternitytriage" />
 		<constructor-arg value="Maternity Triage" />
 		<constructor-arg value="patientqueueapp/maternityTriageQueue.page" />
 		<constructor-arg value="patientqueueapp:apps/triage.png" />
 		<constructor-arg value="2001" />
-	</bean>
-	<bean id="patientqueueapp.mchapp.clinic" factory-bean="kenyacore.appFactoryBean" factory-method="createInstance">
+	</bean>-->
+	<!--<bean id="patientqueueapp.mchapp.clinic" factory-bean="kenyacore.appFactoryBean" factory-method="createInstance">
 		<constructor-arg value="patientqueueapp.mchclinic" />
 		<constructor-arg value="MCH Clinic" />
 		<constructor-arg value="patientqueueapp/mchClinicQueue.page" />
 		<constructor-arg value="patientqueueapp:apps/mch.png" />
 		<constructor-arg value="2002" />
-	</bean>
-	<bean id="patientqueueapp.mchapp.triage" factory-bean="kenyacore.appFactoryBean" factory-method="createInstance">
+	</bean>-->
+	<!--<bean id="patientqueueapp.mchapp.triage" factory-bean="kenyacore.appFactoryBean" factory-method="createInstance">
 		<constructor-arg value="patientqueueapp.mchtriage" />
 		<constructor-arg value="MCH Triage" />
 		<constructor-arg value="patientqueueapp/mchTriageQueue.page" />
 		<constructor-arg value="patientqueueapp:apps/triage.png" />
 		<constructor-arg value="2003" />
-	</bean>
+	</bean>-->
 	<bean id="patientqueueapp.opd.opdqueue" factory-bean="kenyacore.appFactoryBean" factory-method="createInstance">
-		<constructor-arg value="patientqueueapp.opdqueue" />
+		<constructor-arg value="patientdashboardapp.opdqueue" />
 		<constructor-arg value="OPD" />
 		<constructor-arg value="patientqueueapp/opdQueue.page?app=patientdashboardapp.opdqueue" />
 		<constructor-arg value="patientqueueapp:apps/doctor.png" />
-		<constructor-arg value="2004" />
+		<constructor-arg value="1500" />
 	</bean>
-	<bean id="patientqueueapp.maternityapp.pac" factory-bean="kenyacore.appFactoryBean" factory-method="createInstance">
+	<!--<bean id="patientqueueapp.maternityapp.pac" factory-bean="kenyacore.appFactoryBean" factory-method="createInstance">
 		<constructor-arg value="patientqueueapp.pac" />
 		<constructor-arg value="PAC Room" />
 		<constructor-arg value="patientqueueapp/pacRoomQueue.page" />
 		<constructor-arg value="patientqueueapp:apps/doctor.png" />
 		<constructor-arg value="2005" />
-	</bean>
+	</bean>-->
 	<bean id="patientqueueapp.app.triage" factory-bean="kenyacore.appFactoryBean" factory-method="createInstance">
-		<constructor-arg value="patientqueueapp.triage" />
+		<constructor-arg value="patientdashboardapp.opdqueue.triage" />
 		<constructor-arg value="Triage" />
 		<constructor-arg value="patientqueueapp/triageQueue.page?app=patientdashboardapp.triage" />
 		<constructor-arg value="patientqueueapp:apps/triage.png" />
-		<constructor-arg value="2006" />
+		<constructor-arg value="1600" />
 	</bean>
 	
 </beans>
