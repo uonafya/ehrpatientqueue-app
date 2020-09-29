@@ -40,7 +40,6 @@ public class TriageQueuePageController {
             return "redirect: index.htm";
         }
         model.addAttribute("afterSelectedUrl", "/patientdashboardapp/triage.page?patientId={{patientId}}&opdId={{opdId}}&queueId={{queueId}}&visitStatus={{visitStatus}}");
-        User usr = Context.getAuthenticatedUser();
         model.addAttribute("title", "Triage Queue");
         model.addAttribute("date", new Date());
         Concept triageConcept = Context.getConceptService().getConceptByName("TRIAGE");
