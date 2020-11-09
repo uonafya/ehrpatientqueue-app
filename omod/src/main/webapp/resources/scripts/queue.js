@@ -98,8 +98,8 @@ var refreshInQueueTable = function(){
 }
 
 var getPatientsFromQueue = function(){
-	tableObject.find('td.dataTables_empty').html('<span><img class="search-spinner" src="'+emr.resourceLink('uicommons', 'images/spinner.gif')+'" /></span>');
-	jq.getJSON(emr.fragmentActionLink("patientqueueapp", "patientQueue", "getPatientsInQueue"),
+	tableObject.find('td.dataTables_empty').html('<span><img class="search-spinner" src="'+ui.resourceLink('ehrconfigs', 'images/spinner.gif')+'" /></span>');
+	jq.getJSON(ui.fragmentActionLink("patientqueueapp", "patientQueue", "getPatientsInQueue"),
 		{
 		  'opdId': jq('#queue-choice').val()
 		})
