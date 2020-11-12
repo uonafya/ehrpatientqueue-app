@@ -48,7 +48,7 @@ var updateSearchResults = function(results){
 	_.each(searchResultsData, function(result){
 		var patient_name = result.patientName.replace("null","");
 		
-		if (result.referralConcept && result.referralConcept.conceptId == 2548){
+		if (result.referralConcept && result.referralConcept.conceptId === 2548){
 			patient_name += " <span class='recent-lozenge'>From Lab</span>";
 		}
 		
@@ -69,7 +69,7 @@ var updateMCHSearchResults = function(results){
 	_.each(searchResultsData, function(result){
 		var patient_name = result.patientName.replace("null","");
 
-		if (result.referralConcept && result.referralConcept.conceptId == 2548){
+		if (result.referralConcept && result.referralConcept.conceptId === 2548){
 			patient_name += " <span class='recent-lozenge'>From Lab</span>";
 		}
 
@@ -91,7 +91,7 @@ var selectRow = function(selectedRowIndex) {
 
 var refreshInQueueTable = function(){
 	var rowCount = searchResultsData.length;
-	if(rowCount == 0){
+	if(rowCount === 0){
 		tableObject.find('td.dataTables_empty').html("No patient in queue");
 	}
 	dTable.fnPageChange(0);
@@ -118,7 +118,7 @@ var getPatientsFromQueue = function(){
 };
 
 var startTimer = function () {
-	if (jq("#queue-choice").val() != 0 && !searchFromSystem){
+	if (jq("#queue-choice").val() !== 0 && !searchFromSystem){
 		startRefresh();
 		if (timeout) {
 			clearTimeout(timeout);    		
@@ -147,7 +147,7 @@ var isTableEmpty = function(){
 	if(searchResultsData.length > 0){
 		return false
 	}
-	return !dTable || dTable.fnGetNodes().length == 0;
+	return !dTable || dTable.fnGetNodes().length === 0;
 };
 
 jq.fn.dataTable.ext.search.push(
@@ -166,7 +166,7 @@ jq.fn.dataTable.ext.search.push(
 				acceptedClinicTypes.push(mchClinicConstants[jq(field).val()]);				
 			});
 			
-			if (acceptedClinicTypes.indexOf(clinicType) != -1){
+			if (acceptedClinicTypes.indexOf(clinicType) !== -1){
 				return true;
 			}
 			else{
@@ -174,7 +174,7 @@ jq.fn.dataTable.ext.search.push(
 			}
 		}
 		else if (jq('#queueRoles').length > 0){
-			if (clinicType == 'N/A'){
+			if (clinicType === 'N/A'){
 				return true;				
 			}
 			else{
@@ -229,7 +229,7 @@ jq(function(){
                 return;
             }
 
-            if(highlightedKeyboardRowIndex != undefined && !isHighlightedRowOnVisiblePage()){
+            if(highlightedKeyboardRowIndex !== undefined && !isHighlightedRowOnVisiblePage()){
                 unHighlightRow(dTable.fnGetNodes(highlightedKeyboardRowIndex));
             }
 
@@ -248,7 +248,7 @@ jq(function(){
         },
 		
 		fnRowCallback : function (nRow, aData, index){
-			if (searchResultsData[index].referralConcept && searchResultsData[index].referralConcept.conceptId == 2548){
+			if (searchResultsData[index].referralConcept && searchResultsData[index].referralConcept.conceptId === 2548){
 				nRow.className += " from-lab";
 				return nRow;
 			}

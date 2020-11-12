@@ -2,6 +2,7 @@
 	ui.decorateWith("kenyaemr", "standardPage")
 	
     ui.includeCss("uicommons", "datatables/dataTables_jui.css")
+	ui.includeJavascript("uicommons", "emr.js")
     ui.includeCss("coreapps", "patientsearch/patientSearchWidget.css")
 	ui.includeCss("ehrconfigs", "onepcssgrid.css")
 	ui.includeCss("patientqueueapp", "main.css")
@@ -17,7 +18,7 @@
     function handlePatientRowSelection() {
         this.handle = function (row) {
             console.log("Row status: " + row.status);
-            location.href = '/' + OPENMRS_CONTEXT_PATH + ui.applyContextModel('${ ui.escapeJs(afterSelectedUrl) }', { patientId: row.patient.id, queueId: row.id, opdId: jq('#queue-choice').val()});
+            location.href = '/' + OPENMRS_CONTEXT_PATH + emr.applyContextModel('${ ui.escapeJs(afterSelectedUrl) }', { patientId: row.patient.id, queueId: row.id, opdId: jq('#queue-choice').val()});
         }
     }
 	

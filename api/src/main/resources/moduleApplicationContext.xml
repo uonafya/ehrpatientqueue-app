@@ -51,7 +51,7 @@
 		<constructor-arg value="OPD" />
 		<constructor-arg value="patientqueueapp/opdQueue.page?app=patientqueueapp.opdqueue" />
 		<constructor-arg value="patientqueueapp:apps/doctor.png" />
-		<constructor-arg value="1500" />
+		<constructor-arg value="1550" />
 	</bean>
 	<!--<bean id="patientqueueapp.maternityapp.pac" factory-bean="kenyacore.appFactoryBean" factory-method="createInstance">
 		<constructor-arg value="patientqueueapp.pac" />
@@ -65,7 +65,7 @@
 		<constructor-arg value="Triage" />
 		<constructor-arg value="patientqueueapp/triageQueue.page?app=patientqueueapp.triage" />
 		<constructor-arg value="patientqueueapp:apps/triage.png" />
-		<constructor-arg value="1600" />
+		<constructor-arg value="1500" />
 	</bean>
 	
 </beans>

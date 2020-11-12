@@ -1,16 +1,18 @@
 <%
 	ui.decorateWith("kenyaemr", "standardPage")
     ui.includeCss("uicommons", "datatables/dataTables_jui.css")
+	ui.includeJavascript("uicommons", "emr.js")
     ui.includeJavascript("patientqueueapp", "jquery.dataTables.min.js")
     ui.includeJavascript("patientqueueapp", "queue.js")
+	ui.includeJavascript("patientqueueapp", "searchInSystem.js")
     ui.includeJavascript("patientqueueapp", "jquery.session.js")
 	ui.includeCss("ehrconfigs", "referenceapplication.css")
 %>
 <script type="text/javascript">
     function handlePatientRowSelection() {
         this.handle = function (row) {
-            console.log("Row status: " + row.status);
-            location.href = '/' + OPENMRS_CONTEXT_PATH + ui.applyContextModel('${ ui.escapeJs(afterSelectedUrl) }', { patientId: row.patient.id, queueId: row.id, opdId: jq('#queue-choice').val()});
+            console.log("Row status: " + row);
+            location.href = '/' + OPENMRS_CONTEXT_PATH + emr.applyContextModel('${ ui.escapeJs(afterSelectedUrl) }', { patientId: row.patient.id, queueId: row.id, opdId: jq('#queue-choice').val()});
         }
     }
 
