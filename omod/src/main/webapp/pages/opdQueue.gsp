@@ -1,14 +1,14 @@
 <%
 	ui.decorateWith("kenyaemr", "standardPage")
 	
-    ui.includeCss("uicommons", "datatables/dataTables_jui.css")
-	ui.includeJavascript("uicommons", "emr.js")
+    ui.includeCss("ehrconfigs", "datatables/dataTables_jui.css")
+	ui.includeJavascript("ehrconfigs", "emr.js")
     ui.includeCss("coreapps", "patientsearch/patientSearchWidget.css")
 	ui.includeCss("ehrconfigs", "onepcssgrid.css")
 	ui.includeCss("patientqueueapp", "main.css")
 	
     ui.includeJavascript("ehrconfigs", "moment.js")
-    ui.includeJavascript("patientqueueapp", "jquery.dataTables.min.js")
+    ui.includeJavascript("ehrconfigs", "jquery.dataTables.min.js")
     ui.includeJavascript("patientqueueapp", "queue.js")
     ui.includeJavascript("patientqueueapp", "searchInSystem.js")
     ui.includeJavascript("patientqueueapp", "jquery.session.js")
@@ -58,7 +58,7 @@
 			jq.session.set("selected-option-opd", jq('#queue-choice').val());
 		});
 		
-		if (jq.session.get("selected-option-opd")!= ''){
+		if (jq.session.get("selected-option-opd")!== ''){
 			jq("#queue-choice").val(jq.session.get("selected-option-opd")).change();
 		}
 	});
@@ -66,13 +66,13 @@
 	jQuery.fn.clearForm = function() {
 		return this.each(function() {
 			var type = this.type, tag = this.tagName.toLowerCase();
-			if (tag == 'form')
+			if (tag === 'form')
 			  return jQuery(':input',this).clearForm();
-			if ((type == 'text' || type == 'hidden') && jQuery(this).attr('id') != 'searchPhrase')
+			if ((type === 'text' || type === 'hidden') && jQuery(this).attr('id') !== 'searchPhrase')
 			  this.value = '';
-			else if (type == 'checkbox' || type == 'radio')
+			else if (type === 'checkbox' || type === 'radio')
 			  this.checked = false;
-			else if (tag == 'select')
+			else if (tag === 'select')
 			  this.selectedIndex = -1;
 		});
 	};
