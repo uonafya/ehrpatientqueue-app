@@ -1,18 +1,17 @@
 <%
-	ui.decorateWith("kenyaemr", "standardPage")
-	
-    ui.includeCss("ehrconfigs", "datatables/dataTables_jui.css")
-	ui.includeJavascript("ehrconfigs", "emr.js")
-    ui.includeCss("coreapps", "patientsearch/patientSearchWidget.css")
+	ui.decorateWith("appui", "standardEmrPage", [title: "OPD Queue"])
+	ui.includeCss("ehrconfigs", "datatables/dataTables_jui.css")
 	ui.includeCss("ehrconfigs", "onepcssgrid.css")
 	ui.includeCss("patientqueueapp", "main.css")
-	
-    ui.includeJavascript("ehrconfigs", "moment.js")
-    ui.includeJavascript("ehrconfigs", "jquery.dataTables.min.js")
-    ui.includeJavascript("patientqueueapp", "queue.js")
-    ui.includeJavascript("patientqueueapp", "searchInSystem.js")
-    ui.includeJavascript("patientqueueapp", "jquery.session.js")
 	ui.includeCss("ehrconfigs", "referenceapplication.css")
+
+	ui.includeJavascript("ehrconfigs", "moment.js")
+	ui.includeJavascript("ehrconfigs", "jquery.dataTables.min.js")
+	ui.includeJavascript("patientqueueapp", "queue.js")
+	ui.includeJavascript("patientqueueapp", "searchInSystem.js")
+	ui.includeJavascript("patientqueueapp", "jquery.session.js")
+	ui.includeJavascript("ehrconfigs", "emr.js")
+
 %>
 <script type="text/javascript">
     function handlePatientRowSelection() {
