@@ -65,6 +65,28 @@
 			<artifactId>kenyaui-api</artifactId>
 
 		</dependency>
+		<dependency>
+
+			<groupId>org.openmrs.module</groupId>
+
+			<artifactId>metadatasharing-api</artifactId>
+
+		</dependency>
+
+		<dependency>
+
+			<groupId>org.openmrs.module</groupId>
+
+			<artifactId>metadatadeploy-api</artifactId>
+
+		</dependency>
+		<dependency>
+
+			<groupId>org.openmrs.module</groupId>
+
+			<artifactId>kenyaemr-api</artifactId>
+
+		</dependency>
 
 		<!-- Begin OpenMRS core -->
 		
