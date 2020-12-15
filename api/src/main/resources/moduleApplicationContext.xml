@@ -47,9 +47,9 @@
 		<constructor-arg value="2003" />
 	</bean>-->
 	<bean id="patientqueueapp.opd.opdqueue" factory-bean="kenyacore.appFactoryBean" factory-method="createInstance">
-		<constructor-arg value="patientdashboardapp.opdqueue" />
+		<constructor-arg value="patientqueueapp.opdqueue" />
 		<constructor-arg value="OPD" />
-		<constructor-arg value="patientqueueapp/opdQueue.page?app=patientdashboardapp.opdqueue" />
+		<constructor-arg value="patientqueueapp/opdQueue.page?app=patientqueueapp.opdqueue" />
 		<constructor-arg value="patientqueueapp:apps/doctor.png" />
 		<constructor-arg value="1500" />
 	</bean>
@@ -61,9 +61,9 @@
 		<constructor-arg value="2005" />
 	</bean>-->
 	<bean id="patientqueueapp.app.triage" factory-bean="kenyacore.appFactoryBean" factory-method="createInstance">
-		<constructor-arg value="patientdashboardapp.opdqueue.triage" />
+		<constructor-arg value="patientqueueapp.triage" />
 		<constructor-arg value="Triage" />
-		<constructor-arg value="patientqueueapp/triageQueue.page?app=patientdashboardapp.triage" />
+		<constructor-arg value="patientqueueapp/triageQueue.page?app=patientqueueapp.triage" />
 		<constructor-arg value="patientqueueapp:apps/triage.png" />
 		<constructor-arg value="1600" />
 	</bean>
