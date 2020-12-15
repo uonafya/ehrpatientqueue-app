@@ -35,6 +35,9 @@ public class PatientQueueAppMetadata extends AbstractMetadataBundle {
     public static final String APP_OPD = PatientQueueConstants.MODULE_ID + ".opd.opdqueue";
     public static final String APP_TRIAGE = PatientQueueConstants.MODULE_ID + ".app.triage";
 
+    public static final String PRIVILEGE_OPD = "App: " + APP_OPD;
+    public static final String PRIVILEGE_TRIAGE = "App: " + APP_TRIAGE;
+
     /**
      * @see AbstractMetadataBundle#install()
      */
@@ -48,6 +51,14 @@ public class PatientQueueAppMetadata extends AbstractMetadataBundle {
         for (String appId : appIds) {
             install(privilege(app(appId), "Access to the " + appId + " app"));
         }
+
+        install(role("Access OPD", "Can access Key components of OPD module app",
+                idSet(org.openmrs.module.kenyaemr.metadata.SecurityMetadata._Role.API_PRIVILEGES_VIEW_AND_EDIT),
+                idSet(PRIVILEGE_OPD)));
+
+        install(role("Access Triage", "Can access Key components of triage module app",
+                idSet(org.openmrs.module.kenyaemr.metadata.SecurityMetadata._Role.API_PRIVILEGES_VIEW_AND_EDIT),
+                idSet(PRIVILEGE_TRIAGE)));
 
     }
 
