@@ -1,17 +1,18 @@
 <%
 	ui.decorateWith("kenyaemr", "standardPage")
-    ui.includeCss("uicommons", "datatables/dataTables_jui.css")
-    ui.includeCss("coreapps", "patientsearch/patientSearchWidget.css")
-    ui.includeJavascript("patientqueueapp", "jquery.dataTables.min.js")
+    ui.includeCss("ehrconfigs", "datatables/dataTables_jui.css")
+	ui.includeJavascript("ehrconfigs", "emr.js")
+    ui.includeJavascript("ehrconfigs", "jquery.dataTables.min.js")
     ui.includeJavascript("patientqueueapp", "queue.js")
+	ui.includeJavascript("patientqueueapp", "searchInSystem.js")
     ui.includeJavascript("patientqueueapp", "jquery.session.js")
 	ui.includeCss("ehrconfigs", "referenceapplication.css")
 %>
 <script type="text/javascript">
     function handlePatientRowSelection() {
         this.handle = function (row) {
-            console.log("Row status: " + row.status);
-            location.href = '/' + OPENMRS_CONTEXT_PATH + ui.applyContextModel('${ ui.escapeJs(afterSelectedUrl) }', { patientId: row.patient.id, queueId: row.id, opdId: jq('#queue-choice').val()});
+            console.log("Row status: " + row);
+            location.href = '/' + OPENMRS_CONTEXT_PATH + emr.applyContextModel('${ ui.escapeJs(afterSelectedUrl) }', { patientId: row.patient.id, queueId: row.id, opdId: jq('#queue-choice').val()});
         }
     }
 
@@ -22,10 +23,10 @@
 			jq.session.set("selected-option-triage", jq('#queue-choice').val());
 		});
 		
-		if (jq.session.get("selected-option-triage")!= ''){
+		if (jq.session.get("selected-option-triage")!== ''){
 			jq("#queue-choice").val(jq.session.get("selected-option-triage"));
 			
-			if (jq("#queue-choice").val() != 0){
+			if (jq("#queue-choice").val() !== 0){
 				startRefresh();
 			}
 		}
@@ -138,7 +139,7 @@
 						<select id="queue-choice">
 							<option value="0">-- Please select --</option>
 							<% listOPD.each { it -> %>
-								<% if (it.answerConcept.id != 5123) { %>								
+								<% if (it.answerConcept.id != 165417) { %>
 									<option value="${it.answerConcept.id}"> ${it.answerConcept.name} </option>
 								<% } %>
 							<% } %>

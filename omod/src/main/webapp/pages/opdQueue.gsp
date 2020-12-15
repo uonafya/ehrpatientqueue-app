@@ -1,23 +1,23 @@
 <%
-	ui.decorateWith("kenyaemr", "standardPage")
-	
-    ui.includeCss("uicommons", "datatables/dataTables_jui.css")
-    ui.includeCss("coreapps", "patientsearch/patientSearchWidget.css")
+	ui.decorateWith("appui", "standardEmrPage", [title: "OPD Queue"])
+	ui.includeCss("ehrconfigs", "datatables/dataTables_jui.css")
 	ui.includeCss("ehrconfigs", "onepcssgrid.css")
 	ui.includeCss("patientqueueapp", "main.css")
-	
-    ui.includeJavascript("ehrconfigs", "moment.js")
-    ui.includeJavascript("patientqueueapp", "jquery.dataTables.min.js")
-    ui.includeJavascript("patientqueueapp", "queue.js")
-    ui.includeJavascript("patientqueueapp", "searchInSystem.js")
-    ui.includeJavascript("patientqueueapp", "jquery.session.js")
 	ui.includeCss("ehrconfigs", "referenceapplication.css")
+
+	ui.includeJavascript("ehrconfigs", "moment.js")
+	ui.includeJavascript("ehrconfigs", "jquery.dataTables.min.js")
+	ui.includeJavascript("patientqueueapp", "queue.js")
+	ui.includeJavascript("patientqueueapp", "searchInSystem.js")
+	ui.includeJavascript("patientqueueapp", "jquery.session.js")
+	ui.includeJavascript("ehrconfigs", "emr.js")
+
 %>
 <script type="text/javascript">
     function handlePatientRowSelection() {
         this.handle = function (row) {
             console.log("Row status: " + row.status);
-            location.href = '/' + OPENMRS_CONTEXT_PATH + ui.applyContextModel('${ ui.escapeJs(afterSelectedUrl) }', { patientId: row.patient.id, queueId: row.id, opdId: jq('#queue-choice').val()});
+            location.href = '/' + OPENMRS_CONTEXT_PATH + emr.applyContextModel('${ ui.escapeJs(afterSelectedUrl) }', { patientId: row.patient.id, queueId: row.id, opdId: jq('#queue-choice').val()});
         }
     }
 	
@@ -57,7 +57,7 @@
 			jq.session.set("selected-option-opd", jq('#queue-choice').val());
 		});
 		
-		if (jq.session.get("selected-option-opd")!= ''){
+		if (jq.session.get("selected-option-opd")!== ''){
 			jq("#queue-choice").val(jq.session.get("selected-option-opd")).change();
 		}
 	});
@@ -65,13 +65,13 @@
 	jQuery.fn.clearForm = function() {
 		return this.each(function() {
 			var type = this.type, tag = this.tagName.toLowerCase();
-			if (tag == 'form')
+			if (tag === 'form')
 			  return jQuery(':input',this).clearForm();
-			if ((type == 'text' || type == 'hidden') && jQuery(this).attr('id') != 'searchPhrase')
+			if ((type === 'text' || type === 'hidden') && jQuery(this).attr('id') !== 'searchPhrase')
 			  this.value = '';
-			else if (type == 'checkbox' || type == 'radio')
+			else if (type === 'checkbox' || type === 'radio')
 			  this.checked = false;
-			else if (tag == 'select')
+			else if (tag === 'select')
 			  this.selectedIndex = -1;
 		});
 	};

@@ -42,7 +42,7 @@ public class OpdQueuePageController {
         if(!isPriviledged){
             return "redirect: index.htm";
         }
-        model.addAttribute("afterSelectedUrl", "/patientdashboardapp/main.page?patientId={{patientId}}&opdId={{opdId}}&queueId={{queueId}}&visitStatus={{visitStatus}}");
+        model.addAttribute("afterSelectedUrl", "/patientdashboardapp/main.page?patientId={{patientId}}&opdId={{opdId}}&queueId={{queueId}}");
         User usr = Context.getAuthenticatedUser();
         model.addAttribute("title", "OPD Queue");
         model.addAttribute("date", new Date());

@@ -39,7 +39,7 @@ public class TriageQueuePageController {
         if(!isPriviledged){
             return "redirect: index.htm";
         }
-        model.addAttribute("afterSelectedUrl", "/patientdashboardapp/triage.page?patientId={{patientId}}&opdId={{opdId}}&queueId={{queueId}}&visitStatus={{visitStatus}}");
+        model.addAttribute("afterSelectedUrl", "/patientdashboardapp/triage.page?patientId={{patientId}}&opdId={{opdId}}&queueId={{queueId}}");
         model.addAttribute("title", "Triage Queue");
         model.addAttribute("date", new Date());
         Concept triageConcept = Context.getConceptService().getConceptByName("TRIAGE");
