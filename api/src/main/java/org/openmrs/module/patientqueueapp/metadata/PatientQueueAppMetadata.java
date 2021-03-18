@@ -32,42 +32,34 @@ public class PatientQueueAppMetadata extends AbstractMetadataBundle {
     /**
      * Application IDs
      */
-    public static final String APP_OPD = PatientQueueConstants.MODULE_ID + ".opd.opdqueue";
-    public static final String APP_TRIAGE = PatientQueueConstants.MODULE_ID + ".app.triage";
 
-    public static final String PRIVILEGE_OPD = "App: " + APP_OPD;
-    public static final String PRIVILEGE_TRIAGE = "App: " + APP_TRIAGE;
+    public static final class _Privilege {
+        public static final String OPD_MODULE_APP = "App: patientqueueapp.opdqueue";
+        public static final String TRIAGE_MODULE_APP = "App: patientqueueapp.triage";
+    }
+
+    public static final class _Role {
+
+        public static final String OPD = "Doctor";
+
+        public static final String TRIAGE = "Nurse";
+
+    }
 
     /**
      * @see AbstractMetadataBundle#install()
      */
     @Override
     public void install() {
-        String[] appIds = {
-                APP_OPD, APP_TRIAGE
-        };
-        // Ensure a privilege exists for each app. App framework does create these but not always before this
-        // bundle is installed
-        for (String appId : appIds) {
-            install(privilege(app(appId), "Access to the " + appId + " app"));
-        }
+        install(privilege(_Privilege.OPD_MODULE_APP, "Able to access EHR OPD module features"));
+        install(privilege(_Privilege.TRIAGE_MODULE_APP, "Able to access EHR triage module features"));
 
-        install(role("Access OPD", "Can access Key components of OPD module app",
+        install(role(_Role.OPD, "Can access Key EHR OPD module App",
                 idSet(org.openmrs.module.kenyaemr.metadata.SecurityMetadata._Role.API_PRIVILEGES_VIEW_AND_EDIT),
-                idSet(PRIVILEGE_OPD)));
+                idSet(_Privilege.OPD_MODULE_APP, _Privilege.TRIAGE_MODULE_APP)));
 
-        install(role("Access Triage", "Can access Key components of triage module app",
+        install(role(_Role.TRIAGE, "Can access EHR Triage module App",
                 idSet(org.openmrs.module.kenyaemr.metadata.SecurityMetadata._Role.API_PRIVILEGES_VIEW_AND_EDIT),
-                idSet(PRIVILEGE_TRIAGE)));
-
-    }
-
-    /**
-     * Creates an app privilege from an app ID
-     * @param appId the app ID
-     * @return the privilege
-     */
-    protected String app(String appId) {
-        return "App: " + appId;
+                idSet(_Privilege.TRIAGE_MODULE_APP)));
     }
 }
