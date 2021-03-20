@@ -35,10 +35,6 @@ public class TriageQueuePageController {
             ) {
         pageRequest.getSession().setAttribute(ReferenceApplicationWebConstants.SESSION_ATTRIBUTE_REDIRECT_URL,ui.thisUrl());
         sessionContext.requireAuthentication();
-        Boolean isPriviledged = Context.hasPrivilege("Access Triage");
-        if(!isPriviledged){
-            return "redirect: index.htm";
-        }
         model.addAttribute("afterSelectedUrl", "/patientdashboardapp/triage.page?patientId={{patientId}}&opdId={{opdId}}&queueId={{queueId}}");
         model.addAttribute("title", "Triage Queue");
         model.addAttribute("date", new Date());
