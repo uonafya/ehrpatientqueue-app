@@ -34,11 +34,11 @@ public class MchClinicQueuePageController {
     ) {
         pageRequest.getSession().setAttribute(ReferenceApplicationWebConstants.SESSION_ATTRIBUTE_REDIRECT_URL,ui.thisUrl());
         sessionContext.requireAuthentication();
-        Boolean isClinicPriviledged = Context.hasPrivilege("Access MCH Clinic");
+        /*Boolean isClinicPriviledged = Context.hasPrivilege("Access MCH Clinic");
         Boolean isImmunizationPriviledged = Context.hasPrivilege("Access MCH Immunization");
         if(!(isClinicPriviledged || isImmunizationPriviledged)){
             return "redirect: index.htm";
-        }
+        }*/
 
         Concept mchClinicConcept = Context.getConceptService().getConceptByName(MCH_CLINIC_CONCEPT_NAME);
         Concept mchImmunizationConcept = Context.getConceptService().getConceptByName(MCH_IMMUNIZATION_CONCEPT_NAME);

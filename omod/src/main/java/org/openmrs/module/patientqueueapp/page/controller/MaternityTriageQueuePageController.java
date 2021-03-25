@@ -27,12 +27,6 @@ public class MaternityTriageQueuePageController {
             PageRequest pageRequest,
             UiUtils ui
     ) {
-        pageRequest.getSession().setAttribute(ReferenceApplicationWebConstants.SESSION_ATTRIBUTE_REDIRECT_URL,ui.thisUrl());
-        sessionContext.requireAuthentication();
-        Boolean isPriviledged = Context.hasPrivilege("Access Maternity Triage");
-        if(!isPriviledged){
-            return "redirect: index.htm";
-        }
         Concept maternityConcept = Context.getConceptService().getConceptByUuid(MATERNITY_TRIAGE_CONCEPT_UUID);
         Integer maternityConceptId = maternityConcept.getConceptId();
         model.addAttribute("maternityConceptId",maternityConceptId);

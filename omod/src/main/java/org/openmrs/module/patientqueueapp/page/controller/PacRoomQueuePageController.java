@@ -18,7 +18,7 @@ import java.util.Date;
  */
 @AppPage(PatientQueueConstants.APP_PAC)
 public class PacRoomQueuePageController {
-    private static final String PAC_ROOM_CONCEPT_UUID = "2d32b641-83ea-4cb5-be77-bc2b5c250b66";
+    private static final String PAC_ROOM_CONCEPT_UUID = "164820AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
     public String get(
             UiSessionContext sessionContext,
             PageModel model,
@@ -26,8 +26,8 @@ public class PacRoomQueuePageController {
             PageRequest pageRequest,
             UiUtils ui
     ) {
-        pageRequest.getSession().setAttribute(ReferenceApplicationWebConstants.SESSION_ATTRIBUTE_REDIRECT_URL,ui.thisUrl());
-        sessionContext.requireAuthentication();
+        /*pageRequest.getSession().setAttribute(ReferenceApplicationWebConstants.SESSION_ATTRIBUTE_REDIRECT_URL,ui.thisUrl());
+        sessionContext.requireAuthentication();*/
         Concept maternityPacRoomConcept = Context.getConceptService().getConceptByUuid(PAC_ROOM_CONCEPT_UUID);
         Integer maternityPacRoomConceptId = maternityPacRoomConcept.getConceptId();
         model.addAttribute("maternityPacRoomConceptId",maternityPacRoomConceptId);

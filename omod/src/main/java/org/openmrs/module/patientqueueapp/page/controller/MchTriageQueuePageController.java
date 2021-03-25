@@ -36,12 +36,12 @@ public class MchTriageQueuePageController {
             PageRequest pageRequest,
             UiUtils ui
     ) {
-        pageRequest.getSession().setAttribute(ReferenceApplicationWebConstants.SESSION_ATTRIBUTE_REDIRECT_URL,ui.thisUrl());
+        /*pageRequest.getSession().setAttribute(ReferenceApplicationWebConstants.SESSION_ATTRIBUTE_REDIRECT_URL,ui.thisUrl());
         sessionContext.requireAuthentication();
         Boolean isPriviledged = Context.hasPrivilege("Access MCH Triage");
         if(!isPriviledged){
             return "redirect: index.htm";
-        }
+        }*/
         Concept mchConcept = Context.getConceptService().getConcept(165417);
         Integer mchConceptId = mchConcept.getConceptId();
         model.addAttribute("mchConceptId",mchConceptId);
