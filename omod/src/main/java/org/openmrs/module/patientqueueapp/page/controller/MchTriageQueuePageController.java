@@ -42,7 +42,7 @@ public class MchTriageQueuePageController {
         if(!isPriviledged){
             return "redirect: index.htm";
         }
-        Concept mchConcept = Context.getConceptService().getConceptByName(MCH_TRIAGE_CONCEPT_NAME);
+        Concept mchConcept = Context.getConceptService().getConcept(165417);
         Integer mchConceptId = mchConcept.getConceptId();
         model.addAttribute("mchConceptId",mchConceptId);
         model.addAttribute("date", new Date());
