@@ -5,6 +5,7 @@
     ui.includeCss("coreapps", "patientsearch/patientSearchWidget.css")
     ui.includeCss("ehrcashier", "onepcssgrid.css")
     ui.includeCss("patientqueueapp", "main.css")
+    ui.includeCss("ehrconfigs","referenceapplication.css")
 
     ui.includeJavascript("ehrcashier", "moment.js")
     ui.includeJavascript("patientqueueapp", "jquery.dataTables.min.js")

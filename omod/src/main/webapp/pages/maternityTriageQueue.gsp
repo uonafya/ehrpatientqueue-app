@@ -2,6 +2,7 @@
     ui.decorateWith("appui", "standardEmrPage", [title: "Maternity Triage Queue"])
     ui.includeCss("uicommons", "datatables/dataTables_jui.css")
     ui.includeCss("coreapps", "patientsearch/patientSearchWidget.css")
+	ui.includeCss("ehrconfigs","referenceapplication.css")
     ui.includeJavascript("patientqueueapp", "jquery.dataTables.min.js")
     ui.includeJavascript("patientqueueapp", "queue.js")
     ui.includeJavascript("patientqueueapp", "jquery.session.js")
