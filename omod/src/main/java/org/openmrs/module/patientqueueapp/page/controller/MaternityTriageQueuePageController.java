@@ -19,7 +19,7 @@ import java.util.Date;
  */
 @AppPage(PatientQueueConstants.APP_MATERNITY_TRIAGE)
 public class MaternityTriageQueuePageController {
-    private static final String MATERNITY_TRIAGE_CONCEPT_UUID = "1b8840c8-69d1-4daf-9689-c9a739759b66";
+    private static final String MATERNITY_TRIAGE_CONCEPT_UUID = "22b005cf-f680-4823-a298-3e62f96efc96";
     public String get(
             UiSessionContext sessionContext,
             PageModel model,
