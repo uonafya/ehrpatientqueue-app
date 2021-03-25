@@ -2,7 +2,9 @@
     ui.decorateWith("appui", "standardEmrPage", [title: "Delivery Room Queue"])
 
     ui.includeCss("uicommons", "datatables/dataTables_jui.css")
-    ui.includeCss("coreapps", "patientsearch/patientSearchWidget.css")
+    
+    ui.includeCss("ehrconfigs","referenceapplication.css")
+ 
     ui.includeCss("ehrcashier", "onepcssgrid.css")
     ui.includeCss("patientqueueapp", "main.css")
 

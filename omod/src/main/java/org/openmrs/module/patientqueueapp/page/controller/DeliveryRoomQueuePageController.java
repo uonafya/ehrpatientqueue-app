@@ -19,7 +19,8 @@ import java.util.Date;
  */
 @AppPage(PatientQueueConstants.APP_DELIVERY_ROOM)
 public class DeliveryRoomQueuePageController {
-    private static final String DELIVERY_ROOM_CONCEPT_UUID = "daea450b-4c2c-49ea-a241-afa152b52145";
+    //private static final String DELIVERY_ROOM_CONCEPT_UUID = "daea450b-4c2c-49ea-a241-afa152b52145";
+    //private static final String DELIVERY_ROOM_CONCEPT_UUID = "a6aacbbe-c897-456e-9818-48e45761ab02";
     public String get(
             UiSessionContext sessionContext,
             PageModel model,
@@ -29,7 +30,8 @@ public class DeliveryRoomQueuePageController {
     ) {
         pageRequest.getSession().setAttribute(ReferenceApplicationWebConstants.SESSION_ATTRIBUTE_REDIRECT_URL,ui.thisUrl());
         sessionContext.requireAuthentication();
-        Concept maternityDeliveryRoomConcept = Context.getConceptService().getConceptByUuid(DELIVERY_ROOM_CONCEPT_UUID);
+        //Concept maternityDeliveryRoomConcept = Context.getConceptService().getConceptByUuid(DELIVERY_ROOM_CONCEPT_UUID);
+        Concept maternityDeliveryRoomConcept = Context.getConceptService().getConceptByName("Delivery Room");
         Integer maternityDeliveryRoomConceptId = maternityDeliveryRoomConcept.getConceptId();
         model.addAttribute("maternityDeliveryRoomConceptId",maternityDeliveryRoomConceptId);
         model.addAttribute("date", new Date());
