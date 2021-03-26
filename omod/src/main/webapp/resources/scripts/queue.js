@@ -6,16 +6,16 @@ var highlightedKeyboardRowIndex, dTable;
 
 (function(mchClinicConstants){
     mchClinicConstants["f8ff74bd-e776-4025-a7d5-aa6c40b498a1"] = "ANC";
-    mchClinicConstants["58ef4c93-8554-4b59-beed-ef4bce98daef"] = "ANC";
+    mchClinicConstants["a46c6cd7-9ce3-4ade-99c8-0e395cab6c57"] = "ANC";
 	
     mchClinicConstants["2136bf9a-18b7-4179-858f-30c7cba191de"] = "PNC";
-    mchClinicConstants["d7a58907-3269-4dc5-b09b-4ef73a56800e"] = "PNC";
+    mchClinicConstants["20e3222e-9a05-44bc-a95d-7333d85ade82"] = "PNC";
 	
     mchClinicConstants["6285f88a-892c-41ca-9154-f127532f858c"] = "CWC";
-    mchClinicConstants["5bd262d4-3fe0-4fde-9b2e-980c161c87df"] = "CWC";
+    mchClinicConstants["1c54b4e5-ac8a-4ac3-bff2-a87192c9557f"] = "CWC";
 	
     mchClinicConstants["e2d5977d-2b92-4b39-b2c9-63bf0d21e8f2"] = "FP";
-    mchClinicConstants["4fe27b7a-ee0b-4128-800e-da1fdc968ce9"] = "FP";
+    mchClinicConstants["8fa718ef-550a-4d71-8ff9-a61174e9e65f"] = "FP";
 	
     mchClinicConstants["380af934-440b-40e7-a1ba-bc987adaa5fe"] = "Immunization";
 })(window.mchClinicConstants = window.mchClinicConstants || {})

@@ -28,7 +28,7 @@ import java.util.List;
  */
 @AppPage(PatientQueueConstants.APP_MCH_TRIAGE)
 public class MchTriageQueuePageController {
-    private static final String MCH_TRIAGE_CONCEPT_NAME = "MCH TRIAGE";
+    private static final String MCH_TRIAGE_CONCEPT_UUID = "038ccfbb-ed16-4e25-b5a5-3c975ff86010";
     public String get(
             UiSessionContext sessionContext,
             PageModel model,
@@ -36,15 +36,15 @@ public class MchTriageQueuePageController {
             PageRequest pageRequest,
             UiUtils ui
     ) {
-        pageRequest.getSession().setAttribute(ReferenceApplicationWebConstants.SESSION_ATTRIBUTE_REDIRECT_URL,ui.thisUrl());
+        /*pageRequest.getSession().setAttribute(ReferenceApplicationWebConstants.SESSION_ATTRIBUTE_REDIRECT_URL,ui.thisUrl());
         sessionContext.requireAuthentication();
         Boolean isPriviledged = Context.hasPrivilege("Access MCH Triage");
         if(!isPriviledged){
             return "redirect: index.htm";
-        }
-        Concept mchConcept = Context.getConceptService().getConceptByName(MCH_TRIAGE_CONCEPT_NAME);
+        }*/
+        Concept mchConcept = Context.getConceptService().getConceptByUuid(MCH_TRIAGE_CONCEPT_UUID);
         Integer mchConceptId = mchConcept.getConceptId();
-        model.addAttribute("mchConceptId",mchConceptId);
+        model.addAttribute("mchConceptId", mchConcept.getConceptId());
         model.addAttribute("date", new Date());
         model.addAttribute("mchQueueRoles", PatientQueueUtils.getMchappUserRoles(ui, "Triage"));
         return null;

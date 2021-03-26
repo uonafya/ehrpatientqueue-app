@@ -23,8 +23,8 @@ import java.util.List;
  */
 @AppPage(PatientQueueConstants.APP_MCH_CLINIC)
 public class MchClinicQueuePageController {
-    private static final String MCH_CLINIC_CONCEPT_NAME = "MCH CLINIC";
-    private static final String MCH_IMMUNIZATION_CONCEPT_NAME = "MCH IMMUNIZATION";
+    private static final String MCH_CLINIC_CONCEPT_UUID = "159937AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";//mch program
+    private static final String MCH_IMMUNIZATION_CONCEPT_NAME = "984AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";//MCH Immunization
     public String get(
             UiSessionContext sessionContext,
             PageModel model,
@@ -32,16 +32,16 @@ public class MchClinicQueuePageController {
             PageRequest pageRequest,
             UiUtils ui
     ) {
-        pageRequest.getSession().setAttribute(ReferenceApplicationWebConstants.SESSION_ATTRIBUTE_REDIRECT_URL,ui.thisUrl());
+        /*pageRequest.getSession().setAttribute(ReferenceApplicationWebConstants.SESSION_ATTRIBUTE_REDIRECT_URL,ui.thisUrl());
         sessionContext.requireAuthentication();
         Boolean isClinicPriviledged = Context.hasPrivilege("Access MCH Clinic");
         Boolean isImmunizationPriviledged = Context.hasPrivilege("Access MCH Immunization");
         if(!(isClinicPriviledged || isImmunizationPriviledged)){
             return "redirect: index.htm";
-        }
+        }*/
 
-        Concept mchClinicConcept = Context.getConceptService().getConceptByName(MCH_CLINIC_CONCEPT_NAME);
-        Concept mchImmunizationConcept = Context.getConceptService().getConceptByName(MCH_IMMUNIZATION_CONCEPT_NAME);
+        Concept mchClinicConcept = Context.getConceptService().getConceptByUuid(MCH_CLINIC_CONCEPT_UUID);
+        Concept mchImmunizationConcept = Context.getConceptService().getConceptByUuid(MCH_IMMUNIZATION_CONCEPT_NAME);
         Integer mchClinicConceptId = mchClinicConcept.getConceptId();
         Integer mchExaminationConceptId = mchImmunizationConcept.getConceptId();
         model.addAttribute("mchConceptId",mchClinicConceptId);
