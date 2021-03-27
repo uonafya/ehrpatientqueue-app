@@ -10,8 +10,10 @@
 	ui.includeJavascript("ehrconfigs", "jquery-ui-1.9.2.custom.min.js")
 	ui.includeJavascript("ehrconfigs", "underscore-min.js")
 	ui.includeJavascript("ehrconfigs", "emr.js")
+	ui.includeJavascript("patientqueueapp", "queue.js")
 %>
 <script>
+
     function handlePatientRowSelection() {
         this.handle = function (row) {
             window.location = ui.pageLink("mchapp", "triage", { "patientId" : row.patientId, "queueId" : row.id })
