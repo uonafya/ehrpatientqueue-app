@@ -25,9 +25,9 @@ public class PatientQueueUtils {
     public static final String MCH_CLINIC_USER_CWC_QUEUE = "6285f88a-892c-41ca-9154-f127532f858c";
     public static final String MCH_IMMUNIZATION_CWC_QUEUE = "380af934-440b-40e7-a1ba-bc987adaa5fe";
 
-    public static final String EXAM_ROOM_CONCEPT_UUID = "11303942-75cd-442a-aead-ae1d2ea9b3eb";
-    public static final String IMMUNIZATION_ROOM_CONCEPT_UUID = "4e87c99b-8451-4789-91d8-2aa33fe1e5f6";
-    public static final String FP_ROOM_CONCEPT_UUID = "68f095fb-1701-42b1-bd30-46d5f0473ae6";
+    public static final String EXAM_ROOM_CONCEPT_UUID = "159937AAAAAAAAAAAAAAAAAAAAAAAAAAAAA";//  MCH program
+    public static final String IMMUNIZATION_ROOM_CONCEPT_UUID = "5f819604-ca2c-4567-95f3-91b8fafb3305"; //MCH Immunization
+    public static final String FP_ROOM_CONCEPT_UUID = "57287737-988c-4fd1-a3a2-0e9d9a7dd15d"; //created new concept
 
     public static List<SimpleObject> getMchappUserRoles(UiUtils ui, String clinic) {
         List<Role> roles = new ArrayList<Role>(Context.getAuthenticatedUser().getAllRoles());
