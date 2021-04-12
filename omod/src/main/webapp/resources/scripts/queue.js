@@ -47,7 +47,7 @@ var updateSearchResults = function(results){
 	var dataRows = [];
 	_.each(searchResultsData, function(result){
 		var patient_name = result.patientName.replace("null","");
-		
+		console.log("The results 1 are >>"+result);
 		if (result.referralConcept && result.referralConcept.conceptId === 2548){
 			patient_name += " <span class='recent-lozenge'>From Lab</span>";
 		}
@@ -68,8 +68,7 @@ var updateMCHSearchResults = function(results){
 	var dataRows = [];
 	_.each(searchResultsData, function(result){
 		var patient_name = result.patientName.replace("null","");
-
-		if (result.referralConcept && result.referralConcept.conceptId === 165447){
+		if (result.referralConcept && result.referralConcept.conceptId === 1283){
 			patient_name += " <span class='recent-lozenge'>From Lab</span>";
 		}
 
@@ -248,7 +247,7 @@ jq(function(){
         },
 		
 		fnRowCallback : function (nRow, aData, index){
-			if (searchResultsData[index].referralConcept && searchResultsData[index].referralConcept.conceptId === 2548){
+			if (searchResultsData[index].referralConcept && searchResultsData[index].referralConcept.conceptId === 1283){
 				nRow.className += " from-lab";
 				return nRow;
 			}
