@@ -18,7 +18,7 @@ import java.util.Date;
  */
 @AppPage(PatientQueueConstants.APP_PAC)
 public class PacRoomQueuePageController {
-    private static final String PAC_ROOM_CONCEPT_UUID = "164820AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+    private static final String PAC_ROOM_CONCEPT_UUID = "30d16838-9352-4e4e-a80e-a072135a0a65";
     public String get(
             UiSessionContext sessionContext,
             PageModel model,
