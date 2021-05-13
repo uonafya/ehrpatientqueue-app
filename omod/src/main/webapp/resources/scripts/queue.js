@@ -48,7 +48,7 @@ var updateSearchResults = function(results){
 	_.each(searchResultsData, function(result){
 		var patient_name = result.patientName.replace("null","");
 		console.log("The results 1 are >>"+result);
-		if (result.referralConcept && result.referralConcept.conceptId === 2548){
+		if (result.referralConcept && result.referralConcept.conceptId === 165450){
 			patient_name += " <span class='recent-lozenge'>From Lab</span>";
 		}
 		
@@ -68,7 +68,7 @@ var updateMCHSearchResults = function(results){
 	var dataRows = [];
 	_.each(searchResultsData, function(result){
 		var patient_name = result.patientName.replace("null","");
-		if (result.referralConcept && result.referralConcept.conceptId === 1283){
+		if (result.referralConcept && result.referralConcept.conceptId === 165450){
 			patient_name += " <span class='recent-lozenge'>From Lab</span>";
 		}
 
