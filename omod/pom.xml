@@ -113,6 +113,26 @@
 			<groupId>org.openmrs.module</groupId>
 			<artifactId>referenceapplication-omod</artifactId>
 		</dependency>
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>kenyaemr-api</artifactId>
+            <scope>compile</scope>
+        </dependency>
+		<dependency>
+			<groupId>org.openmrs.module</groupId>
+			<artifactId>kenyaemr-api</artifactId>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.openmrs.module</groupId>
+			<artifactId>kenyaemr-api</artifactId>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.openmrs.module</groupId>
+			<artifactId>kenyaemr-api</artifactId>
+			<scope>compile</scope>
+		</dependency>
 
 	</dependencies>
 

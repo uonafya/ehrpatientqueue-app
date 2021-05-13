@@ -6,7 +6,7 @@ var dPatientsInSystemTable;
 var getPatientsFromSystem = function() {
     jq.ajax({
         type: "POST",
-        url: emr.fragmentActionLink('registration','revisitPatientRegistrationForm','searchPatient'),
+        url: emr.fragmentActionLink('patientqueueapp','SearchPatientQueue','searchPatient'),
         dataType: "json",
         data: ({
             gender: jq("#gender").val(),
