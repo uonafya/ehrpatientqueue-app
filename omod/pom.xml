@@ -116,13 +116,7 @@
         <dependency>
             <groupId>org.openmrs.module</groupId>
             <artifactId>kenyaemr-api</artifactId>
-            <scope>compile</scope>
         </dependency>
-		<dependency>
-			<groupId>org.openmrs.module</groupId>
-			<artifactId>kenyaemr-api</artifactId>
-			<scope>provided</scope>
-		</dependency>
 	</dependencies>
 
 	<build>
