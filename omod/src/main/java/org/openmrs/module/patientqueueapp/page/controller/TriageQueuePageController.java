@@ -38,7 +38,7 @@ public class TriageQueuePageController {
         model.addAttribute("afterSelectedUrl", "/patientdashboardapp/triage.page?patientId={{patientId}}&opdId={{opdId}}&queueId={{queueId}}");
         model.addAttribute("title", "Triage Queue");
         model.addAttribute("date", new Date());
-        Concept triageConcept = Context.getConceptService().getConceptByName("TRIAGE");
+        Concept triageConcept = Context.getConceptService().getConceptByUuid("e8acf3d5-d451-475b-a3b5-37f0ce6a0260");
         List<ConceptAnswer> list = (triageConcept != null
                 ? new ArrayList<ConceptAnswer>(triageConcept.getAnswers()) : null);
         if (CollectionUtils.isNotEmpty(list)) {
