@@ -19,7 +19,7 @@ import java.util.Date;
  */
 @AppPage(PatientQueueConstants.APP_MATERNITY_TRIAGE)
 public class MaternityTriageQueuePageController {
-    private static final String MATERNITY_TRIAGE_CONCEPT_UUID = "22b005cf-f680-4823-a298-3e62f96efc96";
+    private static final String MATERNITY_TRIAGE_CONCEPT_UUID = "16418d28-de8f-42b6-b3be-9047e896e735";
     public String get(
             UiSessionContext sessionContext,
             PageModel model,
@@ -27,12 +27,6 @@ public class MaternityTriageQueuePageController {
             PageRequest pageRequest,
             UiUtils ui
     ) {
-        /*pageRequest.getSession().setAttribute(ReferenceApplicationWebConstants.SESSION_ATTRIBUTE_REDIRECT_URL,ui.thisUrl());
-        sessionContext.requireAuthentication();
-        Boolean isPriviledged = Context.hasPrivilege("Access Maternity Triage");
-        if(!isPriviledged){
-            return "redirect: index.htm";
-        }*/
         Concept maternityConcept = Context.getConceptService().getConceptByUuid(MATERNITY_TRIAGE_CONCEPT_UUID);
         Integer maternityConceptId = maternityConcept.getConceptId();
         model.addAttribute("maternityConceptId",maternityConceptId);
