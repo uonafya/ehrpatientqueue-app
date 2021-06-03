@@ -18,7 +18,7 @@ import java.util.Date;
  */
 @AppPage(PatientQueueConstants.APP_MCH_TRIAGE)
 public class MchTriageQueuePageController {
-    private static final String MCH_TRIAGE_CONCEPT_UUID = "038ccfbb-ed16-4e25-b5a5-3c975ff86010";
+    private static final String MCH_TRIAGE_CONCEPT_UUID = "3362c0d1-75c5-495c-939d-3163a1e77791";
     public String get(
             UiSessionContext sessionContext,
             PageModel model,
