@@ -119,15 +119,15 @@ public class PatientQueueFragmentController {
 
 		SimpleObject patientQueueData = null;
 
-		if (queueAnswer != null && queueAnswer.getConcept() != null && queueAnswer.getConcept().getName().toString().equals("TRIAGE")) {
+		if (queueAnswer != null && queueAnswer.getConcept() != null && queueAnswer.getConcept().getName().toString().equals("Triage Room")) {
 			List<TriagePatientQueue> patientQueues = Context.getService(PatientQueueService.class).listTriagePatientQueue(query.trim(), opdId, "", 0, 0);
 			List<SimpleObject> patientQueueObject = SimpleObject.fromCollection(patientQueues, ui, "patientName", "patientIdentifier", "age", "sex", "status", "visitStatus","patient.id", "id");
 			patientQueueData = SimpleObject.create("data", patientQueueObject, "user", "triageUser");
-		} else if (queueAnswer != null && queueAnswer.getConcept() != null && queueAnswer.getConcept().getName().toString().equals("OPD WARD")) {
+		} else if (queueAnswer != null && queueAnswer.getConcept() != null && queueAnswer.getConcept().getName().toString().equals("OPD Room")) {
 			List<OpdPatientQueue> patientQueues = Context.getService(PatientQueueService.class).listOpdPatientQueue(query.trim(), opdId, "", 0, 0);
 			List<SimpleObject> patientQueueObject = SimpleObject.fromCollection(patientQueues, ui, "patientName", "patientIdentifier", "age", "sex", "status", "visitStatus","patient.id", "id", "referralConcept.conceptId");
 			patientQueueData = SimpleObject.create("data", patientQueueObject, "user", "opdUser");
-		} else if(queueAnswer != null && queueAnswer.getConcept() != null && queueAnswer.getConcept().getName().toString().equals("SPECIAL CLINIC")) {
+		} else if(queueAnswer != null && queueAnswer.getConcept() != null && queueAnswer.getConcept().getName().toString().equals("Special Clinic")) {
 			List<OpdPatientQueue> patientQueues = Context.getService(PatientQueueService.class).listOpdPatientQueue(query.trim(), opdId, "", 0, 0);
 			List<SimpleObject> patientQueueObject = SimpleObject.fromCollection(patientQueues, ui, "patientName", "patientIdentifier", "age", "sex", "status", "visitStatus","patient.id", "id", "referralConcept.conceptId");
 			patientQueueData = SimpleObject.create("data", patientQueueObject, "user", "opdUser");
@@ -146,19 +146,19 @@ public class PatientQueueFragmentController {
 		List<Encounter> existingEncounters = Context.getEncounterService().getEncounters(patient, null, null, null, null, null, null, null, null, false);
 		String visitStatus = null;
 		if (existingEncounters.size() > 1) {
-			visitStatus = "Revisit";
+			visitStatus = "Revisit Patient";
 		} else if (existingEncounters.size() == 1) {
 			Calendar today = Calendar.getInstance();
 			Calendar encounterDate = Calendar.getInstance();
 			encounterDate.setTime(existingEncounters.get(0).getEncounterDatetime());
 			if (today.get(Calendar.YEAR) == encounterDate.get(Calendar.YEAR) &&
 					today.get(Calendar.DAY_OF_YEAR) == encounterDate.get(Calendar.DAY_OF_YEAR)) {
-				visitStatus = "New Patient";
+				visitStatus = "New client";
 			} else {
-				visitStatus = "Revisit";
+				visitStatus = "Revisit Patient";
 			}
 		} else {
-			visitStatus = "New Patient";
+			visitStatus = "New client";
 		}
 		if (matchingPatientsInQueue.size() == 0) {
 			Concept selectedOpdConcept = Context.getConceptService().getConcept(opdId);
