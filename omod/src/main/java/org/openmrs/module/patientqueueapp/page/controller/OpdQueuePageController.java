@@ -10,7 +10,6 @@ import org.openmrs.module.appui.UiSessionContext;
 import org.openmrs.module.hospitalcore.util.ConceptAnswerComparator;
 import org.openmrs.module.kenyaui.annotation.AppPage;
 import org.openmrs.module.patientqueueapp.PatientQueueConstants;
-import org.openmrs.module.referenceapplication.ReferenceApplicationWebConstants;
 import org.openmrs.ui.framework.UiUtils;
 import org.openmrs.ui.framework.page.PageModel;
 import org.openmrs.ui.framework.page.PageRequest;
@@ -36,8 +35,6 @@ public class OpdQueuePageController {
             HttpSession session,
             PageRequest pageRequest
             ) {
-        pageRequest.getSession().setAttribute(ReferenceApplicationWebConstants.SESSION_ATTRIBUTE_REDIRECT_URL,ui.thisUrl());
-        sessionContext.requireAuthentication();
 
         model.addAttribute("afterSelectedUrl", "/patientdashboardapp/main.page?patientId={{patientId}}&opdId={{opdId}}&queueId={{queueId}}");
         User usr = Context.getAuthenticatedUser();

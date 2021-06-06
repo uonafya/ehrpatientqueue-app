@@ -5,8 +5,6 @@ import org.openmrs.api.context.Context;
 import org.openmrs.module.appui.UiSessionContext;
 import org.openmrs.module.kenyaui.annotation.AppPage;
 import org.openmrs.module.patientqueueapp.PatientQueueConstants;
-import org.openmrs.module.patientqueueapp.PatientQueueUtils;
-import org.openmrs.module.referenceapplication.ReferenceApplicationWebConstants;
 import org.openmrs.ui.framework.UiUtils;
 import org.openmrs.ui.framework.page.PageModel;
 import org.openmrs.ui.framework.page.PageRequest;
