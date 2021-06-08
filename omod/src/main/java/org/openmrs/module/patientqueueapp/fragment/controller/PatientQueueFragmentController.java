@@ -64,13 +64,13 @@ public class PatientQueueFragmentController {
 													@RequestParam("mchExaminationConceptId") Integer mchExaminationConceptId,UiUtils ui){
 		Concept mchExamRoomConcept = Context.getConceptService().getConceptByUuid(PatientQueueUtils.EXAM_ROOM_CONCEPT_UUID);
 
-		//Concept mchImmunizationRoomConcept = Context.getConceptService().getConceptByUuid(PatientQueueUtils.IMMUNIZATION_ROOM_CONCEPT_UUID);
+		Concept mchImmunizationRoomConcept = Context.getConceptService().getConceptByUuid(PatientQueueUtils.IMMUNIZATION_ROOM_CONCEPT_UUID);
 		Concept fpRoomConcept = Context.getConceptService().getConceptByUuid(PatientQueueUtils.FP_ROOM_CONCEPT_UUID);
 
 		List<OpdPatientQueue> patientQueues = new ArrayList<OpdPatientQueue>();
 		patientQueues.addAll(Context.getService(PatientQueueService.class).listOpdPatientQueue("", mchConceptId, "", 0, 0));
-		patientQueues.addAll(Context.getService(PatientQueueService.class).listOpdPatientQueue("", fpRoomConcept.getId(), "", 0, 0));
-		//patientQueues.addAll(Context.getService(PatientQueueService.class).listOpdPatientQueue("", mchImmunizationRoomConcept.getId(), "", 0, 0));
+		patientQueues.addAll(Context.getService(PatientQueueService.class).listOpdPatientQueue("", fpRoomConcept.getConceptId(), "", 0, 0));
+		patientQueues.addAll(Context.getService(PatientQueueService.class).listOpdPatientQueue("", mchImmunizationRoomConcept.getConceptId(), "", 0, 0));
 
 		Collections.sort(patientQueues, new Comparator<OpdPatientQueue>() {
 			public int compare(OpdPatientQueue q1, OpdPatientQueue q2) {
