@@ -474,16 +474,16 @@
 			<% } %>
 			
 			<% mchQueueRoles.each { role -> %>
-					<%if (role.uuid == "e2d5977d-2b92-4b39-b2c9-63bf0d21e8f2") {%>
+					<%if (role.roles == "MCH Clinic user for FP") {%>
 						<% if(fptabIncludedInPNC == "false"){ %>
 							<label>
-								<input type="checkbox" value="${role.uuid}" checked/>
+								<input type="checkbox" value="${role.roles}" checked/>
 								${role.description}
 							</label>
 						<% } %>
 					<%} else { %>
 						<label>
-							<input type="checkbox" value="${role.uuid}" checked/>
+							<input type="checkbox" value="${role.roles}" checked/>
 							${role.description}
 						</label>
 					<%}%>

@@ -5,19 +5,19 @@ var searchFromSystem = false;
 var highlightedKeyboardRowIndex, dTable;
 
 (function(mchClinicConstants){
-    mchClinicConstants["f8ff74bd-e776-4025-a7d5-aa6c40b498a1"] = "ANC";
+    mchClinicConstants["MCH Clinic user for ANC"] = "ANC";
     mchClinicConstants["a46c6cd7-9ce3-4ade-99c8-0e395cab6c57"] = "ANC";
 	
-    mchClinicConstants["2136bf9a-18b7-4179-858f-30c7cba191de"] = "PNC";
+    mchClinicConstants["MCH Clinic user for PNC"] = "PNC";
     mchClinicConstants["20e3222e-9a05-44bc-a95d-7333d85ade82"] = "PNC";
 	
-    mchClinicConstants["6285f88a-892c-41ca-9154-f127532f858c"] = "CWC";
+    mchClinicConstants["MCH Clinic user for CWC"] = "CWC";
     mchClinicConstants["1c54b4e5-ac8a-4ac3-bff2-a87192c9557f"] = "CWC";
 	
-    mchClinicConstants["e2d5977d-2b92-4b39-b2c9-63bf0d21e8f2"] = "FP";
+    mchClinicConstants["MCH Clinic user for FP"] = "FP";
     mchClinicConstants["8fa718ef-550a-4d71-8ff9-a61174e9e65f"] = "FP";
 	
-    mchClinicConstants["380af934-440b-40e7-a1ba-bc987adaa5fe"] = "Immunization";
+    mchClinicConstants["CWC Immunization Queue"] = "Immunization";
 })(window.mchClinicConstants = window.mchClinicConstants || {})
 
 function startRefresh(){
@@ -48,7 +48,7 @@ var updateSearchResults = function(results){
 	_.each(searchResultsData, function(result){
 		var patient_name = result.patientName.replace("null","");
 		console.log("The results 1 are >>"+result);
-		if (result.referralConcept && result.referralConcept.conceptId === 165450){
+		if (result.referralConcept && result.referralConcept.conceptId === 1000104){
 			patient_name += " <span class='recent-lozenge'>From Lab</span>";
 		}
 		
@@ -68,7 +68,7 @@ var updateMCHSearchResults = function(results){
 	var dataRows = [];
 	_.each(searchResultsData, function(result){
 		var patient_name = result.patientName.replace("null","");
-		if (result.referralConcept && result.referralConcept.conceptId === 165450){
+		if (result.referralConcept && result.referralConcept.conceptId === 1000104){
 			patient_name += " <span class='recent-lozenge'>From Lab</span>";
 		}
 
