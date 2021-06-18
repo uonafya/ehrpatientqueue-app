@@ -54,6 +54,7 @@ var updateSearchResults = function(results){
 		
 		dataRows.push([result.patientIdentifier, patient_name, result.age,  result.sex, result.visitStatus, result.status]);
 	});
+	console.log("tttt", dataRows);
 
 	dTable.api().clear();
 	
