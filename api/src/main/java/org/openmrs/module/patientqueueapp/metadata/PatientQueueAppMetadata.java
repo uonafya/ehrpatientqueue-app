@@ -13,12 +13,13 @@
  */
 package org.openmrs.module.patientqueueapp.metadata;
 
+import org.openmrs.module.kenyaemr.metadata.SecurityMetadata;
 import org.openmrs.module.metadatadeploy.bundle.AbstractMetadataBundle;
 import org.openmrs.module.metadatadeploy.bundle.Requires;
 import org.springframework.stereotype.Component;
-import static org.openmrs.module.metadatadeploy.bundle.CoreConstructors.idSet;
-import static org.openmrs.module.metadatadeploy.bundle.CoreConstructors.privilege;
-import static org.openmrs.module.metadatadeploy.bundle.CoreConstructors.role;
+import org.openmrs.module.patientqueueapp.PatientQueueConstants;
+
+import static org.openmrs.module.metadatadeploy.bundle.CoreConstructors.*;
 
 /**
  * Implementation of access control to the app.
@@ -48,6 +49,12 @@ public class PatientQueueAppMetadata extends AbstractMetadataBundle {
 
         public static final String TRIAGE = "Nurse";
 
+        public static final String MATERNITY = "Maternity App";
+
+        public static final String DELIVERY = "Delivery App";
+
+        public static final String PAC_ROOM = "Pac App";
+
 
     }
 
@@ -73,5 +80,16 @@ public class PatientQueueAppMetadata extends AbstractMetadataBundle {
                 idSet(org.openmrs.module.kenyaemr.metadata.SecurityMetadata._Role.API_PRIVILEGES_VIEW_AND_EDIT),
                 idSet(_Privilege.TRIAGE_MODULE_APP, _Privilege.MCH_TRIAGE_APP, _Privilege.MATERNITY_TRIAGE_APP)));
 
+        install(role(_Role.DELIVERY,"Can role for delivery app user",
+                idSet(SecurityMetadata._Role.API_PRIVILEGES_VIEW_AND_EDIT),
+                idSet(_Privilege.DELIVERY_APP,_Privilege.MATERNITY_TRIAGE_APP)));
+
+        install(role(_Role.PAC_ROOM,"Role for Pac room user",
+                idSet(SecurityMetadata._Role.API_PRIVILEGES_VIEW_AND_EDIT),
+                idSet(_Privilege.MATERNITY_TRIAGE_APP,_Privilege.MCH_PAC_APP)));
+
+        install(role(_Role.MATERNITY,"Role for Maternity room user",
+                idSet(SecurityMetadata._Role.API_PRIVILEGES_VIEW_AND_EDIT),
+                idSet(_Privilege.MATERNITY_TRIAGE_APP)));
     }
 }
