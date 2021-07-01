@@ -1,19 +1,19 @@
 <%
-    ui.decorateWith("appui", "standardEmrPage", [title: "MCH Clinic Queue"])
-
-    ui.includeCss("uicommons", "datatables/dataTables_jui.css")
-    ui.includeCss("coreapps", "patientsearch/patientSearchWidget.css")
-    ui.includeCss("ehrcashier", "onepcssgrid.css")
-    ui.includeCss("patientqueueapp", "main.css")
-    ui.includeCss("ehrconfigs","referenceapplication.css")
+    ui.decorateWith("appui", "standardEmrPage", [title: "Mch Clinic Queue"])
+    ui.includeCss("ehrconfigs", "referenceapplication.css")
+    ui.includeCss("ehrconfigs", "onepcssgrid.css")
 
     ui.includeJavascript("ehrcashier", "moment.js")
-    ui.includeJavascript("patientqueueapp", "jquery.dataTables.min.js")
+    ui.includeJavascript("ehrconfigs", "jquery.dataTables.min.js")
+    ui.includeJavascript("ehrconfigs", "jq.browser.select.js")
+    ui.includeJavascript("ehrconfigs", "knockout-3.4.0.js")
+    ui.includeJavascript("ehrconfigs", "jquery-ui-1.9.2.custom.min.js")
+    ui.includeJavascript("ehrconfigs", "underscore-min.js")
+    ui.includeJavascript("ehrconfigs", "emr.js")
     ui.includeJavascript("patientqueueapp", "queue.js")
     ui.includeJavascript("patientqueueapp", "searchInSystem.js")
-    ui.includeJavascript("patientqueueapp", "jquery.session.js")
 %>
-<script type="text/javascript">
+<script>
     function handlePatientRowSelection() {
         this.handle = function (row) {
             window.location = ui.pageLink("mchapp", "main", { "patientId" : row.patientId, "queueId" : row.id })
@@ -29,6 +29,7 @@
                     'mchConceptId': ${mchConceptId},
                     'mchExaminationConceptId': ${mchImmunizationConceptId}
                 })
+
                 .success(function(results) {
                     updateMCHSearchResults(results.data);
                 })
@@ -36,13 +37,10 @@
                     updateMCHSearchResults([]);
                 });
     };
-
     var opdQueueLabel = "&nbsp; MCH Clinic Queue &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;";
-
     var patientInSystemLabel = "&nbsp; PATIENTS IN SYSTEM &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;"
     jq(document).ready(function () {
         toggleQueueSystemTables()
-
         jq('.in-system').hide();
         jq('#search-in-db').change(function() {
             toggleQueueSystemTables();
@@ -56,7 +54,6 @@
                 jq("#patient-search-clear-button").click();
             }
         });
-
         jq('#search-in-db').click(function() {
             if (jq(this).is(':checked')) {
                 jq('#for-patient-search').text('Find Patient');
@@ -65,20 +62,17 @@
                 jq('#for-patient-search').text('Filter Queue');
             }
         });
-
         jq('#queue-choice').bind('change keyup', function() {
             jq.session.set("selected-option-opd", jq('#queue-choice').val());
         });
-
         if (jq.session.get("selected-option-opd")!= ''){
             jq("#queue-choice").val(jq.session.get("selected-option-opd")).change();
         }
-		
-		jq('#queueRoles input').click(function(){
-			dTable.api().draw();
-		});
-    });
 
+        jq('#queueRoles input').click(function(){
+            dTable.api().draw();
+        });
+    });
     jQuery.fn.clearForm = function() {
         return this.each(function() {
             var type = this.type, tag = this.tagName.toLowerCase();
@@ -92,7 +86,6 @@
                 this.selectedIndex = -1;
         });
     };
-
     function HideDashboard() {
         jq('#dashboard').hide(500);
         jq('#dashboard').find('input:text').val('');
@@ -109,6 +102,7 @@
             HideDashboard();
         }
     }
+
 </script>
 
 <style>
@@ -464,7 +458,7 @@
                 </div>
             </div>
         </div>
-		
+
 		<div class="clear"></div>
 		<div id="queueRoles">
 			<% if (mchQueueRoles.size() == 0) { %>
@@ -474,16 +468,16 @@
 			<% } %>
 			
 			<% mchQueueRoles.each { role -> %>
-					<%if (role.uuid == "e2d5977d-2b92-4b39-b2c9-63bf0d21e8f2") {%>
+					<%if (role.roles == "MCH Clinic user for FP") {%>
 						<% if(fptabIncludedInPNC == "false"){ %>
 							<label>
-								<input type="checkbox" value="${role.uuid}" checked/>
+								<input type="checkbox" value="${role.roles}" checked/>
 								${role.description}
 							</label>
 						<% } %>
 					<%} else { %>
 						<label>
-							<input type="checkbox" value="${role.uuid}" checked/>
+							<input type="checkbox" value="${role.roles}" checked/>
 							${role.description}
 						</label>
 					<%}%>
@@ -532,37 +526,37 @@
             </tbody>
         </table>
     </div>
-
     <div class="in-system">
         <table id="patients-in-system" class="dataTable">
             <thead>
-				<tr role="row">
-					<th class="ui-state-default" style="width: 160px;">
-						<div class="DataTables_sort_wrapper">Identifier<span class="DataTables_sort_icon"></span></div>
-					</th>
+            <tr role="row">
+                <th class="ui-state-default" style="width: 160px;">
+                    <div class="DataTables_sort_wrapper">Identifier<span class="DataTables_sort_icon"></span></div>
+                </th>
 
-					<th class="ui-state-default">
-						<div class="DataTables_sort_wrapper">Name<span class="DataTables_sort_icon"></span></div>
-					</th>
+                <th class="ui-state-default">
+                    <div class="DataTables_sort_wrapper">Name<span class="DataTables_sort_icon"></span></div>
+                </th>
 
-					<th class="ui-state-default" style="width: 80px;">
-						<div class="DataTables_sort_wrapper">Age<span class="DataTables_sort_icon"></span></div>
-					</th>
+                <th class="ui-state-default" style="width: 80px;">
+                    <div class="DataTables_sort_wrapper">Age<span class="DataTables_sort_icon"></span></div>
+                </th>
 
-					<th class="ui-state-default" style="width: 75px;">
-						<div class="DataTables_sort_wrapper">Gender<span class="DataTables_sort_icon"></span></div>
-					</th>
+                <th class="ui-state-default" style="width: 75px;">
+                    <div class="DataTables_sort_wrapper">Gender<span class="DataTables_sort_icon"></span></div>
+                </th>
 
-					<th class="ui-state-default" style="width: 200px;">
-						<div class="DataTables_sort_wrapper">Last Visit<span class="DataTables_sort_icon"></span></div>
-					</th>
-				</tr>
+                <th class="ui-state-default" style="width: 200px;">
+                    <div class="DataTables_sort_wrapper">Last Visit<span class="DataTables_sort_icon"></span></div>
+                </th>
+            </tr>
             </thead>
 
             <tbody>
             </tbody>
         </table>
     </div>
+
 </div>
 </body>
 

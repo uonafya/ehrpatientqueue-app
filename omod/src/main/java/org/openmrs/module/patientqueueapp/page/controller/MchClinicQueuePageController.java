@@ -18,8 +18,8 @@ import java.util.Date;
  */
 @AppPage(PatientQueueConstants.APP_MCH_CLINIC)
 public class MchClinicQueuePageController {
-    private static final String MCH_CLINIC_CONCEPT_UUID = "159937AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";//mch program
-    private static final String MCH_IMMUNIZATION_CONCEPT_NAME = "984AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";//MCH Immunization
+    private static final String MCH_CLINIC_CONCEPT_UUID = "1acb3707-9e03-40e3-b157-ce28451c3fd0";//mch clinic
+    private static final String MCH_IMMUNIZATION_CONCEPT_NAME = "f00b4314-cec5-4ce7-b0cd-c43e8deea664";//MCH Immunization
     public String get(
             UiSessionContext sessionContext,
             PageModel model,
