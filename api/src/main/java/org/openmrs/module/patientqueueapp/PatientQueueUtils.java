@@ -14,10 +14,10 @@ import java.util.List;
  *
  */
 public class PatientQueueUtils {
-    public static final String MCH_TRIAGE_USER_ANC_QUEUE = "a46c6cd7-9ce3-4ade-99c8-0e395cab6c57";
-    public static final String MCH_TRIAGE_USER_PNC_QUEUE = "20e3222e-9a05-44bc-a95d-7333d85ade82";
-    public static final String MCH_TRIAGE_USER_FP_QUEUE = "8fa718ef-550a-4d71-8ff9-a61174e9e65f";
-    public static final String MCH_TRIAGE_USER_CWC_QUEUE = "1c54b4e5-ac8a-4ac3-bff2-a87192c9557f";
+    public static final String MCH_TRIAGE_USER_ANC_QUEUE = "MCH traige user for ANC";
+    public static final String MCH_TRIAGE_USER_PNC_QUEUE = "MCH traige user for PNC";
+    public static final String MCH_TRIAGE_USER_FP_QUEUE = "MCH traige user for FP";
+    public static final String MCH_TRIAGE_USER_CWC_QUEUE = "MCH traige user for CWC";
 
     public static final String MCH_CLINIC_USER_ANC_QUEUE = "MCH Clinic user for ANC";
     public static final String MCH_CLINIC_USER_PNC_QUEUE = "MCH Clinic user for PNC";
@@ -35,7 +35,7 @@ public class PatientQueueUtils {
 
         for (Role role : roles) {
             if (clinic.equals("Triage")){
-                if (role.getUuid().equals(MCH_TRIAGE_USER_ANC_QUEUE) || role.getUuid().equals(MCH_TRIAGE_USER_PNC_QUEUE) || role.getUuid().equals(MCH_TRIAGE_USER_CWC_QUEUE) || role.getUuid().equals(MCH_TRIAGE_USER_FP_QUEUE)) {
+                if (role.getRole().equals(MCH_TRIAGE_USER_ANC_QUEUE) || role.getRole().equals(MCH_TRIAGE_USER_PNC_QUEUE) || role.getRole().equals(MCH_TRIAGE_USER_CWC_QUEUE) || role.getRole().equals(MCH_TRIAGE_USER_FP_QUEUE)) {
                     mchRoles.add(role);
                 }
             }
