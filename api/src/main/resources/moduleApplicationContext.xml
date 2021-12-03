@@ -70,5 +70,12 @@
 		<constructor-arg value="patientqueueapp:apps/triage.png" />
 		<constructor-arg value="1500" />
 	</bean>
+	<bean id="patientqueueapp.app.gbv" factory-bean="kenyacore.appFactoryBean" factory-method="createInstance">
+		<constructor-arg value="patientqueueapp.gbv" />
+		<constructor-arg value="GBV" />
+		<constructor-arg value="patientqueueapp/gbv/gbvMain.page?app=patientqueueapp.gbv" />
+		<constructor-arg value="patientqueueapp:apps/gbv.png" />
+		<constructor-arg value="1600" />
+	</bean>
 	
 </beans>
