@@ -6,7 +6,7 @@
     ${ ui.includeFragment("kenyaemr", "patient/patientSearchForm", [ defaultWhich: "checked-in" ]) }
 </div>
 <div class="ke-page-content">
-    ${ ui.includeFragment("kenyaemr", "patient/patientSearchResults", [ pageProvider: "patientqueueapp", page: "gbvSummary" ]) }
+    ${ ui.includeFragment("kenyaemr", "patient/patientSearchResults", [ pageProvider: "patientqueueapp/gbv", page: "gbvSummary" ]) }
 </div>
 
 <script type="text/javascript">
