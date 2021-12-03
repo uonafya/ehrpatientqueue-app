@@ -77,5 +77,26 @@
 		<constructor-arg value="patientqueueapp:apps/gbv.png" />
 		<constructor-arg value="1600" />
 	</bean>
+
+	<bean id="patientqueueapp.config.form" class="org.openmrs.module.kenyacore.form.FormConfiguration">
+		<property name="commonVisitForms">
+			<set>
+				<ref bean="patientqueueapp.form.gbvinitial" />
+			</set>
+		</property>
+	</bean>
+
+	<bean id="patientqueueapp.form.gbvinitial" class="org.openmrs.module.kenyacore.form.FormDescriptor">
+		<property name="targetUuid" value="66ed9f50-5433-11ec-979c-17759fbd2edb" />
+		<property name="apps">
+			<set>
+				<ref bean="patientqueueapp.app.gbv" />
+			</set>
+		</property>
+
+		<property name="icon" value="kenyaui:forms/generic.png" />
+		<property name="htmlform" value="patientqueueapp:gbvInitial.html" />
+		<property name="order" value="10000000" />
+	</bean>
 	
 </beans>
