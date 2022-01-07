@@ -70,10 +70,10 @@
 		<constructor-arg value="patientqueueapp:apps/triage.png" />
 		<constructor-arg value="1500" />
 	</bean>
-	<bean id="patientqueueapp.app.gbv" factory-bean="kenyacore.appFactoryBean" factory-method="createInstance">
-		<constructor-arg value="patientqueueapp.gbv" />
-		<constructor-arg value="GBV" />
-		<constructor-arg value="patientqueueapp/gbv/gbvMain.page?app=patientqueueapp.gbv" />
+	<bean id="patientqueueapp.app.sgbv" factory-bean="kenyacore.appFactoryBean" factory-method="createInstance">
+		<constructor-arg value="patientqueueapp.sgbv" />
+		<constructor-arg value="SGBV" />
+		<constructor-arg value="patientqueueapp/gbv/gbvMain.page?app=patientqueueapp.sgbv" />
 		<constructor-arg value="patientqueueapp:apps/gbv.png" />
 		<constructor-arg value="1600" />
 	</bean>
@@ -90,7 +90,7 @@
 		<property name="targetUuid" value="66ed9f50-5433-11ec-979c-17759fbd2edb" />
 		<property name="apps">
 			<set>
-				<ref bean="patientqueueapp.app.gbv" />
+				<ref bean="patientqueueapp.app.sgbv" />
 			</set>
 		</property>
 

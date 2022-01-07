@@ -15,16 +15,43 @@
     <div class="ke-form-header">
         <table style="width: 100%">
             <tr>
-                <td align="left">Date of enrollment:
+                <td align="left">Visit Date
                     <encounterDate id="encounter-date" showTime="true"/>
                 </td>
-                <td>Enrolled by: <encounterProvider default="currentUser" /></td>
-                <td align="right">Enrolled at:
+                <td>User<encounterProvider default="currentUser" /></td>
+                <td align="right">Facility
                     <encounterLocation default="GlobalProperty:kenyaemr.defaultLocation" type="autocomplete"/>
                 </td>
             </tr>
         </table>
     </div>
     <div class="ke-form-content">
+        <table>
+                <tbody>
+                    <tr>
+                        <td>Hours taken from the time the incident occurred to the time the client reported to the health facility:<obs conceptId="a9e7c05e-7381-4e2b-a968-05d5d6a884f6" /></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            SGBV Reporter type:<obs conceptId="a6fcb31e-73fd-4a62-9548-efcc29d39204" answerConceptIds="81802439-4826-4063-9408-7623690cc083,f45b2051-0212-48e0-a0ae-b52809c5ba0c" answerLabels="Survivor,Perpetrator" style="radio" />
+                        </td>
+                    </tr>
+                <tr>
+                    <td>
+                        Type of Case:<obs conceptId="164181AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptIds="164180AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,160530AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="New Case,Repeat Case" style="radio" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Referred from:<obs conceptId="166636AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptIds="1537AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,253b40ec-54da-4e92-9ab1-2d99075b19e8,159928AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,162690AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="Health facilty,Police,School,Community health worker,Chief,Other" style="radio" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Disability:<obs conceptId="162558AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptIds="139075AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,159298AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="Hearing impairment,Visual impairment" style="radio"/>
+                    </td>
+                </tr>
+                </tbody>
+        </table>
     </div>
 </htmlform>
