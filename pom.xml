@@ -42,7 +42,7 @@
 		<kenyaemrVersion>17.0.3</kenyaemrVersion>
 		<uiframeworkVersion>3.8</uiframeworkVersion>
 		<appframeworkVersion>2.9</appframeworkVersion>
-		<hospitalcoreVersion>1.0.0</hospitalcoreVersion>
+		<hospitalcoreVersion>1.0.7</hospitalcoreVersion>
 	</properties>
 
 	<dependencyManagement>
