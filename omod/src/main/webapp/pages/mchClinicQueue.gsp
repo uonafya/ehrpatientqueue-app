@@ -13,6 +13,7 @@
     ui.includeJavascript("ehrconfigs", "emr.js")
     ui.includeJavascript("patientqueueapp", "queue.js")
     ui.includeJavascript("patientqueueapp", "searchInSystem.js")
+    ui.includeJavascript("patientqueueapp", "jquery.session.js")
 %>
 <script>
     function handlePatientRowSelection() {
