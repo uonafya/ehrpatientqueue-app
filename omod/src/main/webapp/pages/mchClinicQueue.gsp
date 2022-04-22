@@ -2,6 +2,7 @@
     ui.decorateWith("appui", "standardEmrPage", [title: "Mch Clinic Queue"])
     ui.includeCss("ehrconfigs", "referenceapplication.css")
     ui.includeCss("ehrconfigs", "onepcssgrid.css")
+    ui.includeCss("uicommons", "datatables/dataTables_jui.css")
 
     ui.includeJavascript("ehrcashier", "moment.js")
     ui.includeJavascript("ehrconfigs", "jquery.dataTables.min.js")
