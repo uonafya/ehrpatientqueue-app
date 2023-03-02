@@ -1,12 +1,16 @@
 package org.openmrs.module.patientqueueapp;
 
 import org.openmrs.Patient;
+import org.openmrs.PatientIdentifier;
 import org.openmrs.Person;
+import org.openmrs.api.context.Context;
 
 import java.io.Serializable;
 import java.text.Format;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -19,10 +23,10 @@ public class PatientWrappers extends Patient implements Serializable {
         this.lastVisitTime = lastVisitTime;
     }
 
-    public PatientWrappers(Person person, Date lastVisitTime) {
+    public PatientWrappers(Patient person, Date lastVisitTime) {
         super(person);
         this.lastVisitTime = lastVisitTime;
-        this.wrapperIdentifier = ((Patient) person).getPatientIdentifier().getIdentifier();
+        this.wrapperIdentifier = patientIdentifierValue(person);
     }
 
     public PatientWrappers(Integer patientId, Date lastVisitTime) {
@@ -66,6 +70,23 @@ public class PatientWrappers extends Patient implements Serializable {
 
     public void setFormartedVisitDate(String formartedVisitDate) {
         this.formartedVisitDate = formartedVisitDate;
+    }
+
+    private String patientIdentifierValue(Patient patient) {
+        String identifier = "";
+        String clinicalNumberUuid = "b4d66522-11fc-45c7-83e3-39a1af21ae0d";
+        List<PatientIdentifier> patientIdentifiersList = new ArrayList<PatientIdentifier>(patient.getIdentifiers());
+        if (!patientIdentifiersList.isEmpty()) {
+            identifier = patientIdentifiersList.get(0).getIdentifier();
+            for (PatientIdentifier patientIdentifier : patientIdentifiersList) {
+                if (patientIdentifier.getIdentifierType().equals(
+                        Context.getPatientService().getPatientIdentifierTypeByUuid(clinicalNumberUuid))) {
+                    identifier = patientIdentifier.getIdentifier();
+                    break;
+                }
+            }
+        }
+        return identifier;
     }
 
 }

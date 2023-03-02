@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class SearchPatientQueueFragmentController {
     /**
@@ -49,7 +51,19 @@ public class SearchPatientQueueFragmentController {
         List<Patient> patients = hcs.searchPatient(phrase, gender, age, ageRange, lastDayOfVisit, lastVisitRange, relativeName
                 , maritalStatus, phoneNumber, nationalId, fileNumber
         );
-        List<PatientWrappers> wrapperList = patientsWithLastVisit(patients);
+        Set<Integer> patientIds = new HashSet<Integer>();
+        List<Patient> filteredPatients = new ArrayList<Patient>();
+        if (!patients.isEmpty()) {
+            for (Patient patient : patients) {
+                patientIds.add(patient.getPatientId());
+            }
+        }
+        if (!patientIds.isEmpty()) {
+            for (Integer patientId : patientIds) {
+                filteredPatients.add(Context.getPatientService().getPatient(patientId));
+            }
+        }
+        List<PatientWrappers> wrapperList = patientsWithLastVisit(filteredPatients);
 
         return SimpleObject.fromCollection(wrapperList, uiUtils, "patientId", "wrapperIdentifier", "names", "age", "gender", "formartedVisitDate", "voided", "dead", "lastVisitTime");
     }
