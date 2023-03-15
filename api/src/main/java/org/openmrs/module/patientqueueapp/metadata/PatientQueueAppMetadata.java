@@ -13,11 +13,9 @@
  */
 package org.openmrs.module.patientqueueapp.metadata;
 
-import org.openmrs.module.kenyaemr.metadata.SecurityMetadata;
 import org.openmrs.module.metadatadeploy.bundle.AbstractMetadataBundle;
 import org.openmrs.module.metadatadeploy.bundle.Requires;
 import org.springframework.stereotype.Component;
-import org.openmrs.module.patientqueueapp.PatientQueueConstants;
 
 import static org.openmrs.module.metadatadeploy.bundle.CoreConstructors.*;
 
@@ -35,12 +33,12 @@ public class PatientQueueAppMetadata extends AbstractMetadataBundle {
     public static final class _Privilege {
         public static final String OPD_MODULE_APP = "App: patientqueueapp.opdqueue";
         public static final String TRIAGE_MODULE_APP = "App: patientqueueapp.triage";
-        public static final String MCH_TRIAGE_APP = "App: patientqueueapp.mchtriage";
+        /*public static final String MCH_TRIAGE_APP = "App: patientqueueapp.mchtriage";
         public static final String DELIVERY_APP = "App: patientqueueapp.delivery";
         public static final String MATERNITY_TRIAGE_APP = "App: patientqueueapp.maternitytriage";
         public static final String MCH_CLINIC_APP = "App: patientqueueapp.mchclinic";
         public static final String MCH_PAC_APP = "App: patientqueueapp.pac";
-
+*/
     }
 
     public static final class _Role {
@@ -49,11 +47,11 @@ public class PatientQueueAppMetadata extends AbstractMetadataBundle {
 
         public static final String TRIAGE = "Nurse";
 
-        public static final String MATERNITY = "Maternity App";
+        //public static final String MATERNITY = "Maternity App";
 
-        public static final String DELIVERY = "Delivery App";
+        //public static final String DELIVERY = "Delivery App";
 
-        public static final String PAC_ROOM = "Pac App";
+       // public static final String PAC_ROOM = "Pac App";
 
 
     }
@@ -65,22 +63,16 @@ public class PatientQueueAppMetadata extends AbstractMetadataBundle {
     public void install() {
         install(privilege(_Privilege.OPD_MODULE_APP, "Able to access EHR OPD module features"));
         install(privilege(_Privilege.TRIAGE_MODULE_APP, "Able to access EHR triage module features"));
-        install(privilege(_Privilege.MCH_TRIAGE_APP, "Able to access EHR MCH TRIAGE app features"));
-        install(privilege(_Privilege.DELIVERY_APP, "Able to access EHR Delivery app features"));
-        install(privilege(_Privilege.MATERNITY_TRIAGE_APP, "Able to access EHR Maternity triage app features"));
-        install(privilege(_Privilege.MCH_CLINIC_APP, "Able to access EHR MCH Clinic app features"));
-        install(privilege(_Privilege.MCH_PAC_APP, "Able to access EHR PAC app features"));
 
         install(role(_Role.OPD, "Can access Key EHR OPD module App",
                 idSet(org.openmrs.module.kenyaemr.metadata.SecurityMetadata._Role.API_PRIVILEGES_VIEW_AND_EDIT),
-                idSet(_Privilege.OPD_MODULE_APP, _Privilege.TRIAGE_MODULE_APP,_Privilege.MCH_TRIAGE_APP,_Privilege.DELIVERY_APP,_Privilege.MCH_PAC_APP,
-                        _Privilege.MATERNITY_TRIAGE_APP,_Privilege.MCH_CLINIC_APP,_Privilege.MCH_PAC_APP)));
+                idSet(_Privilege.OPD_MODULE_APP, _Privilege.TRIAGE_MODULE_APP)));
 
         install(role(_Role.TRIAGE, "Can access EHR Triage module App",
                 idSet(org.openmrs.module.kenyaemr.metadata.SecurityMetadata._Role.API_PRIVILEGES_VIEW_AND_EDIT),
-                idSet(_Privilege.TRIAGE_MODULE_APP, _Privilege.MCH_TRIAGE_APP, _Privilege.MATERNITY_TRIAGE_APP)));
+                idSet(_Privilege.TRIAGE_MODULE_APP)));
 
-        install(role(_Role.DELIVERY,"Can role for delivery app user",
+        /*install(role(_Role.DELIVERY,"Can role for delivery app user",
                 idSet(SecurityMetadata._Role.API_PRIVILEGES_VIEW_AND_EDIT),
                 idSet(_Privilege.DELIVERY_APP,_Privilege.MATERNITY_TRIAGE_APP)));
 
@@ -90,6 +82,6 @@ public class PatientQueueAppMetadata extends AbstractMetadataBundle {
 
         install(role(_Role.MATERNITY,"Role for Maternity room user",
                 idSet(SecurityMetadata._Role.API_PRIVILEGES_VIEW_AND_EDIT),
-                idSet(_Privilege.MATERNITY_TRIAGE_APP)));
+                idSet(_Privilege.MATERNITY_TRIAGE_APP)));*/
     }
 }
