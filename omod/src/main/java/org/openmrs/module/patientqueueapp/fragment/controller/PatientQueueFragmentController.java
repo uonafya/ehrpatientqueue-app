@@ -1,13 +1,12 @@
 package org.openmrs.module.patientqueueapp.fragment.controller;
-import org.openmrs.Concept;
-import org.openmrs.ConceptAnswer;
-import org.openmrs.Encounter;
-import org.openmrs.Patient;
+import org.apache.commons.lang3.StringUtils;
+import org.openmrs.*;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.hospitalcore.PatientQueueService;
 import org.openmrs.module.hospitalcore.model.OpdPatientQueue;
 import org.openmrs.module.hospitalcore.model.OpdPatientQueueLog;
 import org.openmrs.module.hospitalcore.model.TriagePatientQueue;
+import org.openmrs.module.hospitalcore.util.HospitalCoreUtils;
 import org.openmrs.module.patientqueueapp.PatientQueueUtils;
 import org.openmrs.ui.framework.SimpleObject;
 import org.openmrs.ui.framework.UiUtils;
@@ -31,7 +30,7 @@ public class PatientQueueFragmentController {
 	}
 
 	public SimpleObject getPatientsInMaternityClinicQueue(@RequestParam("maternityRoomConceptId") Integer maternityRoomConceptId,UiUtils ui){
-		List<OpdPatientQueue> patientQueues = Context.getService(PatientQueueService.class).listOpdPatientQueue("", maternityRoomConceptId, "", 0, 0);
+		List<OpdPatientQueue> patientQueues = Context.getService(PatientQueueService.class).listOpdPatientQueue("", maternityRoomConceptId, "", 0, 0, getProviderIdentifier());
 		List<SimpleObject> patientQueueObject = SimpleObject.fromCollection(patientQueues, ui, "patientName", "patientIdentifier", "age", "sex", "status", "visitStatus","patient.id", "id", "referralConcept.conceptId");
 		return SimpleObject.create("data", patientQueueObject);
 	}
@@ -67,9 +66,9 @@ public class PatientQueueFragmentController {
 		Concept fpRoomConcept = Context.getConceptService().getConceptByUuid(PatientQueueUtils.FP_ROOM_CONCEPT_UUID);
 
 		List<OpdPatientQueue> patientQueues = new ArrayList<OpdPatientQueue>();
-		patientQueues.addAll(Context.getService(PatientQueueService.class).listOpdPatientQueue("", mchConceptId, "", 0, 0));
-		patientQueues.addAll(Context.getService(PatientQueueService.class).listOpdPatientQueue("", fpRoomConcept.getConceptId(), "", 0, 0));
-		patientQueues.addAll(Context.getService(PatientQueueService.class).listOpdPatientQueue("", mchImmunizationRoomConcept.getConceptId(), "", 0, 0));
+		patientQueues.addAll(Context.getService(PatientQueueService.class).listOpdPatientQueue("", mchConceptId, "", 0, 0, getProviderIdentifier()));
+		patientQueues.addAll(Context.getService(PatientQueueService.class).listOpdPatientQueue("", fpRoomConcept.getConceptId(), "", 0, 0, getProviderIdentifier()));
+		patientQueues.addAll(Context.getService(PatientQueueService.class).listOpdPatientQueue("", mchImmunizationRoomConcept.getConceptId(), "", 0, 0, getProviderIdentifier()));
 
 		Collections.sort(patientQueues, new Comparator<OpdPatientQueue>() {
 			public int compare(OpdPatientQueue q1, OpdPatientQueue q2) {
@@ -114,23 +113,21 @@ public class PatientQueueFragmentController {
 	public SimpleObject getPatientsInQueue(@RequestParam("opdId") Integer opdId, @RequestParam(value = "query", required = false) String query, UiUtils ui) {
 		Concept queueConcept = Context.getConceptService().getConcept(opdId);
 
-		//get teh quetion here from the given answer
+		//get the question here from the given answer
 		Concept question = getTheQuestionToTheGivenAnswer(queueConcept);
 
 
 		SimpleObject patientQueueData = null;
-
-
 		if (question != null && question.equals(Context.getConceptService().getConceptByUuid("e8acf3d5-d451-475b-a3b5-37f0ce6a0260"))) {
 			List<TriagePatientQueue> patientQueues = Context.getService(PatientQueueService.class).listTriagePatientQueue(query.trim(), opdId, "", 0, 0);
 			List<SimpleObject> patientQueueObject = SimpleObject.fromCollection(patientQueues, ui, "patientName", "patientIdentifier", "age", "sex", "status", "visitStatus","patient.id", "id");
 			patientQueueData = SimpleObject.create("data", patientQueueObject, "user", "triageUser");
 		} else if (question != null && question.equals(Context.getConceptService().getConceptByUuid("03880388-07ce-4961-abe7-0e58f787dd23"))) {
-			List<OpdPatientQueue> patientQueues = Context.getService(PatientQueueService.class).listOpdPatientQueue(query.trim(), opdId, "", 0, 0);
+			List<OpdPatientQueue> patientQueues = Context.getService(PatientQueueService.class).listOpdPatientQueue(query.trim(), opdId, "", 0, 0, getProviderIdentifier());
 			List<SimpleObject> patientQueueObject = SimpleObject.fromCollection(patientQueues, ui, "patientName", "patientIdentifier", "age", "sex", "status", "visitStatus","patient.id", "id", "referralConcept.conceptId");
 			patientQueueData = SimpleObject.create("data", patientQueueObject, "user", "opdUser");
 		} else if(question != null && question.equals(Context.getConceptService().getConceptByUuid("b5e0cfd3-1009-4527-8e36-83b5e902b3ea"))) {
-			List<OpdPatientQueue> patientQueues = Context.getService(PatientQueueService.class).listOpdPatientQueue(query.trim(), opdId, "", 0, 0);
+			List<OpdPatientQueue> patientQueues = Context.getService(PatientQueueService.class).listOpdPatientQueue(query.trim(), opdId, "", 0, 0, getProviderIdentifier());
 			List<SimpleObject> patientQueueObject = SimpleObject.fromCollection(patientQueues, ui, "patientName", "patientIdentifier", "age", "sex", "status", "visitStatus","patient.id", "id", "referralConcept.conceptId");
 			patientQueueData = SimpleObject.create("data", patientQueueObject, "user", "opdUser");
 		}
@@ -143,7 +140,7 @@ public class PatientQueueFragmentController {
 		Patient patient = Context.getPatientService().getPatient(patientId);
 		PatientQueueService queueService = Context.getService(PatientQueueService.class);
 
-		List<OpdPatientQueue> matchingPatientsInQueue = queueService.listOpdPatientQueue(patient.getPatientIdentifier().getIdentifier(), opdId, "", 0, 0);
+		List<OpdPatientQueue> matchingPatientsInQueue = queueService.listOpdPatientQueue(patient.getPatientIdentifier().getIdentifier(), opdId, "", 0, 0, getProviderIdentifier());
 		OpdPatientQueue patientInQueue = null;
 		List<Encounter> existingEncounters = Context.getEncounterService().getEncounters(patient, null, null, null, null, null, null, null, null, false);
 		String visitStatus = null;
@@ -232,5 +229,15 @@ public class PatientQueueFragmentController {
 		}
 
 		return foundQuestion;
+	}
+
+	private String getProviderIdentifier() {
+		User user = Context.getAuthenticatedUser();
+		String providerIdentifier = "";
+		Provider provider = HospitalCoreUtils.getProvider(user.getPerson());
+		if(provider != null && !StringUtils.isBlank(provider.getIdentifier())) {
+			providerIdentifier = provider.getIdentifier();
+		}
+		return providerIdentifier;
 	}
 }

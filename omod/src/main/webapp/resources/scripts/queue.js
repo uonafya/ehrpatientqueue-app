@@ -47,14 +47,12 @@ var updateSearchResults = function(results){
 	var dataRows = [];
 	_.each(searchResultsData, function(result){
 		var patient_name = result.patientName.replace("null","");
-		console.log("The results 1 are >>"+result);
-		if (result.referralConcept && result.referralConcept.conceptId === 1000104){
+		if (result.referralConcept && result.referralConcept.conceptId === 1000021){
 			patient_name += " <span class='recent-lozenge'>From Lab</span>";
 		}
 		
 		dataRows.push([result.patientIdentifier, patient_name, result.age,  result.sex, result.visitStatus, result.status]);
 	});
-	console.log("tttt", dataRows);
 
 	dTable.api().clear();
 	
@@ -69,7 +67,7 @@ var updateMCHSearchResults = function(results){
 	var dataRows = [];
 	_.each(searchResultsData, function(result){
 		var patient_name = result.patientName.replace("null","");
-		if (result.referralConcept && result.referralConcept.conceptId === 1000104){
+		if (result.referralConcept && result.referralConcept.conceptId === 1000021){
 			patient_name += " <span class='recent-lozenge'>From Lab</span>";
 		}
 
@@ -248,7 +246,7 @@ jq(function(){
         },
 		
 		fnRowCallback : function (nRow, aData, index){
-			if (searchResultsData[index].referralConcept && searchResultsData[index].referralConcept.conceptId === 1283){
+			if (searchResultsData[index].referralConcept && searchResultsData[index].referralConcept.conceptId === 1000021){
 				nRow.className += " from-lab";
 				return nRow;
 			}
