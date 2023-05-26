@@ -60,6 +60,7 @@
 		if (jq.session.get("selected-option-opd")!== ''){
 			jq("#queue-choice").val(jq.session.get("selected-option-opd")).change();
 		}
+		jq(".dashboard-tabs").tabs();
 	});
 	
 	jQuery.fn.clearForm = function() {
@@ -515,10 +516,10 @@
 			</table>
 		</div>
 	</div>
-</div>
-    <div id="triage-info">
+    <div id="appointments">
         ${ ui.includeFragment("patientdashboardapp", "providerAppointments") }
     </div>
+</div>
 </body>
 
 
