@@ -443,8 +443,12 @@
 			</div>
 		</div>
 	</div>
-	
-	<div class="results">
+<div class="dashboard-tabs">
+    <ul>
+        <li id="ti-results"><a href="#results-info">Patient Queue</a></li>
+        <li id="cn-appointments"><a href="#appointments">Appointment Calendar</a></li>
+    </ul>
+	<div class="results" id="results-info">
 		<div class="queue">
 			<table id="patient-queue" class="dataTable">
 				<thead>
@@ -511,6 +515,10 @@
 			</table>
 		</div>
 	</div>
+</div>
+    <div id="triage-info">
+        ${ ui.includeFragment("patientdashboardapp", "providerAppointments") }
+    </div>
 </body>
 
 
