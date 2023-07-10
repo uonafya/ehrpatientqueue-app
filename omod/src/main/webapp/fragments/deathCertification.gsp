@@ -1,0 +1,1 @@
+<p> Doctors can now certify if the patient is dead and from which causes</p>

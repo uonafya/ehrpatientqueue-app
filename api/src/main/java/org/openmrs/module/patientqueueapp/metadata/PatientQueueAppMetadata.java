@@ -33,6 +33,7 @@ public class PatientQueueAppMetadata extends AbstractMetadataBundle {
     public static final class _Privilege {
         public static final String OPD_MODULE_APP = "App: patientqueueapp.opdqueue";
         public static final String TRIAGE_MODULE_APP = "App: patientqueueapp.triage";
+        public static final String DEATH_MODULE_APP = "App: patientqueueapp.death";
         /*public static final String MCH_TRIAGE_APP = "App: patientqueueapp.mchtriage";
         public static final String DELIVERY_APP = "App: patientqueueapp.delivery";
         public static final String MATERNITY_TRIAGE_APP = "App: patientqueueapp.maternitytriage";
@@ -46,6 +47,7 @@ public class PatientQueueAppMetadata extends AbstractMetadataBundle {
         public static final String OPD = "Doctor";
 
         public static final String TRIAGE = "Nurse";
+        public static final String DEATH_CERTIFICATION = "Death Certification";
 
         //public static final String MATERNITY = "Maternity App";
 
@@ -71,6 +73,10 @@ public class PatientQueueAppMetadata extends AbstractMetadataBundle {
         install(role(_Role.TRIAGE, "Can access EHR Triage module App",
                 idSet(org.openmrs.module.kenyaemr.metadata.SecurityMetadata._Role.API_PRIVILEGES_VIEW_AND_EDIT),
                 idSet(_Privilege.TRIAGE_MODULE_APP)));
+
+        install(role(_Role.DEATH_CERTIFICATION, "Can access EHR Death Certification module App",
+                idSet(org.openmrs.module.kenyaemr.metadata.SecurityMetadata._Role.API_PRIVILEGES_VIEW_AND_EDIT),
+                idSet(_Privilege.DEATH_MODULE_APP)));
 
         /*install(role(_Role.DELIVERY,"Can role for delivery app user",
                 idSet(SecurityMetadata._Role.API_PRIVILEGES_VIEW_AND_EDIT),
