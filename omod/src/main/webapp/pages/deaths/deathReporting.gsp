@@ -11,13 +11,14 @@ def menuItems = [
             ]
 %>
 <div class="ke-page-sidebar">
+    ${ ui.includeFragment("kenyaemr", "patient/patientSearchForm", [ defaultWhich: "all" ]) }
     ${ ui.includeFragment("kenyaui", "widget/panelMenu", [ heading: "Tasks", items: menuItems ]) }
 </div>
 <div class="ke-page-content">
         ${ ui.includeFragment("kenyaemr", "patient/patientSearchResults", [ pageProvider: "patientqueueapp", page: "deaths/deathCertification" ]) }
-    </div>
-    <script type="text/javascript">
-        jQuery(function() {
-            jQuery('input[name="query"]').focus();
-        });
-    </script>
+</div>
+<script type="text/javascript">
+    jQuery(function() {
+        jQuery('input[name="query"]').focus();
+    });
+</script>

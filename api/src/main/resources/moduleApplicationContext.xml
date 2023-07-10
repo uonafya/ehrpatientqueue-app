@@ -101,7 +101,7 @@
 
 	<bean id="patientqueueapp.death.certification" factory-bean="kenyacore.appFactoryBean" factory-method="createInstance">
 		<constructor-arg value="patientqueueapp.death" />
-		<constructor-arg value="Death Cases" />
+		<constructor-arg value="Death Certification" />
 		<constructor-arg value="patientqueueapp/deaths/deathReporting.page" />
 		<constructor-arg value="patientqueueapp:apps/deaths.png" />
 		<constructor-arg value="20000" />

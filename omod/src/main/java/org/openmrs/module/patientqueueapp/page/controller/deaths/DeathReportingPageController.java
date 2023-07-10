@@ -10,15 +10,11 @@
 package org.openmrs.module.patientqueueapp.page.controller.deaths;
 
 import org.openmrs.module.kenyaui.annotation.AppPage;
-import org.openmrs.ui.framework.page.PageModel;
 import org.openmrs.module.patientqueueapp.PatientQueueConstants;
+import org.openmrs.ui.framework.page.PageModel;
 
-/**
- * Hope page for the patient death certification app
- */
 @AppPage(PatientQueueConstants.APP_DEATH_CERTIFICATION)
-public class DeathCertificationPageController {
-
+public class DeathReportingPageController {
     public void controller(PageModel model) {
 
     }
