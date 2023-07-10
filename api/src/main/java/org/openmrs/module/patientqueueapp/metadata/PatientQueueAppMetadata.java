@@ -65,6 +65,7 @@ public class PatientQueueAppMetadata extends AbstractMetadataBundle {
     public void install() {
         install(privilege(_Privilege.OPD_MODULE_APP, "Able to access EHR OPD module features"));
         install(privilege(_Privilege.TRIAGE_MODULE_APP, "Able to access EHR triage module features"));
+        install(privilege(_Privilege.DEATH_MODULE_APP, "Able to access EHR Death certification module features"));
 
         install(role(_Role.OPD, "Can access Key EHR OPD module App",
                 idSet(org.openmrs.module.kenyaemr.metadata.SecurityMetadata._Role.API_PRIVILEGES_VIEW_AND_EDIT),
