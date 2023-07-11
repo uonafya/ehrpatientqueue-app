@@ -240,4 +240,14 @@ public class PatientQueueFragmentController {
 		}
 		return providerIdentifier;
 	}
+
+	public String certifyDeath(
+			@RequestParam(value = "deathDate", required = false) String deathDate,
+			@RequestParam(value = "diagnosis", required = false) String diagnosis) {
+		if(StringUtils.isNotBlank(deathDate) && StringUtils.isNotBlank(diagnosis)) {
+			System.out.println("The date is >>"+deathDate);
+			System.out.println("The diagnosis is >>"+diagnosis);
+		}
+	return "Death Certification Done!!";
+	}
 }
