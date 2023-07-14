@@ -1,8 +1,17 @@
 <%
     ui.decorateWith("kenyaemr", "standardPage", [ layout: "sidebar" ])
-
-
+    ui.includeJavascript("ehrconfigs", "jquery.dataTables.min.js")
+    ui.includeJavascript("ehrconfigs", "bootstrap.min.js")
+    ui.includeJavascript("ehrconfigs", "emr.js")
+    ui.includeCss("ehrconfigs", "jquery.dataTables.min.css")
 def menuItems = [
+                    [
+                        label: "Deceased",
+                        href: ui.pageLink("patientqueueapp", "deaths/deathReporting", [ section: "deceased" ]),
+                        active: (selection == "section-deceased"),
+                        iconProvider: "patientqueueapp",
+                        icon: "morgue.png"
+                    ],
                     [ label: "Back to home",
                       iconProvider: "kenyaui",
                       icon: "buttons/back.png",
@@ -16,6 +25,10 @@ def menuItems = [
 </div>
 <div class="ke-page-content">
         ${ ui.includeFragment("kenyaemr", "patient/patientSearchResults", [ pageProvider: "patientqueueapp", page: "deaths/deathCertification" ]) }
+
+        <% if (section == "deceased") { %>
+            ${ ui.includeFragment("patientqueueapp", "deceased") }
+        <%}%>
 </div>
 <script type="text/javascript">
     jQuery(function() {

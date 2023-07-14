@@ -1,13 +1,17 @@
 package org.openmrs.module.patientqueueapp;
 
+import org.openmrs.Concept;
+import org.openmrs.EncounterType;
 import org.openmrs.Patient;
 import org.openmrs.Role;
 import org.openmrs.api.context.Context;
+import org.openmrs.module.hospitalcore.util.DateUtils;
 import org.openmrs.module.mchapp.api.MchService;
 import org.openmrs.ui.framework.SimpleObject;
 import org.openmrs.ui.framework.UiUtils;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -64,4 +68,10 @@ public class PatientQueueUtils {
             return("N/A");
         }
     }
+
+    public static final Concept dateOfDeathQuestion = Context.getConceptService().getConceptByUuid("1543AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+    public static final Concept causeOfDeathQuestion = Context.getConceptService().getConceptByUuid("1599AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+    public static final Concept causeOfDeathNonCodedQuestion = Context.getConceptService().getConceptByUuid("160218AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+    public static final EncounterType deathEncounterType = Context.getEncounterService().getEncounterTypeByUuid("bf484793-1734-4f57-a6f1-b866545ca8df");
+
 }

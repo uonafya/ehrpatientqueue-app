@@ -6,19 +6,24 @@ import org.openmrs.module.hospitalcore.PatientQueueService;
 import org.openmrs.module.hospitalcore.model.OpdPatientQueue;
 import org.openmrs.module.hospitalcore.model.OpdPatientQueueLog;
 import org.openmrs.module.hospitalcore.model.TriagePatientQueue;
+import org.openmrs.module.hospitalcore.util.DateUtils;
 import org.openmrs.module.hospitalcore.util.HospitalCoreUtils;
+import org.openmrs.module.kenyaemr.api.KenyaEmrService;
 import org.openmrs.module.patientqueueapp.PatientQueueUtils;
 import org.openmrs.ui.framework.SimpleObject;
 import org.openmrs.ui.framework.UiUtils;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class PatientQueueFragmentController {
 	public void controller() {}
@@ -243,10 +248,56 @@ public class PatientQueueFragmentController {
 
 	public String certifyDeath(
 			@RequestParam(value = "deathDate", required = false) String deathDate,
-			@RequestParam(value = "diagnosis", required = false) String diagnosis) {
-		if(StringUtils.isNotBlank(deathDate) && StringUtils.isNotBlank(diagnosis)) {
-			System.out.println("The date is >>"+deathDate);
-			System.out.println("The diagnosis is >>"+diagnosis);
+			@RequestParam(value = "diagnosis", required = false) String diagnosis,
+			@RequestParam(value = "patientId", required = false) Patient patient,
+			@RequestParam(value = "deathNotes", required = false) String deathNotes
+			) throws ParseException {
+		if(StringUtils.isNotBlank(deathDate) && StringUtils.isNotBlank(diagnosis) && patient != null) {
+			Date dateOfDeath = DateUtils.getDateFromString(deathDate, "yyyy-MM-dd HH:mm");
+			Concept causeOfDeathReason = Context.getConceptService().getConceptByName(diagnosis);
+			Encounter encounter = new Encounter();
+			encounter.setLocation(Context.getService(KenyaEmrService.class).getDefaultLocation());
+			encounter.setEncounterType(PatientQueueUtils.deathEncounterType);
+			encounter.setEncounterDatetime(new Date());
+			encounter.setProvider(HospitalCoreUtils.getDefaultEncounterRole(), HospitalCoreUtils.getProvider(Context.getAuthenticatedUser().getPerson()));
+			encounter.setPatient(patient);
+			encounter.setCreator(Context.getAuthenticatedUser());
+			encounter.setDateCreated(new Date());
+
+			Obs dateOfDeathObs = new Obs();
+			dateOfDeathObs.setConcept(PatientQueueUtils.dateOfDeathQuestion);
+			dateOfDeathObs.setCreator(Context.getAuthenticatedUser());
+			dateOfDeathObs.setValueDatetime(dateOfDeath);
+			dateOfDeathObs.setPerson(patient.getPerson());
+			dateOfDeathObs.setDateCreated(new Date());
+
+
+			Obs causeOfDeathReasonObs = new Obs();
+			causeOfDeathReasonObs.setConcept(PatientQueueUtils.causeOfDeathQuestion);
+			causeOfDeathReasonObs.setCreator(Context.getAuthenticatedUser());
+			causeOfDeathReasonObs.setValueCoded(causeOfDeathReason);
+			causeOfDeathReasonObs.setPerson(patient.getPerson());
+			causeOfDeathReasonObs.setDateCreated(new Date());
+
+			Obs causeOfDeathReasonNonCodedObs = null;
+			if(StringUtils.isNotBlank(deathNotes)) {
+			causeOfDeathReasonNonCodedObs = new Obs();
+			causeOfDeathReasonNonCodedObs.setConcept(PatientQueueUtils.causeOfDeathNonCodedQuestion);
+			causeOfDeathReasonNonCodedObs.setCreator(Context.getAuthenticatedUser());
+			causeOfDeathReasonNonCodedObs.setValueText(deathNotes);
+			causeOfDeathReasonNonCodedObs.setPerson(patient.getPerson());
+			causeOfDeathReasonNonCodedObs.setDateCreated(new Date());
+			}
+
+			//populate the obs sets
+			Set<Obs> obsSet = new HashSet<Obs>();
+			obsSet.add(dateOfDeathObs);
+			obsSet.add(causeOfDeathReasonObs);
+			obsSet.add(causeOfDeathReasonNonCodedObs);
+			//save the encounter
+			encounter.setObs(obsSet);
+			Context.getEncounterService().saveEncounter(encounter);
+
 		}
 	return "Death Certification Done!!";
 	}

@@ -1,6 +1,5 @@
 <%
     ui.decorateWith("kenyaemr", "standardPage", [ patient: currentPatient ])
-    ui.includeCss("ehrconfigs", "referenceapplication.css")
 %>
 <script type="text/javascript">
 jq(document).ready(function () {
@@ -38,8 +37,9 @@ jq(document).ready(function () {
     });
     function confirmDeath() {
         jq.getJSON('${ ui.actionLink("patientqueueapp", "patientQueue", "certifyDeath") }', {
-            deathDate:jq("#summaryDeathDate").val(),
+            deathDate:jq("#summaryDeathDate-field").val(),
             diagnosis: jq("#diagnosis").val(),
+            deathNotes: jq("#deathNotes").val(),
         }).success(function(data) {
             jq().toastmessage('showSuccessToast', "Death Certified successfully");
         });
@@ -51,11 +51,11 @@ jq(document).ready(function () {
 </script>
 <div class="ke-page-content">
     <form class="simple-form-ui">
-        <table align="center" style="width : 75%">
+        <table align="center" style="width : 75%" border="0" cellpadding="0" cellspacing="0">
             <tr>
-                <td style="width:25%">&nbsp;</td>
+                <td style="width:25%" valign="top">&nbsp;</td>
                 <td>
-                    <h2>Date and time of death:</h2>
+                    <h2>Date and time of death</h2>
                     <p class="input-position-class">
                             ${ui.includeFragment("uicommons", "field/datetimepicker", [formFieldName: 'deathDate', id: 'summaryDeathDate', label: '', useTime: true, defaultToday: true, class: ['newdtp']])}
                     </p>
@@ -63,6 +63,8 @@ jq(document).ready(function () {
                     <p class="input-position-class">
                         <input type="text" id="diagnosis" name="diagnosis" placeholder="Select Diagnosis" size="60" />
                     </p>
+                    <h2>Notes</h2>
+                    <textarea id="deathNotes" name="deathNotes" cols="50" rows="5"></textarea>
                     <div class="onerow" style="margin-top: 60px">
 
                         <a class="button confirm" id="confirmBtn"
@@ -76,11 +78,11 @@ jq(document).ready(function () {
                         </a>
                     </div>
                 </td>
-                <td style="width:25%">
+                <td style="width:15%" valign="top">
                     <div class="ke-panelbar" style="text-align: right">
                         <button type="button" id="referToMorgue">
-                                        <img src="${ ui.resourceLink("patientqueueapp", "images/morgue.png") }" /> Refer to Morgue
-                                    </button>
+                            <img src="${ ui.resourceLink("patientqueueapp", "images/morgue.png") }" /> Refer to Morgue
+                        </button>
                     </div>
                 </td>
             </tr>
