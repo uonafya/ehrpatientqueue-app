@@ -297,6 +297,12 @@ public class PatientQueueFragmentController {
 			//save the encounter
 			encounter.setObs(obsSet);
 			Context.getEncounterService().saveEncounter(encounter);
+			patient.setDead(true);
+			patient.setDeathDate(dateOfDeath);
+			patient.setCauseOfDeath(causeOfDeathReason);
+			if(StringUtils.isNotBlank(deathNotes)) {
+				patient.setCauseOfDeathNonCoded(deathNotes);
+			}
 
 		}
 	return "Death Certification Done!!";
