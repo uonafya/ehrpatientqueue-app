@@ -1,5 +1,6 @@
 <%
     ui.decorateWith("kenyaemr", "standardPage", [ patient: currentPatient ])
+    ui.includeCss("ehrconfigs", "referenceapplication.css")
 %>
 <script type="text/javascript">
 jq(document).ready(function () {
@@ -30,6 +31,7 @@ jq(document).ready(function () {
         });
         jq("#confirmBtn").on('click', function () {
                     confirmDeath();
+                    ui.navigate('patientqueueapp', 'deaths/deathReporting', {section: 'deceased'});
         });
         jq("#referToMorgue").on('click', function () {
                     referToMorgue();
@@ -39,6 +41,7 @@ jq(document).ready(function () {
         jq.getJSON('${ ui.actionLink("patientqueueapp", "patientQueue", "certifyDeath") }', {
             deathDate:jq("#summaryDeathDate-field").val(),
             diagnosis: jq("#diagnosis").val(),
+            patientId: jq("#patientId").val(),
             deathNotes: jq("#deathNotes").val(),
         }).success(function(data) {
             jq().toastmessage('showSuccessToast', "Death Certified successfully");
@@ -52,6 +55,7 @@ jq(document).ready(function () {
 <div class="ke-page-content">
     <form class="simple-form-ui">
         <table align="center" style="width : 75%" border="0" cellpadding="0" cellspacing="0">
+        <input type="hidden" id="patientId" name="patientId" value="${patientId}" />
             <tr>
                 <td style="width:25%" valign="top">&nbsp;</td>
                 <td>

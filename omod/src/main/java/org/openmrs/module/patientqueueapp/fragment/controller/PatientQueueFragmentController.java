@@ -12,6 +12,7 @@ import org.openmrs.module.kenyaemr.api.KenyaEmrService;
 import org.openmrs.module.patientqueueapp.PatientQueueUtils;
 import org.openmrs.ui.framework.SimpleObject;
 import org.openmrs.ui.framework.UiUtils;
+import org.openmrs.ui.framework.fragment.FragmentModel;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.text.ParseException;
@@ -26,7 +27,9 @@ import java.util.List;
 import java.util.Set;
 
 public class PatientQueueFragmentController {
-	public void controller() {}
+	public void controller(@RequestParam(value = "patientId", required = false) Patient patient, FragmentModel model) {
+		model.addAttribute("patientId", patient.getPatientId());
+	}
 
 	public SimpleObject getPatientsInMaternityTriageQueue(@RequestParam("maternityConceptId") Integer maternityConceptId,UiUtils ui){
 		List<TriagePatientQueue> patientQueues = Context.getService(PatientQueueService.class).listTriagePatientQueue("", maternityConceptId, "", 0, 0);
@@ -303,6 +306,7 @@ public class PatientQueueFragmentController {
 			if(StringUtils.isNotBlank(deathNotes)) {
 				patient.setCauseOfDeathNonCoded(deathNotes);
 			}
+			Context.getPatientService().savePatient(patient);
 
 		}
 	return "Death Certification Done!!";
