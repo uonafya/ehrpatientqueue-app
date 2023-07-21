@@ -2,6 +2,7 @@
     ui.decorateWith("appui", "standardEmrPage", [title: "Mch Clinic Queue"])
     ui.includeCss("ehrconfigs", "referenceapplication.css")
     ui.includeCss("ehrconfigs", "onepcssgrid.css")
+    ui.includeCss("uicommons", "datatables/dataTables_jui.css")
 
     ui.includeJavascript("ehrcashier", "moment.js")
     ui.includeJavascript("ehrconfigs", "jquery.dataTables.min.js")
@@ -12,6 +13,7 @@
     ui.includeJavascript("ehrconfigs", "emr.js")
     ui.includeJavascript("patientqueueapp", "queue.js")
     ui.includeJavascript("patientqueueapp", "searchInSystem.js")
+    ui.includeJavascript("patientqueueapp", "jquery.session.js")
 %>
 <script>
     function handlePatientRowSelection() {
