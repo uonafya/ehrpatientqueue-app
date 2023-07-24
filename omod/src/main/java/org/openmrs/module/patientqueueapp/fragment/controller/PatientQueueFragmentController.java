@@ -268,6 +268,7 @@ public class PatientQueueFragmentController {
 			encounter.setDateCreated(new Date());
 
 			Obs dateOfDeathObs = new Obs();
+			dateOfDeathObs.setObsDatetime(new Date());
 			dateOfDeathObs.setConcept(PatientQueueUtils.dateOfDeathQuestion);
 			dateOfDeathObs.setCreator(Context.getAuthenticatedUser());
 			dateOfDeathObs.setValueDatetime(dateOfDeath);
@@ -276,6 +277,7 @@ public class PatientQueueFragmentController {
 
 
 			Obs causeOfDeathReasonObs = new Obs();
+			causeOfDeathReasonObs.setObsDatetime(new Date());
 			causeOfDeathReasonObs.setConcept(PatientQueueUtils.causeOfDeathQuestion);
 			causeOfDeathReasonObs.setCreator(Context.getAuthenticatedUser());
 			causeOfDeathReasonObs.setValueCoded(causeOfDeathReason);
@@ -285,6 +287,7 @@ public class PatientQueueFragmentController {
 			Obs causeOfDeathReasonNonCodedObs = null;
 			if(StringUtils.isNotBlank(deathNotes)) {
 			causeOfDeathReasonNonCodedObs = new Obs();
+			causeOfDeathReasonNonCodedObs.setObsDatetime(new Date());
 			causeOfDeathReasonNonCodedObs.setConcept(PatientQueueUtils.causeOfDeathNonCodedQuestion);
 			causeOfDeathReasonNonCodedObs.setCreator(Context.getAuthenticatedUser());
 			causeOfDeathReasonNonCodedObs.setValueText(deathNotes);
