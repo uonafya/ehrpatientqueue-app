@@ -306,9 +306,9 @@ public class PatientQueueFragmentController {
 			patient.setDead(true);
 			patient.setDeathDate(dateOfDeath);
 			patient.setCauseOfDeath(causeOfDeathReason);
-			if(StringUtils.isNotBlank(deathNotes)) {
+			/*if(StringUtils.isNotBlank(deathNotes)) {
 				patient.setCauseOfDeathNonCoded(deathNotes);
-			}
+			}*/
 			Context.getPatientService().savePatient(patient);
 
 		}
