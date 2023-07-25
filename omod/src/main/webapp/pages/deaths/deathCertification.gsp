@@ -45,6 +45,7 @@ jq(document).ready(function () {
             deathNotes: jq("#deathNotes").val(),
         }).success(function(data) {
             jq().toastmessage('showSuccessToast', "Death Certified successfully");
+            location.reload();
         });
     }
 

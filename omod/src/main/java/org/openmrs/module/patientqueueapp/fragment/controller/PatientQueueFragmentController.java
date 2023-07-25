@@ -274,6 +274,7 @@ public class PatientQueueFragmentController {
 			dateOfDeathObs.setValueDatetime(dateOfDeath);
 			dateOfDeathObs.setPerson(patient.getPerson());
 			dateOfDeathObs.setDateCreated(new Date());
+			dateOfDeathObs.setEncounter(encounter);
 
 
 			Obs causeOfDeathReasonObs = new Obs();
@@ -283,6 +284,7 @@ public class PatientQueueFragmentController {
 			causeOfDeathReasonObs.setValueCoded(causeOfDeathReason);
 			causeOfDeathReasonObs.setPerson(patient.getPerson());
 			causeOfDeathReasonObs.setDateCreated(new Date());
+			causeOfDeathReasonObs.setEncounter(encounter);
 
 			Obs causeOfDeathReasonNonCodedObs = null;
 			if(StringUtils.isNotBlank(deathNotes)) {
@@ -293,22 +295,13 @@ public class PatientQueueFragmentController {
 			causeOfDeathReasonNonCodedObs.setValueText(deathNotes);
 			causeOfDeathReasonNonCodedObs.setPerson(patient.getPerson());
 			causeOfDeathReasonNonCodedObs.setDateCreated(new Date());
+			causeOfDeathReasonNonCodedObs.setEncounter(encounter);
 			}
 
-			//populate the obs sets
-			Set<Obs> obsSet = new HashSet<Obs>();
-			obsSet.add(dateOfDeathObs);
-			obsSet.add(causeOfDeathReasonObs);
-			obsSet.add(causeOfDeathReasonNonCodedObs);
-			//save the encounter
-			encounter.setObs(obsSet);
 			Context.getEncounterService().saveEncounter(encounter);
 			patient.setDead(true);
 			patient.setDeathDate(dateOfDeath);
 			patient.setCauseOfDeath(causeOfDeathReason);
-			/*if(StringUtils.isNotBlank(deathNotes)) {
-				patient.setCauseOfDeathNonCoded(deathNotes);
-			}*/
 			Context.getPatientService().savePatient(patient);
 
 		}
