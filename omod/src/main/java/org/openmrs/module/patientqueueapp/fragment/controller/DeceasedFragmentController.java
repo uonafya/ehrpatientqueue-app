@@ -23,10 +23,10 @@ public class DeceasedFragmentController {
             if(encounter.getObs() != null) {
                 deceasedSimplifier = new DeceasedSimplifier();
                 deceasedSimplifier.setName(encounter.getPatient().getGivenName() + " " + encounter.getPatient().getFamilyName());
-                deceasedSimplifier.setEntryTime(DateUtils.getDateFromDateAsString(encounter.getPatient().getDateCreated(), "yyyy-MM-dd"));
+                deceasedSimplifier.setEntryTime(DateUtils.getDateFromDateAsString(encounter.getPatient().getDateCreated(), "yyyy-MM-dd hh:mm"));
                 for(Obs obs: encounter.getObs()) {
                     if(obs.getConcept().equals(PatientQueueUtils.dateOfDeathQuestion) && obs.getValueDatetime() != null) {
-                            deceasedSimplifier.setdOfDeath((DateUtils.getDateFromDateAsString(obs.getValueDatetime(), "yyyy-MM-dd")));
+                            deceasedSimplifier.setdOfDeath((DateUtils.getDateFromDateAsString(obs.getValueDatetime(), "yyyy-MM-dd hh:mm")));
                         }
                         if(obs.getConcept().equals(PatientQueueUtils.causeOfDeathQuestion) && obs.getValueCoded() != null) {
                             deceasedSimplifier.setCauseOfDeath(obs.getValueCoded().getDisplayString());
