@@ -10,7 +10,7 @@
             [ label: "Back to home",
               iconProvider: "kenyaui",
               icon: "buttons/back.png",
-              href: ui.pageLink("patientqueueapp", "deathReporting")
+              href: ui.pageLink("patientqueueapp", "deaths/deathReporting")
             ]
     ]
 %>
