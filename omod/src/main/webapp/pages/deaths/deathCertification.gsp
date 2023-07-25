@@ -50,7 +50,7 @@ jq(document).ready(function () {
     }
 
     function referToMorgue() {
-            alert("Under Development");
+            ui.navigate('morgueapp', 'main');
         }
 </script>
 <div class="ke-page-content">
