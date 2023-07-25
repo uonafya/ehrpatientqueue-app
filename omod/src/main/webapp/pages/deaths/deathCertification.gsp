@@ -31,7 +31,7 @@ jq(document).ready(function () {
         });
         jq("#confirmBtn").on('click', function () {
                     confirmDeath();
-                    ui.navigate('patientqueueapp', 'deaths/deathReporting', {section: 'deceased'});
+                    ui.navigate('patientqueueapp', 'deaths/certifiedDeceasedList');
         });
         jq("#referToMorgue").on('click', function () {
                     referToMorgue();

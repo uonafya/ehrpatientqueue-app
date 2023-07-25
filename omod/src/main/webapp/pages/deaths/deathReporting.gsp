@@ -7,8 +7,7 @@
 def menuItems = [
                     [
                         label: "Deceased",
-                        href: ui.pageLink("patientqueueapp", "deaths/deathReporting", [ section: "deceased" ]),
-                        active: (selection == "section-deceased"),
+                        href: ui.pageLink("patientqueueapp", "deaths/certifiedDeceasedList"),
                         iconProvider: "patientqueueapp",
                         icon: "morgue.png"
                     ],
@@ -25,10 +24,6 @@ def menuItems = [
 </div>
 <div class="ke-page-content">
         ${ ui.includeFragment("kenyaemr", "patient/patientSearchResults", [ pageProvider: "patientqueueapp", page: "deaths/deathCertification" ]) }
-
-        <% if (section == "deceased") { %>
-            ${ ui.includeFragment("patientqueueapp", "deceased") }
-        <%}%>
 </div>
 <script type="text/javascript">
     jQuery(function() {
