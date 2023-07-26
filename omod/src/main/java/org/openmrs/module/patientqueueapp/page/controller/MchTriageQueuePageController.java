@@ -2,7 +2,6 @@ package org.openmrs.module.patientqueueapp.page.controller;
 
 import org.openmrs.Concept;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.appui.UiSessionContext;
 import org.openmrs.module.kenyaui.annotation.AppPage;
 import org.openmrs.module.patientqueueapp.PatientQueueConstants;
 import org.openmrs.module.patientqueueapp.PatientQueueUtils;
@@ -20,7 +19,6 @@ import java.util.Date;
 public class MchTriageQueuePageController {
     private static final String MCH_TRIAGE_CONCEPT_UUID = "3362c0d1-75c5-495c-939d-3163a1e77791";
     public String get(
-            UiSessionContext sessionContext,
             PageModel model,
             HttpSession session,
             PageRequest pageRequest,

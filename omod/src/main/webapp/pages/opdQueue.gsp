@@ -448,6 +448,7 @@
     <ul>
         <li id="ti-results"><a href="#results-info">Patient Queue</a></li>
         <li id="cn-appointments"><a href="#appointments">Appointment Calendar</a></li>
+        <li id="cn-workload"><a href="#workload">Work Load</a></li>
     </ul>
 	<div class="results" id="results-info">
 		<div class="queue">
@@ -519,6 +520,9 @@
     <div id="appointments">
         ${ ui.includeFragment("patientdashboardapp", "providerAppointments") }
     </div>
+    <div id="workload">
+            ${ ui.includeFragment("patientdashboardapp", "providerWorkLoad") }
+        </div>
 </div>
 </body>
 

@@ -6,7 +6,6 @@ import org.openmrs.ConceptAnswer;
 import org.openmrs.User;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.appframework.domain.AppDescriptor;
-import org.openmrs.module.appui.UiSessionContext;
 import org.openmrs.module.hospitalcore.util.ConceptAnswerComparator;
 import org.openmrs.module.kenyaui.annotation.AppPage;
 import org.openmrs.module.patientqueueapp.PatientQueueConstants;
@@ -29,7 +28,6 @@ import java.util.List;
 public class OpdQueuePageController {
     public String get(
             @RequestParam("app") AppDescriptor appDescriptor,
-            UiSessionContext sessionContext,
             PageModel model,
             UiUtils ui,
             HttpSession session,
