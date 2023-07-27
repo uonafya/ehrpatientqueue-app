@@ -43,6 +43,7 @@
 		<uiframeworkVersion>3.8</uiframeworkVersion>
 		<appframeworkVersion>2.9</appframeworkVersion>
 		<hospitalcoreVersion>2.0.3-SNAPSHOT</hospitalcoreVersion>
+		<ehrconfigsVersion>2.0.1-SNAPSHOT</ehrconfigsVersion>
 	</properties>
 
 	<dependencyManagement>
@@ -108,6 +109,15 @@
                 <scope>provided</scope>
 
             </dependency>
+
+			<dependency>
+
+				<groupId>org.openmrs.module</groupId>
+				<artifactId>ehrconfigs-api</artifactId>
+				<version>${ehrconfigsVersion}</version>
+				<scope>provided</scope>
+
+			</dependency>
 
 			<dependency>
 				<groupId>org.openmrs.module</groupId>
