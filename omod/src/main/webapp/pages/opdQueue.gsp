@@ -521,7 +521,7 @@
         ${ ui.includeFragment("patientdashboardapp", "providerAppointments") }
     </div>
     <div id="workload">
-            ${ ui.includeFragment("patientdashboardapp", "providerWorkLoad") }
+            ${ ui.includeFragment("patientqueueapp", "providerWorkLoad") }
         </div>
 </div>
 </body>
