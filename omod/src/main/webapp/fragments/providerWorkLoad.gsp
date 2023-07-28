@@ -10,7 +10,7 @@
         const summaryFromDate = jq('#summaryFromDate-field').val(),
             summaryToDate = jq('#summaryToDate-field').val();
 
-        jq.getJSON('${ui.actionLink("patientqueueapp", "ProviderWorkLoad", "fetchEncountersForProviderEntry")}',
+        jq.getJSON('${ui.actionLink("patientqueueapp", "providerWorkLoad", "fetchEncountersForProviderEntry")}',
             {
                 "fromDate" : summaryFromDate,
                 "toDate" : summaryToDate,
@@ -84,7 +84,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <style>
-html, body, #graph-container {
+#graph-container {
     width: 100%;
     height: 100%;
     margin: 0;
@@ -206,11 +206,6 @@ html, body, #graph-container {
             </div>
         </div>
         <div id="graph-container" style="min-width: 100%; height:400px; margin: 0; padding-bottom: 5px;">
-
         </div>
     </div>
 </div>
-
-<script type="text/javascript">
-
-</script>
