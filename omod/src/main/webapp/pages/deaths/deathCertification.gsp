@@ -33,9 +33,6 @@ jq(document).ready(function () {
                     confirmDeath();
                     ui.navigate('patientqueueapp', 'deaths/certifiedDeceasedList');
         });
-        jq("#referToMorgue").on('click', function () {
-                    referToMorgue();
-        });
     });
     function confirmDeath() {
         jq.getJSON('${ ui.actionLink("patientqueueapp", "patientQueue", "certifyDeath") }', {
@@ -43,15 +40,12 @@ jq(document).ready(function () {
             diagnosis: jq("#diagnosis").val(),
             patientId: jq("#patientId").val(),
             deathNotes: jq("#deathNotes").val(),
+            referToMorgue: jq("#referToMorgue").val(),
         }).success(function(data) {
             jq().toastmessage('showSuccessToast', "Death Certified successfully");
             location.reload();
         });
     }
-
-    function referToMorgue() {
-            ui.navigate('morgueapp', 'main');
-        }
 </script>
 <div class="ke-page-content">
     <form class="simple-form-ui">
@@ -70,6 +64,11 @@ jq(document).ready(function () {
                     </p>
                     <h2>Notes</h2>
                     <textarea id="deathNotes" name="deathNotes" cols="50" rows="5"></textarea>
+                    <h2>Refer to Morgue</h2>
+                    <select id="referToMorgue" name="referToMorgue">
+                        <option value="no">No</option>
+                        <option value="yes">Yes</option>
+                    </select>
                     <div class="onerow" style="margin-top: 60px">
 
                         <a class="button confirm" id="confirmBtn"
@@ -83,13 +82,7 @@ jq(document).ready(function () {
                         </a>
                     </div>
                 </td>
-                <td style="width:15%" valign="top">
-                    <div class="ke-panelbar" style="text-align: right">
-                        <button type="button" id="referToMorgue">
-                            <img src="${ ui.resourceLink("patientqueueapp", "images/morgue.png") }" /> Refer to Morgue
-                        </button>
-                    </div>
-                </td>
+                <td style="width:15%" valign="top">&nbsp;nbsp;nbsp;</td>
             </tr>
         </table>
     </form>

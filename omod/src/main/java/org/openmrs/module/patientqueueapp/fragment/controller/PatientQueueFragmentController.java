@@ -2,7 +2,9 @@ package org.openmrs.module.patientqueueapp.fragment.controller;
 import org.apache.commons.lang3.StringUtils;
 import org.openmrs.*;
 import org.openmrs.api.context.Context;
+import org.openmrs.module.hospitalcore.HospitalCoreService;
 import org.openmrs.module.hospitalcore.PatientQueueService;
+import org.openmrs.module.hospitalcore.model.EhrMorgueQueue;
 import org.openmrs.module.hospitalcore.model.OpdPatientQueue;
 import org.openmrs.module.hospitalcore.model.OpdPatientQueueLog;
 import org.openmrs.module.hospitalcore.model.TriagePatientQueue;
@@ -253,7 +255,8 @@ public class PatientQueueFragmentController {
 			@RequestParam(value = "deathDate", required = false) String deathDate,
 			@RequestParam(value = "diagnosis", required = false) String diagnosis,
 			@RequestParam(value = "patientId", required = false) Patient patient,
-			@RequestParam(value = "deathNotes", required = false) String deathNotes
+			@RequestParam(value = "deathNotes", required = false) String deathNotes,
+			@RequestParam(value = "referToMorgue", required = false) String referToMorgue
 			) throws ParseException {
 		if(StringUtils.isNotBlank(deathDate) && StringUtils.isNotBlank(diagnosis) && patient != null) {
 			Date dateOfDeath = DateUtils.getDateFromString(deathDate, "yyyy-MM-dd HH:mm");
@@ -305,6 +308,18 @@ public class PatientQueueFragmentController {
 			patient.setDeathDate(dateOfDeath);
 			patient.setCauseOfDeath(causeOfDeathReason);
 			Context.getPatientService().savePatient(patient);
+			//check if the patient is referred to the morgue
+			if(referToMorgue.equals("yes")) {
+				EhrMorgueQueue ehrMorgueQueue = new EhrMorgueQueue();
+				ehrMorgueQueue.setPatientId(patient.getPatientId());
+				ehrMorgueQueue.setCreatedOn(new Date());
+				ehrMorgueQueue.setCreatedBy(Context.getAuthenticatedUser().getUserId());
+				ehrMorgueQueue.setReasonOfDeath(causeOfDeathReason);
+				ehrMorgueQueue.setDateAndTimeOfDeath(dateOfDeath);
+
+				//save the object in the
+				Context.getService(HospitalCoreService.class).saveEhrMorgueQueue(ehrMorgueQueue);
+			}
 
 		}
 	return "Death Certification Done!!";
