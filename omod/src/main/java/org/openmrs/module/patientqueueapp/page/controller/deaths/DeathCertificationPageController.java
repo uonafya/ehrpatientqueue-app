@@ -9,11 +9,18 @@
  */
 package org.openmrs.module.patientqueueapp.page.controller.deaths;
 
+import org.openmrs.Encounter;
 import org.openmrs.Patient;
+import org.openmrs.api.context.Context;
 import org.openmrs.module.kenyaui.annotation.AppPage;
+import org.openmrs.module.patientqueueapp.PatientQueueUtils;
+import org.openmrs.parameter.EncounterSearchCriteria;
 import org.openmrs.ui.framework.page.PageModel;
 import org.openmrs.module.patientqueueapp.PatientQueueConstants;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Hope page for the patient death certification app
@@ -22,6 +29,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class DeathCertificationPageController {
 
     public void controller(PageModel model, @RequestParam(value = "patientId", required = false) Patient patient) {
+        boolean isAlreadyCertified = false;
+        List<Encounter> patientEncounters = Context.getEncounterService().getEncounters( new EncounterSearchCriteria(
+        patient, null, null, null, null, null, Arrays.asList(PatientQueueUtils.deathEncounterType), null,
+                        null, null, false)
+        );
+        if(!patientEncounters.isEmpty()) {
+            isAlreadyCertified = true;
+        }
+        model.addAttribute("status", isAlreadyCertified);
         model.addAttribute("patientId", patient.getPatientId());
     }
 }

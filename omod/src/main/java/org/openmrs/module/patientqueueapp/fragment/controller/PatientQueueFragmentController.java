@@ -304,6 +304,7 @@ public class PatientQueueFragmentController {
 			}
 			encounter.addObs(dateOfDeathObs);
 			Context.getEncounterService().saveEncounter(encounter);
+
 			patient.setDead(true);
 			patient.setDeathDate(dateOfDeath);
 			patient.setCauseOfDeath(causeOfDeathReason);
