@@ -30,20 +30,21 @@ jq(document).ready(function () {
             });
         });
         jq("#confirmBtn").on('click', function () {
-                    confirmDeath();
-                    ui.navigate('patientqueueapp', 'deaths/certifiedDeceasedList');
+            confirmDeath();
+            //ui.navigate('patientqueueapp', 'deaths/certifiedDeceasedList');
         });
     });
     function confirmDeath() {
-        jq.getJSON('${ ui.actionLink("patientqueueapp", "patientQueue", "certifyDeath") }', {
+        jq.getJSON('${ui.actionLink("patientqueueapp", "patientQueue", "certifyDeath") }', {
             deathDate:jq("#summaryDeathDate-field").val(),
             diagnosis: jq("#diagnosis").val(),
             patientId: jq("#patientId").val(),
             deathNotes: jq("#deathNotes").val(),
-            referToMorgue: jq("#referToMorgue").val(),
+            referToMorgue: jq("#referToMorgue").val()
         }).success(function(data) {
+        console.log(data);
             jq().toastmessage('showSuccessToast', "Death Certified successfully");
-            location.reload();
+            //location.reload();
         });
     }
 </script>

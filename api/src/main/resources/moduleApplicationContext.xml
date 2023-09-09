@@ -18,37 +18,6 @@
   		    http://www.springframework.org/schema/util/spring-util-3.0.xsd">
 
 	<!-- Add here beans related to the API context -->
-	<!--<bean id="patientqueueapp.maternityapp.delivery" factory-bean="kenyacore.appFactoryBean" factory-method="createInstance">
-		<constructor-arg value="patientqueueapp.delivery" />
-		<constructor-arg value="Delivery Room" />
-		<constructor-arg value="patientqueueapp/deliveryRoomQueue.page" />
-		<constructor-arg value="patientqueueapp:apps/delivery.png" />
-		<constructor-arg value="2000" />
-	</bean>
-
-	<bean id="patientqueueapp.maternityapp.triage" factory-bean="kenyacore.appFactoryBean" factory-method="createInstance">
-		<constructor-arg value="patientqueueapp.maternitytriage" />
-		<constructor-arg value="Maternity Triage" />
-		<constructor-arg value="patientqueueapp/maternityTriageQueue.page" />
-		<constructor-arg value="patientqueueapp:apps/maternity_triage.png" />
-		<constructor-arg value="2001" />
-	</bean>
-
-	<bean id="patientqueueapp.mchapp.clinic" factory-bean="kenyacore.appFactoryBean" factory-method="createInstance">
-		<constructor-arg value="patientqueueapp.mchclinic" />
-		<constructor-arg value="MCH Clinic" />
-		<constructor-arg value="patientqueueapp/mchClinicQueue.page" />
-		<constructor-arg value="patientqueueapp:apps/mch.png" />
-		<constructor-arg value="2002" />
-	</bean>
-
-	<bean id="patientqueueapp.mchapp.triage" factory-bean="kenyacore.appFactoryBean" factory-method="createInstance">
-		<constructor-arg value="patientqueueapp.mchtriage" />
-		<constructor-arg value="MCH Triage" />
-		<constructor-arg value="patientqueueapp/mchTriageQueue.page" />
-		<constructor-arg value="patientqueueapp:apps/mch3.png" />
-		<constructor-arg value="2003" />
-	</bean>-->
 	<bean id="patientqueueapp.opd.opdqueue" factory-bean="kenyacore.appFactoryBean" factory-method="createInstance">
 		<constructor-arg value="patientqueueapp.opdqueue" />
 		<constructor-arg value="OPD" />
@@ -56,47 +25,12 @@
 		<constructor-arg value="patientqueueapp:apps/doctor.png" />
 		<constructor-arg value="1550" />
 	</bean>
-	<!--<bean id="patientqueueapp.maternityapp.pac" factory-bean="kenyacore.appFactoryBean" factory-method="createInstance">
-		<constructor-arg value="patientqueueapp.pac" />
-		<constructor-arg value="PAC Room" />
-		<constructor-arg value="patientqueueapp/pacRoomQueue.page" />
-		<constructor-arg value="patientqueueapp:apps/doctor.png" />
-		<constructor-arg value="2005" />
-	</bean>-->
 	<bean id="patientqueueapp.app.triage" factory-bean="kenyacore.appFactoryBean" factory-method="createInstance">
 		<constructor-arg value="patientqueueapp.triage" />
 		<constructor-arg value="Triage" />
 		<constructor-arg value="patientqueueapp/triageQueue.page?app=patientqueueapp.triage" />
 		<constructor-arg value="patientqueueapp:apps/triage.png" />
 		<constructor-arg value="1500" />
-	</bean>
-	<bean id="patientqueueapp.app.gbv" factory-bean="kenyacore.appFactoryBean" factory-method="createInstance">
-		<constructor-arg value="patientqueueapp.gbv" />
-		<constructor-arg value="GBV" />
-		<constructor-arg value="patientqueueapp/gbv/gbvMain.page?app=patientqueueapp.gbv" />
-		<constructor-arg value="patientqueueapp:apps/gbv.png" />
-		<constructor-arg value="1600" />
-	</bean>
-
-	<bean id="patientqueueapp.config.form" class="org.openmrs.module.kenyacore.form.FormConfiguration">
-		<property name="commonVisitForms">
-			<set>
-				<ref bean="patientqueueapp.form.gbvinitial" />
-			</set>
-		</property>
-	</bean>
-
-	<bean id="patientqueueapp.form.gbvinitial" class="org.openmrs.module.kenyacore.form.FormDescriptor">
-		<property name="targetUuid" value="66ed9f50-5433-11ec-979c-17759fbd2edb" />
-		<property name="apps">
-			<set>
-				<ref bean="patientqueueapp.app.gbv" />
-			</set>
-		</property>
-
-		<property name="icon" value="kenyaui:forms/generic.png" />
-		<property name="htmlform" value="patientqueueapp:gbvInitial.html" />
-		<property name="order" value="10000000" />
 	</bean>
 
 	<bean id="patientqueueapp.death.certification" factory-bean="kenyacore.appFactoryBean" factory-method="createInstance">

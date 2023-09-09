@@ -1,6 +1,8 @@
 package org.openmrs.module.patientqueueapp.fragment.controller;
 import org.apache.commons.lang3.StringUtils;
 import org.openmrs.*;
+import org.openmrs.api.EncounterService;
+import org.openmrs.api.ObsService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.hospitalcore.HospitalCoreService;
 import org.openmrs.module.hospitalcore.PatientQueueService;
@@ -257,28 +259,29 @@ public class PatientQueueFragmentController {
 			@RequestParam(value = "patientId", required = false) Patient patient,
 			@RequestParam(value = "deathNotes", required = false) String deathNotes,
 			@RequestParam(value = "referToMorgue", required = false) String referToMorgue
-			) throws ParseException {
+			){
+		EncounterService encounterService = Context.getEncounterService();
+		ObsService obsService = Context.getObsService();
+		KenyaEmrService kenyaEmrService = Context.getService(KenyaEmrService.class);
 		if(StringUtils.isNotBlank(deathDate) && StringUtils.isNotBlank(diagnosis) && patient != null) {
 			Date dateOfDeath = DateUtils.getDateFromString(deathDate, "yyyy-MM-dd HH:mm");
 			Concept causeOfDeathReason = Context.getConceptService().getConceptByName(diagnosis);
-			Encounter encounter = new Encounter();
-			encounter.setLocation(Context.getService(KenyaEmrService.class).getDefaultLocation());
-			encounter.setEncounterType(PatientQueueUtils.deathEncounterType);
-			encounter.setEncounterDatetime(new Date());
-			encounter.setProvider(HospitalCoreUtils.getDefaultEncounterRole(), HospitalCoreUtils.getProvider(Context.getAuthenticatedUser().getPerson()));
-			encounter.setPatient(patient);
-			encounter.setCreator(Context.getAuthenticatedUser());
-			encounter.setDateCreated(new Date());
+
+			Encounter enc = getEncounter(patient, PatientQueueUtils.deathEncounterType);
 
 			Obs dateOfDeathObs = new Obs();
 			dateOfDeathObs.setObsDatetime(new Date());
 			dateOfDeathObs.setConcept(PatientQueueUtils.dateOfDeathQuestion);
 			dateOfDeathObs.setCreator(Context.getAuthenticatedUser());
 			dateOfDeathObs.setValueDatetime(dateOfDeath);
-			dateOfDeathObs.setPerson(patient.getPerson());
+			dateOfDeathObs.setPerson(patient);
 			dateOfDeathObs.setDateCreated(new Date());
-			encounter.addObs(dateOfDeathObs);
-
+			dateOfDeathObs.setLocation(kenyaEmrService.getDefaultLocation());
+			dateOfDeathObs.setEncounter(enc);
+			dateOfDeathObs.setPerson(enc.getPatient());
+			enc.addObs(dateOfDeathObs);
+			//save this obs in the DB
+			//obsService.saveObs(dateOfDeathObs, "Adding obs");
 
 			Obs causeOfDeathReasonObs = new Obs();
 			causeOfDeathReasonObs.setObsDatetime(new Date());
@@ -287,42 +290,59 @@ public class PatientQueueFragmentController {
 			causeOfDeathReasonObs.setValueCoded(causeOfDeathReason);
 			causeOfDeathReasonObs.setPerson(patient.getPerson());
 			causeOfDeathReasonObs.setDateCreated(new Date());
-			causeOfDeathReasonObs.setEncounter(encounter);
-			encounter.addObs(causeOfDeathReasonObs);
+			causeOfDeathReasonObs.setEncounter(enc);
+			causeOfDeathReasonObs.setLocation(kenyaEmrService.getDefaultLocation());
+			//enc.addObs(causeOfDeathReasonObs);
 
-			Obs causeOfDeathReasonNonCodedObs = null;
+
 			if(StringUtils.isNotBlank(deathNotes)) {
-			causeOfDeathReasonNonCodedObs = new Obs();
+			Obs causeOfDeathReasonNonCodedObs =  new Obs();
 			causeOfDeathReasonNonCodedObs.setObsDatetime(new Date());
 			causeOfDeathReasonNonCodedObs.setConcept(PatientQueueUtils.causeOfDeathNonCodedQuestion);
 			causeOfDeathReasonNonCodedObs.setCreator(Context.getAuthenticatedUser());
 			causeOfDeathReasonNonCodedObs.setValueText(deathNotes);
-			causeOfDeathReasonNonCodedObs.setPerson(patient.getPerson());
+			causeOfDeathReasonNonCodedObs.setPerson(patient);
 			causeOfDeathReasonNonCodedObs.setDateCreated(new Date());
-			causeOfDeathReasonNonCodedObs.setEncounter(encounter);
-			encounter.addObs(causeOfDeathReasonNonCodedObs);
+			causeOfDeathReasonNonCodedObs.setEncounter(enc);
+			causeOfDeathReasonNonCodedObs.setLocation(kenyaEmrService.getDefaultLocation());
+			//enc.addObs(causeOfDeathReasonNonCodedObs);
 			}
-			encounter.addObs(dateOfDeathObs);
-			Context.getEncounterService().saveEncounter(encounter);
+			//if(enc.getObs() != null) {
+				encounterService.saveEncounter(enc);
 
-			patient.setDead(true);
-			patient.setDeathDate(dateOfDeath);
-			patient.setCauseOfDeath(causeOfDeathReason);
-			Context.getPatientService().savePatient(patient);
-			//check if the patient is referred to the morgue
-			if(referToMorgue.equals("yes")) {
-				EhrMorgueQueue ehrMorgueQueue = new EhrMorgueQueue();
-				ehrMorgueQueue.setPatientId(patient.getPatientId());
-				ehrMorgueQueue.setCreatedOn(new Date());
-				ehrMorgueQueue.setCreatedBy(Context.getAuthenticatedUser().getUserId());
-				ehrMorgueQueue.setReasonOfDeath(causeOfDeathReason);
-				ehrMorgueQueue.setDateAndTimeOfDeath(dateOfDeath);
+				patient.setDead(true);
+				patient.setDeathDate(dateOfDeath);
+				patient.setCauseOfDeath(causeOfDeathReason);
+				//Context.getPatientService().savePatient(patient);
+				//check if the patient is referred to the morgue
+				if (referToMorgue.equals("yes")) {
+					EhrMorgueQueue ehrMorgueQueue = new EhrMorgueQueue();
+					ehrMorgueQueue.setPatientId(patient.getPatientId());
+					ehrMorgueQueue.setCreatedOn(new Date());
+					ehrMorgueQueue.setCreatedBy(Context.getAuthenticatedUser().getUserId());
+					ehrMorgueQueue.setReasonOfDeath(causeOfDeathReason);
+					ehrMorgueQueue.setDateAndTimeOfDeath(dateOfDeath);
+					ehrMorgueQueue.setStatus(0);
 
-				//save the object in the
-				Context.getService(HospitalCoreService.class).saveEhrMorgueQueue(ehrMorgueQueue);
-			}
+					//save the object in the
+					Context.getService(HospitalCoreService.class).saveEhrMorgueQueue(ehrMorgueQueue);
+				}
+			//}
 
 		}
 	return "Death Certification Done!!";
+	}
+
+	private Encounter getEncounter(Patient patient, EncounterType encounterType) {
+		Encounter encounter = new Encounter();
+		encounter.setLocation(Context.getService(KenyaEmrService.class).getDefaultLocation());
+		encounter.setEncounterType(encounterType);
+		encounter.setEncounterDatetime(new Date());
+		encounter.setProvider(HospitalCoreUtils.getDefaultEncounterRole(), HospitalCoreUtils.getProvider(Context.getAuthenticatedUser().getPerson()));
+		encounter.setPatient(patient);
+		encounter.setCreator(Context.getAuthenticatedUser());
+		encounter.setDateCreated(new Date());
+
+		return encounter;
 	}
 }
