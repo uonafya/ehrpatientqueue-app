@@ -279,7 +279,7 @@ public class PatientQueueFragmentController {
 			dateOfDeathObs.setLocation(kenyaEmrService.getDefaultLocation());
 			dateOfDeathObs.setEncounter(enc);
 			dateOfDeathObs.setPerson(enc.getPatient());
-			enc.addObs(dateOfDeathObs);
+			//enc.addObs(dateOfDeathObs);
 			//save this obs in the DB
 			//obsService.saveObs(dateOfDeathObs, "Adding obs");
 
@@ -290,7 +290,7 @@ public class PatientQueueFragmentController {
 			causeOfDeathReasonObs.setValueCoded(causeOfDeathReason);
 			causeOfDeathReasonObs.setPerson(patient.getPerson());
 			causeOfDeathReasonObs.setDateCreated(new Date());
-			causeOfDeathReasonObs.setEncounter(enc);
+			//causeOfDeathReasonObs.setEncounter(enc);
 			causeOfDeathReasonObs.setLocation(kenyaEmrService.getDefaultLocation());
 			//enc.addObs(causeOfDeathReasonObs);
 
@@ -303,7 +303,7 @@ public class PatientQueueFragmentController {
 			causeOfDeathReasonNonCodedObs.setValueText(deathNotes);
 			causeOfDeathReasonNonCodedObs.setPerson(patient);
 			causeOfDeathReasonNonCodedObs.setDateCreated(new Date());
-			causeOfDeathReasonNonCodedObs.setEncounter(enc);
+			//causeOfDeathReasonNonCodedObs.setEncounter(enc);
 			causeOfDeathReasonNonCodedObs.setLocation(kenyaEmrService.getDefaultLocation());
 			//enc.addObs(causeOfDeathReasonNonCodedObs);
 			}
