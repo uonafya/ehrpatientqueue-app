@@ -189,7 +189,7 @@ public class PatientQueueFragmentController {
 				patientInQueue.setPatientName(patient.getGivenName() + " " + patient.getFamilyName());
 			}
 			updatePatientQueueDataFromPreviousVisit(patientInQueue, patient, queueService);
-
+			patientInQueue.setClearedToNextServicePoint(1);
 			patientInQueue = queueService.saveOpdPatientQueue(patientInQueue);
 		} else {
 			patientInQueue = matchingPatientsInQueue.get(0);
