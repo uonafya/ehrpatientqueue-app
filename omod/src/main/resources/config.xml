@@ -19,7 +19,6 @@
 	<!-- Required Modules -->
 	<require_modules>
 		<require_module>org.openmrs.module.uiframework</require_module>
-		<require_module>org.openmrs.module.uilibrary</require_module>
         <require_module>org.openmrs.module.appframework</require_module>
 		<require_module>org.openmrs.module.hospitalcore</require_module>
 		<require_module>org.openmrs.module.appui</require_module>
