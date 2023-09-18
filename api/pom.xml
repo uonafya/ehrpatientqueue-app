@@ -101,12 +101,6 @@
 			<artifactId>openmrs-web</artifactId>
 			<type>jar</type>
 		</dependency>
-
-		<dependency>
-			<groupId>org.openmrs.module</groupId>
-			<artifactId>mchapp-api</artifactId>
-			<type>jar</type>
-		</dependency>
 				
 		<dependency>
 			<groupId>org.openmrs.api</groupId>

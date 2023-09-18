@@ -2,16 +2,12 @@ package org.openmrs.module.patientqueueapp;
 
 import org.openmrs.Concept;
 import org.openmrs.EncounterType;
-import org.openmrs.Patient;
 import org.openmrs.Role;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.hospitalcore.util.DateUtils;
-import org.openmrs.module.mchapp.api.MchService;
 import org.openmrs.ui.framework.SimpleObject;
 import org.openmrs.ui.framework.UiUtils;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -52,22 +48,6 @@ public class PatientQueueUtils {
         return SimpleObject.fromCollection(mchRoles, ui, "role", "description", "uuid");
     }
 
-    public static String enrolledMCHProgram(Patient patient)
-    {
-        MchService mchService = Context.getService(MchService.class);
-        if(mchService.enrolledInANC(patient)){
-            return("ANC");
-        }
-        else if(mchService.enrolledInPNC(patient)){
-            return("PNC");
-        }
-        else if(mchService.enrolledInCWC(patient)){
-            return("CWC");
-        }
-        else{
-            return("N/A");
-        }
-    }
 
     public static final Concept dateOfDeathQuestion = Context.getConceptService().getConceptByUuid("1543AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
     public static final Concept causeOfDeathQuestion = Context.getConceptService().getConceptByUuid("1599AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");

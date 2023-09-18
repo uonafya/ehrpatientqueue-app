@@ -61,7 +61,7 @@ public class PatientQueueFragmentController {
 			patientInQueue.put("visitStatus", patientQueue.getVisitStatus());
 			patientInQueue.put("patientId",patientQueue.getPatient().getId());
 			patientInQueue.put("id", patientQueue.getId());
-			patientInQueue.put("clinic",PatientQueueUtils.enrolledMCHProgram(patientQueue.getPatient()));
+			//patientInQueue.put("clinic",PatientQueueUtils.enrolledMCHProgram(patientQueue.getPatient()));
 			if(patientQueue.getReferralConcept()!=null) {
 				patientInQueue.put("referralConcept.conceptId", patientQueue.getReferralConcept().getConceptId());
 			}
@@ -111,7 +111,7 @@ public class PatientQueueFragmentController {
 			}
 			else if(oPdConcept.equals(mchExamRoomConcept))
 			{
-				patientInQueue.put("clinic",PatientQueueUtils.enrolledMCHProgram(patientQueue.getPatient()));
+				//patientInQueue.put("clinic",PatientQueueUtils.enrolledMCHProgram(patientQueue.getPatient()));
 			}
 
 			if(patientQueue.getReferralConcept()!=null) {
