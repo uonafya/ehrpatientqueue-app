@@ -328,6 +328,9 @@ public class PatientQueueFragmentController {
 					ehrMorgueQueue.setReasonOfDeath(causeOfDeathReason);
 					ehrMorgueQueue.setDateAndTimeOfDeath(dateOfDeath);
 					ehrMorgueQueue.setStatus(0);
+					if(StringUtils.isNotBlank(deathNotes)){
+						ehrMorgueQueue.setNotes(deathNotes);
+					}
 
 					//save the object in the
 					Context.getService(HospitalCoreService.class).saveEhrMorgueQueue(ehrMorgueQueue);

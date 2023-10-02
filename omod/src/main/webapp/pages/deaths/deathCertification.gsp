@@ -31,7 +31,8 @@ jq(document).ready(function () {
         });
         jq("#confirmBtn").on('click', function () {
             confirmDeath();
-            //ui.navigate('patientqueueapp', 'deaths/certifiedDeceasedList');
+            ui.navigate('patientqueueapp', 'deaths/certifiedDeceasedList');
+            location.reload();
         });
     });
     function confirmDeath() {
