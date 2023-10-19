@@ -266,7 +266,6 @@ public class PatientQueueFragmentController {
 			@RequestParam(value = "referToMorgue", required = false) String referToMorgue
 			){
 		EncounterService encounterService = Context.getEncounterService();
-		ObsService obsService = Context.getObsService();
 		KenyaEmrService kenyaEmrService = Context.getService(KenyaEmrService.class);
 		if(StringUtils.isNotBlank(deathDate) && StringUtils.isNotBlank(diagnosis) && patient != null) {
 			Date dateOfDeath = DateUtils.getDateFromString(deathDate, "yyyy-MM-dd HH:mm");

@@ -32,7 +32,7 @@ jq(document).ready(function () {
         jq("#confirmBtn").on('click', function () {
             confirmDeath();
             ui.navigate('patientqueueapp', 'deaths/certifiedDeceasedList');
-            location.reload();
+            //location.reload();
         });
     });
     function confirmDeath() {

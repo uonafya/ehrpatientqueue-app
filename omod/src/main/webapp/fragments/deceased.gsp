@@ -63,9 +63,6 @@
                                     <td>${it.causeOfDeathNonCodded}</td>
                                     <td>${it.entryTime}</td>
                                     <td>${it.status}</td>
-                                    <td>
-                                        <button id="editAppointment" class="button task">Action</button>
-                                    </td>
                                 </tr>
                             <%}%>
                         <%}%>

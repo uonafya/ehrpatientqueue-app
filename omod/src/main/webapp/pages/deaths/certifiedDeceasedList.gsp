@@ -14,6 +14,11 @@
             ]
     ]
 %>
+<script type="text/javascript">
+jq(document).ready(function () {
+    location.reload();
+});
+</script>
 <div class="ke-page-sidebar">
     ${ ui.includeFragment("kenyaui", "widget/panelMenu", [ heading: "Tasks", items: menuItems ]) }
 </div>
