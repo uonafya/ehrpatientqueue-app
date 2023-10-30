@@ -39,17 +39,16 @@
                         <tr>
                             <th>Name</th>
                             <th>Date and Time of Death</th>
-                            <th>Cause of Death Coded</th>
-                            <th>Cause of Death Non Coded</th>
+                            <th>Cause of Death</th>
                             <th>Entry date and time</th>
+                            <th>Notes</th>
                             <th>Status</th>
-                            <th>&nbsp;</th>
                         </tr>
                     </thead>
                     <tbody>
                         <% if (allDeceasedAndConfirmedCases.empty) { %>
                             <tr>
-                                <td colspan="7">
+                                <td colspan="6">
                                     No records found for specified period
                                 </td>
                             </tr>

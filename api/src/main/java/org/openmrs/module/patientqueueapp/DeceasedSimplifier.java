@@ -8,6 +8,16 @@ public class DeceasedSimplifier {
     private String entryTime;
     private String status;
 
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
+
+    private String notes;
+
     public String getName() {
         return name;
     }

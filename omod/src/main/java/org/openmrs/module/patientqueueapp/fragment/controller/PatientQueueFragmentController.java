@@ -14,12 +14,14 @@ import org.openmrs.api.ObsService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.hospitalcore.HospitalCoreService;
 import org.openmrs.module.hospitalcore.PatientQueueService;
+import org.openmrs.module.hospitalcore.model.CertifiedDeceasedList;
 import org.openmrs.module.hospitalcore.model.EhrMorgueQueue;
 import org.openmrs.module.hospitalcore.model.OpdPatientQueue;
 import org.openmrs.module.hospitalcore.model.OpdPatientQueueLog;
 import org.openmrs.module.hospitalcore.model.TriagePatientQueue;
 import org.openmrs.module.hospitalcore.util.DateUtils;
 import org.openmrs.module.hospitalcore.util.HospitalCoreUtils;
+import org.openmrs.module.hospitalcore.util.MorgueUtils;
 import org.openmrs.module.kenyaemr.api.KenyaEmrService;
 import org.openmrs.module.patientqueueapp.PatientQueueUtils;
 import org.openmrs.ui.framework.SimpleObject;
@@ -266,76 +268,47 @@ public class PatientQueueFragmentController {
 			@RequestParam(value = "referToMorgue", required = false) String referToMorgue
 			){
 		EncounterService encounterService = Context.getEncounterService();
-		KenyaEmrService kenyaEmrService = Context.getService(KenyaEmrService.class);
+		HospitalCoreService hospitalCoreService = Context.getService(HospitalCoreService.class);
 		if(StringUtils.isNotBlank(deathDate) && StringUtils.isNotBlank(diagnosis) && patient != null) {
 			Date dateOfDeath = DateUtils.getDateFromString(deathDate, "yyyy-MM-dd HH:mm");
 			Concept causeOfDeathReason = Context.getConceptService().getConceptByName(diagnosis);
 
 			Encounter enc = getEncounter(patient, PatientQueueUtils.deathEncounterType);
 
-			Obs dateOfDeathObs = new Obs();
-			dateOfDeathObs.setObsDatetime(new Date());
-			dateOfDeathObs.setConcept(PatientQueueUtils.dateOfDeathQuestion);
-			dateOfDeathObs.setCreator(Context.getAuthenticatedUser());
-			dateOfDeathObs.setValueDatetime(dateOfDeath);
-			dateOfDeathObs.setPerson(patient);
-			dateOfDeathObs.setDateCreated(new Date());
-			dateOfDeathObs.setLocation(kenyaEmrService.getDefaultLocation());
-			dateOfDeathObs.setEncounter(enc);
-			dateOfDeathObs.setPerson(enc.getPatient());
-			//enc.addObs(dateOfDeathObs);
-			//save this obs in the DB
-			//obsService.saveObs(dateOfDeathObs, "Adding obs");
-
-			Obs causeOfDeathReasonObs = new Obs();
-			causeOfDeathReasonObs.setObsDatetime(new Date());
-			causeOfDeathReasonObs.setConcept(PatientQueueUtils.causeOfDeathQuestion);
-			causeOfDeathReasonObs.setCreator(Context.getAuthenticatedUser());
-			causeOfDeathReasonObs.setValueCoded(causeOfDeathReason);
-			causeOfDeathReasonObs.setPerson(patient.getPerson());
-			causeOfDeathReasonObs.setDateCreated(new Date());
-			//causeOfDeathReasonObs.setEncounter(enc);
-			causeOfDeathReasonObs.setLocation(kenyaEmrService.getDefaultLocation());
-			//enc.addObs(causeOfDeathReasonObs);
+			CertifiedDeceasedList certifiedDeceasedList = new CertifiedDeceasedList();
+			certifiedDeceasedList.setPatient(patient);
+			certifiedDeceasedList.setDateOfDeath(dateOfDeath);
+			certifiedDeceasedList.setUser(Context.getAuthenticatedUser());
+			certifiedDeceasedList.setCauseOfDeath(causeOfDeathReason);
+			certifiedDeceasedList.setEntryDateAndTime(new Date());
 
 
 			if(StringUtils.isNotBlank(deathNotes)) {
-			Obs causeOfDeathReasonNonCodedObs =  new Obs();
-			causeOfDeathReasonNonCodedObs.setObsDatetime(new Date());
-			causeOfDeathReasonNonCodedObs.setConcept(PatientQueueUtils.causeOfDeathNonCodedQuestion);
-			causeOfDeathReasonNonCodedObs.setCreator(Context.getAuthenticatedUser());
-			causeOfDeathReasonNonCodedObs.setValueText(deathNotes);
-			causeOfDeathReasonNonCodedObs.setPerson(patient);
-			causeOfDeathReasonNonCodedObs.setDateCreated(new Date());
-			//causeOfDeathReasonNonCodedObs.setEncounter(enc);
-			causeOfDeathReasonNonCodedObs.setLocation(kenyaEmrService.getDefaultLocation());
-			//enc.addObs(causeOfDeathReasonNonCodedObs);
+			certifiedDeceasedList.setNotes(deathNotes);
 			}
-			//if(enc.getObs() != null) {
-				encounterService.saveEncounter(enc);
+			encounterService.saveEncounter(enc);
 
-				patient.setDead(true);
-				patient.setDeathDate(dateOfDeath);
-				patient.setCauseOfDeath(causeOfDeathReason);
-				//Context.getPatientService().savePatient(patient);
-				//check if the patient is referred to the morgue
-				if (referToMorgue.equals("yes")) {
-					EhrMorgueQueue ehrMorgueQueue = new EhrMorgueQueue();
-					ehrMorgueQueue.setPatientId(patient.getPatientId());
-					ehrMorgueQueue.setCreatedOn(new Date());
-					ehrMorgueQueue.setCreatedBy(Context.getAuthenticatedUser().getUserId());
-					ehrMorgueQueue.setReasonOfDeath(causeOfDeathReason);
-					ehrMorgueQueue.setDateAndTimeOfDeath(dateOfDeath);
-					ehrMorgueQueue.setStatus(0);
-					if(StringUtils.isNotBlank(deathNotes)){
-						ehrMorgueQueue.setNotes(deathNotes);
-					}
-
-					//save the object in the
-					Context.getService(HospitalCoreService.class).saveEhrMorgueQueue(ehrMorgueQueue);
+			patient.setDead(true);
+			patient.setDeathDate(dateOfDeath);
+			patient.setCauseOfDeath(causeOfDeathReason);
+			//check if the patient is referred to the morgue
+			if (referToMorgue.equals("yes")) {
+				certifiedDeceasedList.setStatus(MorgueUtils.BODY_PENDING_ADMISSION);
+				EhrMorgueQueue ehrMorgueQueue = new EhrMorgueQueue();
+				ehrMorgueQueue.setPatientId(patient.getPatientId());
+				ehrMorgueQueue.setCreatedOn(new Date());
+				ehrMorgueQueue.setCreatedBy(Context.getAuthenticatedUser().getUserId());
+				ehrMorgueQueue.setReasonOfDeath(causeOfDeathReason);
+				ehrMorgueQueue.setDateAndTimeOfDeath(dateOfDeath);
+				ehrMorgueQueue.setStatus(MorgueUtils.BODY_PENDING_ADMISSION);
+				if(StringUtils.isNotBlank(deathNotes)){
+					ehrMorgueQueue.setNotes(deathNotes);
 				}
-			//}
 
+				//save the object in the
+				Context.getService(HospitalCoreService.class).saveEhrMorgueQueue(ehrMorgueQueue);
+			}
+			hospitalCoreService.saveCertifiedDeceasedList(certifiedDeceasedList);
 		}
 	return "Death Certification Done!!";
 	}
