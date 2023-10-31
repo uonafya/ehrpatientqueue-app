@@ -16,7 +16,7 @@
 %>
 <script type="text/javascript">
 jq(document).ready(function () {
-    location.reload();
+    //location.reload();
 });
 </script>
 <div class="ke-page-sidebar">

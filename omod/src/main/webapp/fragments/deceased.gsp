@@ -1,5 +1,6 @@
 <%
     ui.includeCss("ehrconfigs", "referenceapplication.css")
+    ui.includeJavascript("patientdashboardapp", "jq.print.js")
 %>
 <script type="text/javascript">
  var jq = jQuery;
@@ -26,9 +27,18 @@
 
            jQuery('#deceasedTbl tbody').on( 'click', 'tr', function () {
                console.log( table.row( this ).data() );
+               jq("#printSection").print({
+               				globalStyles: 	false,
+               				mediaPrint: 	false,
+               				stylesheet: 	'${ui.resourceLink("patientdashboardapp", "styles/printout.css")}',
+               				iframe: 		false,
+               				width: 			600,
+               				height:			700
+              });
            } );
 
      });
+
 </script>
 <div class="ke-page-content">
     <div class="ke-panel-frame">
@@ -37,6 +47,7 @@
                 <table border="0" cellpadding="0" cellspacing="0" id="deceasedTbl" width="100%">
                     <thead>
                         <tr>
+                            <th style="display: none;">Patient Id</th>
                             <th>Name</th>
                             <th>Date and Time of Death</th>
                             <th>Cause of Death</th>
@@ -48,7 +59,7 @@
                     <tbody>
                         <% if (allDeceasedAndConfirmedCases.empty) { %>
                             <tr>
-                                <td colspan="6">
+                                <td colspan="7">
                                     No records found for specified period
                                 </td>
                             </tr>
@@ -56,11 +67,12 @@
                         <% if (allDeceasedAndConfirmedCases) { %>
                             <% allDeceasedAndConfirmedCases.each {%>
                                 <tr>
+                                    <td style="display:none;">${it.patientId}</td>
                                     <td>${it.name}</td>
                                     <td>${it.dOfDeath}</td>
                                     <td>${it.causeOfDeath}</td>
-                                    <td>${it.causeOfDeathNonCodded}</td>
                                     <td>${it.entryTime}</td>
+                                    <td>${it.notes}</td>
                                     <td>${it.status}</td>
                                 </tr>
                             <%}%>
@@ -70,4 +82,8 @@
             </div>
          </div>
     </div>
+</div>
+<div class="col16 dashboard opdRecordsPrintDiv" style="min-width: 78%">
+		<div id="printSection">
+		</div>
 </div>

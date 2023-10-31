@@ -16,19 +16,28 @@ public class DeceasedFragmentController {
         List<DeceasedSimplifier> deceasedSimplifierList = new ArrayList<DeceasedSimplifier>();
         DeceasedSimplifier deceasedSimplifier = null;
        HospitalCoreService hospitalCoreService = Context.getService(HospitalCoreService.class);
+       List<CertifiedDeceasedList> certifiedDeceasedLists = new ArrayList<CertifiedDeceasedList>(hospitalCoreService.getAllCertifiedDeceasedList());
 
-        for(CertifiedDeceasedList certifiedDeceasedList : hospitalCoreService.getAllCertifiedDeceasedList()) {
-            if(certifiedDeceasedList != null) {
-                deceasedSimplifier = new DeceasedSimplifier();
-                deceasedSimplifier.setName(certifiedDeceasedList.getPatient().getGivenName()+" "+certifiedDeceasedList.getPatient().getFamilyName());
-                deceasedSimplifier.setEntryTime(DateUtils.getDateFromDateAsString(certifiedDeceasedList.getEntryDateAndTime(), "yyyy-MM-dd hh:mm"));
-                deceasedSimplifier.setdOfDeath((DateUtils.getDateFromDateAsString(certifiedDeceasedList.getDateOfDeath(), "yyyy-MM-dd hh:mm")));
-                deceasedSimplifier.setCauseOfDeath(certifiedDeceasedList.getCauseOfDeath().getDisplayString());
-                deceasedSimplifier.setStatus(MorgueUtils.getStringValue(certifiedDeceasedList.getStatus()));
-                deceasedSimplifier.setNotes(certifiedDeceasedList.getNotes());
-                deceasedSimplifierList.add(deceasedSimplifier);
-            }
-        }
+       if(!certifiedDeceasedLists.isEmpty()) {
+           for (CertifiedDeceasedList certifiedDeceasedList : certifiedDeceasedLists) {
+               if (certifiedDeceasedList != null) {
+                   deceasedSimplifier = new DeceasedSimplifier();
+                   deceasedSimplifier.setPatientId(certifiedDeceasedList.getPatient().getPatientId());
+                   deceasedSimplifier.setName(certifiedDeceasedList.getPatient().getGivenName() + " " + certifiedDeceasedList.getPatient().getFamilyName());
+                   deceasedSimplifier.setEntryTime(DateUtils.getDateFromDateAsString(certifiedDeceasedList.getEntryDateAndTime(), "yyyy-MM-dd hh:mm"));
+                   deceasedSimplifier.setdOfDeath((DateUtils.getDateFromDateAsString(certifiedDeceasedList.getDateOfDeath(), "yyyy-MM-dd hh:mm")));
+                   deceasedSimplifier.setCauseOfDeath(certifiedDeceasedList.getCauseOfDeath().getDisplayString());
+                   if(certifiedDeceasedList.getStatus() != null) {
+                       deceasedSimplifier.setStatus(MorgueUtils.getStringValue(certifiedDeceasedList.getStatus()));
+                   }
+                   else {
+                       deceasedSimplifier.setStatus(MorgueUtils.getStringValue(99));
+                   }
+                   deceasedSimplifier.setNotes(certifiedDeceasedList.getNotes());
+                   deceasedSimplifierList.add(deceasedSimplifier);
+               }
+           }
+       }
         model.addAttribute("allDeceasedAndConfirmedCases", deceasedSimplifierList);
     }
 }

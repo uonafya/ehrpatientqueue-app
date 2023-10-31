@@ -67,4 +67,14 @@ public class DeceasedSimplifier {
     }
 
     private String causeOfDeathNonCodded;
+
+    public Integer getPatientId() {
+        return patientId;
+    }
+
+    public void setPatientId(Integer patientId) {
+        this.patientId = patientId;
+    }
+
+    private Integer patientId;
 }
