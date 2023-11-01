@@ -40,6 +40,11 @@
      });
 
 </script>
+<style type="text/css">
+#person-detail{
+      display: none;
+    }
+</style>
 <div class="ke-page-content">
     <div class="ke-panel-frame">
          <div class="ke-panel-heading">Confirmed Deceased Cases</div>
@@ -83,7 +88,14 @@
          </div>
     </div>
 </div>
-<div class="col16 dashboard opdRecordsPrintDiv" style="min-width: 78%">
+<div class="col16 dashboard" style="min-width: 78%;">
 		<div id="printSection">
+		    <div id="person-detail">
+		        <center>
+              <img width="100" height="100" align="center" title="Integrated KenyaEMR" alt="Integrated KenyaEMR" src="${ui.resourceLink('ehrinventoryapp', 'images/kenya_logo.bmp')}">
+              <h2>${userLocation}(${mfl}) </h2>
+            </center>
+            <h3>SUMMARY INFORMATION</h3>
+		    </div>
 		</div>
 </div>

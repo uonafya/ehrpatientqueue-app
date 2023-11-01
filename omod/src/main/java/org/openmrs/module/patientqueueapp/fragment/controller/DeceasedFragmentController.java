@@ -5,6 +5,7 @@ import org.openmrs.module.hospitalcore.HospitalCoreService;
 import org.openmrs.module.hospitalcore.model.CertifiedDeceasedList;
 import org.openmrs.module.hospitalcore.util.DateUtils;
 import org.openmrs.module.hospitalcore.util.MorgueUtils;
+import org.openmrs.module.kenyaemr.api.KenyaEmrService;
 import org.openmrs.module.patientqueueapp.DeceasedSimplifier;
 import org.openmrs.ui.framework.fragment.FragmentModel;
 
@@ -39,5 +40,7 @@ public class DeceasedFragmentController {
            }
        }
         model.addAttribute("allDeceasedAndConfirmedCases", deceasedSimplifierList);
+       model.addAttribute("userLocation", Context.getService(KenyaEmrService.class).getDefaultLocation().getName());
+       model.addAttribute("mfl", Context.getService(KenyaEmrService.class).getDefaultLocationMflCode());
     }
 }
