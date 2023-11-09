@@ -3,16 +3,16 @@
 
 	def menuItems = [
                       [
-                          label: "Facility referred",
+                          label: "Facility referrals",
                           href: ui.pageLink("patientqueueapp", "referral/referredPatients"),
                           iconProvider: "patientqueueapp",
-                          icon: "ehr_referrals_facility"
+                          icon: "ehr_referrals_facility.png"
                       ],
                       [
-                          label: "Community referred",
+                          label: "Community referrals",
                           href: ui.pageLink("patientqueueapp", "referral/communityReferredPatients"),
                           iconProvider: "patientqueueapp",
-                          icon: "community_referral"
+                          icon: "community_referral.png"
                       ]
               ]
 %>
