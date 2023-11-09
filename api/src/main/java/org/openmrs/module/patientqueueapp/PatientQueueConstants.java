@@ -10,4 +10,5 @@ public class PatientQueueConstants {
     public static final String APP_PAC = MODULE_ID+".pac";
     public static final String APP_TRIAGE = MODULE_ID+".triage";
     public static final String APP_DEATH_CERTIFICATION = MODULE_ID+".death";
+    public static final String APP_PATIENT_REFERRAL = MODULE_ID+".patient.referral";
 }

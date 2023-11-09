@@ -40,5 +40,12 @@
 		<constructor-arg value="patientqueueapp:apps/deaths.png" />
 		<constructor-arg value="20000" />
 	</bean>
+	<bean id="patientqueueapp.ehr.patient.referral" factory-bean="kenyacore.appFactoryBean" factory-method="createInstance">
+		<constructor-arg value="patientqueueapp.patient.referral" />
+		<constructor-arg value="EHR Referral" />
+		<constructor-arg value="patientqueueapp/referral/patientReferral.page" />
+		<constructor-arg value="patientqueueapp:apps/ehr_referrals.png" />
+		<constructor-arg value="20001" />
+	</bean>
 	
 </beans>
