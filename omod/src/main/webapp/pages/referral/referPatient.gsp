@@ -11,7 +11,7 @@
 <div class="ke-page-content">
     <div id="rtabs">
             <ul>
-                <li id="history"><a href="#history">Patient History</a></li>
+                <li id="rhistory"><a href="#history">Patient History</a></li>
                 <li id="refer"><a href="#referral">Patient Referral</a></li>
             </ul>
             <div id="history">

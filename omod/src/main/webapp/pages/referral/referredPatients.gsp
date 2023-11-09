@@ -23,13 +23,13 @@
 <div class="ke-page-content">
     <div id="ftabs">
             <ul>
-                <li id="fFacilities"><a href="#from-facilities">From other facilities</a></li>
-                <li id="tFacilities"><a href="#to-facilities">To other facilities</a></li>
+                <li id="fFacilities"><a href="#fromFacilities">From other facilities</a></li>
+                <li id="tFacilities"><a href="#toFacilities">To other facilities</a></li>
             </ul>
-            <div id="from-facilities">
-              ${ ui.includeFragment("patientqueueapp", "referral/fromFacilities") }
-          <div id="to-facilities">
-                ${ ui.includeFragment("patientqueueapp", "referral/toFacilities")}
+            <div id="fromFacilities">
+              ${ ui.includeFragment("patientqueueapp", "referral/fromFacilitiesReferrals") }
+          <div id="toFacilities">
+                ${ ui.includeFragment("patientqueueapp", "referral/toFacilitiesReferral")}
           </div>
     </div>
 </div>
