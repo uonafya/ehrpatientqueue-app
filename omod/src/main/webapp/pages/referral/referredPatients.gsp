@@ -1,6 +1,5 @@
 <%
 	ui.decorateWith("appui", "standardEmrPage", [ layout: "sidebar" ])
-	ui.includeCss("ehrconfigs", "referenceapplication.css")
 	ui.includeJavascript("ehrconfigs", "emr.js")
 
 	def menuItems = [
@@ -23,13 +22,14 @@
 <div class="ke-page-content">
     <div id="ftabs">
             <ul>
-                <li id="fFacilities"><a href="#fromFacilities">From other facilities</a></li>
-                <li id="tFacilities"><a href="#toFacilities">To other facilities</a></li>
+                <li id="fFacilitiesR"><a href="#fromFacilitiesReferrals">From other facilities</a></li>
+                <li id="tFacilitiesR"><a href="#toFacilitiesReferrals">To other facilities</a></li>
             </ul>
-            <div id="fromFacilities">
+            <div id="fromFacilitiesReferrals">
               ${ ui.includeFragment("patientqueueapp", "referral/fromFacilitiesReferrals") }
-          <div id="toFacilities">
-                ${ ui.includeFragment("patientqueueapp", "referral/toFacilitiesReferral")}
-          </div>
+            </div>
+            <div id="toFacilitiesReferrals">
+                  ${ ui.includeFragment("patientqueueapp", "referral/toFacilitiesReferral")}
+            </div>
     </div>
 </div>

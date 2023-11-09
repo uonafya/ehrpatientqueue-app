@@ -28,9 +28,10 @@
             </ul>
             <div id="from-community">
               ${ ui.includeFragment("patientqueueapp", "referral/fromCommunityUnits") }
-          <div id="to-community">
-                ${ ui.includeFragment("patientqueueapp", "referral/toCommunityUnits")}
-          </div>
+            </div>
+            <div id="to-community">
+                  ${ ui.includeFragment("patientqueueapp", "referral/toCommunityUnits")}
+            </div>
     </div>
 </div>
 
