@@ -34,6 +34,8 @@ public class PatientQueueAppMetadata extends AbstractMetadataBundle {
         public static final String OPD_MODULE_APP = "App: patientqueueapp.opdqueue";
         public static final String TRIAGE_MODULE_APP = "App: patientqueueapp.triage";
         public static final String DEATH_MODULE_APP = "App: patientqueueapp.death";
+        public static final String EHR_REFERRAL_APP = "App: patientqueueapp.patient.referral";
+
         /*public static final String MCH_TRIAGE_APP = "App: patientqueueapp.mchtriage";
         public static final String DELIVERY_APP = "App: patientqueueapp.delivery";
         public static final String MATERNITY_TRIAGE_APP = "App: patientqueueapp.maternitytriage";
@@ -48,6 +50,7 @@ public class PatientQueueAppMetadata extends AbstractMetadataBundle {
 
         public static final String TRIAGE = "Nurse";
         public static final String DEATH_CERTIFICATION = "Death Certification";
+        public static final String EHR_REFERRALS = "EHR Referrals";
 
         //public static final String MATERNITY = "Maternity App";
 
@@ -66,6 +69,7 @@ public class PatientQueueAppMetadata extends AbstractMetadataBundle {
         install(privilege(_Privilege.OPD_MODULE_APP, "Able to access EHR OPD module features"));
         install(privilege(_Privilege.TRIAGE_MODULE_APP, "Able to access EHR triage module features"));
         install(privilege(_Privilege.DEATH_MODULE_APP, "Able to access EHR Death certification module features"));
+        install(privilege(_Privilege.EHR_REFERRAL_APP, "Able to access EHR referrals module features"));
 
         install(role(_Role.OPD, "Can access Key EHR OPD module App",
                 idSet(org.openmrs.module.kenyaemr.metadata.SecurityMetadata._Role.API_PRIVILEGES_VIEW_AND_EDIT),
@@ -79,16 +83,10 @@ public class PatientQueueAppMetadata extends AbstractMetadataBundle {
                 idSet(org.openmrs.module.kenyaemr.metadata.SecurityMetadata._Role.API_PRIVILEGES_VIEW_AND_EDIT),
                 idSet(_Privilege.DEATH_MODULE_APP)));
 
-        /*install(role(_Role.DELIVERY,"Can role for delivery app user",
-                idSet(SecurityMetadata._Role.API_PRIVILEGES_VIEW_AND_EDIT),
-                idSet(_Privilege.DELIVERY_APP,_Privilege.MATERNITY_TRIAGE_APP)));
+        install(role(_Role.EHR_REFERRALS, "Can access EHR Referrals module App",
+                idSet(org.openmrs.module.kenyaemr.metadata.SecurityMetadata._Role.API_PRIVILEGES_VIEW_AND_EDIT),
+                idSet(_Privilege.EHR_REFERRAL_APP)));
 
-        install(role(_Role.PAC_ROOM,"Role for Pac room user",
-                idSet(SecurityMetadata._Role.API_PRIVILEGES_VIEW_AND_EDIT),
-                idSet(_Privilege.MATERNITY_TRIAGE_APP,_Privilege.MCH_PAC_APP)));
 
-        install(role(_Role.MATERNITY,"Role for Maternity room user",
-                idSet(SecurityMetadata._Role.API_PRIVILEGES_VIEW_AND_EDIT),
-                idSet(_Privilege.MATERNITY_TRIAGE_APP)));*/
     }
 }
