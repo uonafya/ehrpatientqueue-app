@@ -31,7 +31,7 @@
               var rq = values[0];
               jQuery('#encounterId').val(rq);
               patientHistoryDialog.show();
-          } );
+        });
     });
     function populateTableHistorySummary(data) {
         jQuery("#historySummary").DataTable().clear().destroy();
@@ -42,6 +42,7 @@
 
           jQuery("#historySummaryItems").append("<tr><td>" + item + "</td><td>" + item + "</td></tr>");
         });
+    }
 </script>
 <div class="ke-panel-frame">
     <div class="ke-panel-heading">Patient Clinical History</div>

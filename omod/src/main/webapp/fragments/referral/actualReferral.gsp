@@ -4,7 +4,7 @@
       jq("#referralLocation").on("focus.autocomplete", function () {
                   jq(this).autocomplete({
                       source: function(request, response) {
-                              jq.getJSON('${ ui.actionLink("patientdashboardapp", "actualReferral", "getEncounterLocation") }', {
+                              jq.getJSON('${ ui.actionLink("patientdashboardapp", "referral/actualReferral", "getEncounterLocation") }', {
                                 q: request.term
                               }).success(function(data) {
                                 var results = [];
