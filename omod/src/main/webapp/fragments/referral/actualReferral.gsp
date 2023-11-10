@@ -4,7 +4,7 @@
       jq("#referralLocation").on("focus.autocomplete", function () {
                   jq(this).autocomplete({
                       source: function(request, response) {
-                              jq.getJSON('${ ui.actionLink("patientdashboardapp", "clinicalNotes", "getDiagnosis") }', {
+                              jq.getJSON('${ ui.actionLink("patientdashboardapp", "actualReferral", "getEncounterLocation") }', {
                                 q: request.term
                               }).success(function(data) {
                                 var results = [];
@@ -25,7 +25,14 @@
                             }
                   });
               });
+              jq("#confirmReferralBtn").on('click', function () {
+                  confirmReferral();
+                  ui.navigate('patientqueueapp', 'referral/referredPatients');
+              });
     });
+    function confirmReferral() {
+      alert("Ready to go");
+    }
 </script>
 <div class="ke-panel-frame">
     <div class="ke-panel-heading">Refer Patient from ths facility</div>
@@ -35,16 +42,16 @@
             <input type="text" id="referralLocation" name="referralLocation" placeholder="Select facility" size="60" />
         </p>
         <h2>Referral Reasons <span class="important">*</span></h2>
-        <p class="input-position-class">
             <select id="referralReason" name="referralReason">
               <% referralReason.each {%>
-                <option>${it}</option>
+                <option>${it.displayString}</option>
               <%}%>
             </select>
-        </p>
+        <h2>Clinical Notes</h2>
+            <textarea id="deathNotes" name="deathNotes" cols="50" rows="5"></textarea>
         <div class="onerow" style="margin-top: 60px">
 
-            <a class="button confirm" id="confirmBtn"
+            <a class="button confirm" id="confirmReferralBtn"
                style="float:right; display:inline-block; margin-left: 5px;">
                 <span>Refer</span>
             </a>

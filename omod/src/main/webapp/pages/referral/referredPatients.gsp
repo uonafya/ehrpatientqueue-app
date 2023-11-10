@@ -25,11 +25,12 @@
                 <li id="fFacilitiesR"><a href="#fromFacilitiesReferrals">From other facilities</a></li>
                 <li id="tFacilitiesR"><a href="#toFacilitiesReferrals">To other facilities</a></li>
             </ul>
-            <div id="fromFacilitiesReferrals">
-              ${ ui.includeFragment("patientqueueapp", "referral/fromFacilitiesReferrals") }
-            </div>
+
             <div id="toFacilitiesReferrals">
                   ${ ui.includeFragment("patientqueueapp", "referral/toFacilitiesReferral")}
+            </div>
+            <div id="fromFacilitiesReferrals">
+              ${ ui.includeFragment("patientqueueapp", "referral/fromFacilitiesReferrals") }
             </div>
     </div>
 </div>
