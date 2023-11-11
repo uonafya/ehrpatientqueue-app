@@ -2,6 +2,7 @@
     ui.decorateWith("kenyaemr", "standardPage", [ patient: currentPatient ])
     ui.includeJavascript("financials", "jquery.dataTables.min.js")
     ui.includeJavascript("ehrconfigs", "emr.js")
+    ui.includeJavascript("ehrconfigs", "jquery.simplemodal.1.4.4.min.js")
     ui.includeCss("ehrconfigs", "referenceapplication.css")
     ui.includeCss("financials", "jquery.dataTables.min.css")
 %>

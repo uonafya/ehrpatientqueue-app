@@ -25,11 +25,10 @@
             }
         });
 
-        jq('#shrHistoryTbl tbody').on( 'click', 'tr', function () {
+        jq('#shrHistoryTbl tbody').on( 'click', 'tr', function (e) {
               e.preventDefault();
               var values = tbl.row(this).data();
-              var rq = values[0];
-              jQuery('#encounterId').val(rq);
+              jQuery('#encounterId').val(values[0]);
               patientHistoryDialog.show();
         });
     });
