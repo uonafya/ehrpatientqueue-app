@@ -31,7 +31,12 @@
               });
     });
     function confirmReferral() {
-      alert("Ready to go");
+      jq.getJSON('${ ui.actionLink("patientqueueapp", "referral/actualReferral", "savePatientReferral") }', {
+            fromDate: jq("#summaryFromDate-field").val(),
+            toDate: jq("#summaryToDate-field").val()
+        }).success(function (data) {
+            populateBillItemsTable(data);
+        });
     }
 </script>
 <div class="ke-panel-frame">

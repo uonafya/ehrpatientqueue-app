@@ -12,7 +12,7 @@
             selector: '#view-patient-history-dialog',
             actions: {
                 cancel: function () {
-                    jq.getJSON('${ui.actionLink("patientqueueapp", "referralHistory", "getObservationPerEncounter")}',
+                    jq.getJSON('${ui.actionLink("patientqueueapp", "referral/referralHistory", "getObservationPerEncounter")}',
                         {
                             encounterId: jq("#encounterId").val()
                         }
@@ -39,7 +39,7 @@
 
         data.map((item) => {
 
-          jQuery("#historySummaryItems").append("<tr><td>" + item + "</td><td>" + item + "</td></tr>");
+          jQuery("#historySummaryItems").append("<tr><td>" + item.question + "</td><td>" + item.response + "</td><td>"+ item.comments +"</td></tr>");
         });
     }
 </script>
@@ -76,7 +76,7 @@
             <i class="icon-folder-open"></i>
             <h3>Patient Encounter History</h3>
         </div>
-        <input type="text" id="encounterId" name="encounterId" />
+        <input type="hidden" id="encounterId" name="encounterId" />
         <div class="dialog-content">
             <div>
               <table border="0" cellpadding="0" cellspacing="0" id="historySummary" width="100%">
@@ -90,6 +90,8 @@
                   <tbody id="historySummaryItems"></tbody>
               </table>
             </div>
+        </div>
+        <div class="dialog-footer">
             <div class="onerow">
                 <button class="button cancel right">Cancel</button>
             </div>

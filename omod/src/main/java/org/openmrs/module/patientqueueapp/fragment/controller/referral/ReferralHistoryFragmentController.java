@@ -6,12 +6,15 @@ import org.openmrs.Obs;
 import org.openmrs.Patient;
 import org.openmrs.api.EncounterService;
 import org.openmrs.api.context.Context;
+import org.openmrs.module.ehrconfigs.utils.EhrConfigsUtils;
+import org.openmrs.module.patientqueueapp.model.ObsSimplifier;
 import org.openmrs.parameter.EncounterSearchCriteria;
 import org.openmrs.ui.framework.SimpleObject;
 import org.openmrs.ui.framework.UiUtils;
 import org.openmrs.ui.framework.fragment.FragmentModel;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -46,9 +49,21 @@ public class ReferralHistoryFragmentController {
 
     public List<SimpleObject> getObservationPerEncounter(@RequestParam(value = "encounterId", required = false) Encounter encounter, UiUtils ui) {
         Set<Obs> obsSet = null;
+        System.out.println("The encounter used is>>"+encounter);
+        List<ObsSimplifier> obsSimplifierList = new ArrayList<ObsSimplifier>();
+        ObsSimplifier obsSimplifier;
         if(encounter != null) {
             obsSet = new HashSet<Obs>(encounter.getAllObs());
+            for(Obs obs: obsSet){
+                obsSimplifier = new ObsSimplifier();
+                obsSimplifier.setQuestion(obs.getConcept().getDisplayString());
+                obsSimplifier.setResponse(EhrConfigsUtils.getObsValues(obs));
+                if(obs.getComment() != null) {
+                    obsSimplifier.setComments(obs.getComment());
+                }
+                obsSimplifierList.add(obsSimplifier);
+            }
         }
-        return SimpleObject.fromCollection(obsSet, ui, "concept_id");
+        return SimpleObject.fromCollection(obsSimplifierList, ui, "question", "response", "comments");
     }
 }

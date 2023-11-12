@@ -26,7 +26,7 @@ public class ActualReferralFragmentController {
         Collection<ConceptAnswer> conceptAnswerList =  concept.getAnswers();
         List<Concept> conceptList = new ArrayList<Concept>();
         for(ConceptAnswer conceptAnswer : conceptAnswerList) {
-            conceptList.add(conceptAnswer.getConcept());
+            conceptList.add(conceptAnswer.getAnswerConcept());
         }
         return conceptList;
     }
@@ -35,5 +35,9 @@ public class ActualReferralFragmentController {
         HospitalCoreService hospitalCoreService = Context.getService(HospitalCoreService.class);
         List<Location> locationList = hospitalCoreService.getLocationsBasedOnNameOrMflCode(name);
         return SimpleObject.fromCollection(locationList, ui, "locationId", "name", "uuid");
+    }
+
+    public void savePatientReferral() {
+
     }
 }
