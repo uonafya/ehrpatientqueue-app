@@ -87,8 +87,7 @@
                   <tbody id="historySummaryItems"></tbody>
               </table>
             </div>
-        </div>
-        <div class="dialog-footer">
+            <hr />
             <div class="onerow">
                 <button class="button cancel right">Cancel</button>
             </div>
