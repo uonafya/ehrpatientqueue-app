@@ -37,7 +37,15 @@ public class ActualReferralFragmentController {
         return SimpleObject.fromCollection(locationList, ui, "locationId", "name", "uuid");
     }
 
-    public void savePatientReferral() {
+    public void savePatientReferral(@RequestParam(value = "referralType", required = false) String referralType,
+                                    @RequestParam(value = "referralCommunityUnit", required = false) String referralCommunityUnit,
+                                    @RequestParam(value = "referralCommunityName", required = false) String referralCommunityName,
+                                    @RequestParam(value = "referralFacilityLocation", required = false) String referralFacilityLocation,
+                                    @RequestParam(value = "referralReason", required = false) String referralReason,
+                                    @RequestParam(value = "referralNotes", required = false) String referralNotes
+                                    ){
+
+
 
     }
 }

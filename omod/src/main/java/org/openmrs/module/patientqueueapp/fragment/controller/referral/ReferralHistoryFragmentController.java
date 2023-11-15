@@ -49,7 +49,6 @@ public class ReferralHistoryFragmentController {
 
     public List<SimpleObject> getObservationPerEncounter(@RequestParam(value = "encounterId", required = false) Encounter encounter, UiUtils ui) {
         Set<Obs> obsSet = null;
-        System.out.println("The encounter used is>>"+encounter);
         List<ObsSimplifier> obsSimplifierList = new ArrayList<ObsSimplifier>();
         ObsSimplifier obsSimplifier;
         if(encounter != null) {
@@ -60,6 +59,9 @@ public class ReferralHistoryFragmentController {
                 obsSimplifier.setResponse(EhrConfigsUtils.getObsValues(obs));
                 if(obs.getComment() != null) {
                     obsSimplifier.setComments(obs.getComment());
+                }
+                else {
+                    obsSimplifier.setComments("");
                 }
                 obsSimplifierList.add(obsSimplifier);
             }

@@ -1,7 +1,7 @@
 <script>
     var jq = jQuery;
     jq(function () {
-      jq("#referralLocation").on("focus.autocomplete", function () {
+      jq("#referralFacilityLocation").on("focus.autocomplete", function () {
                   jq(this).autocomplete({
                       source: function(request, response) {
                               jq.getJSON('${ ui.actionLink("patientqueueapp", "referral/actualReferral", "getEncounterLocation") }', {
@@ -28,39 +28,72 @@
               jq("#confirmReferralBtn").on('click', function () {
                   confirmReferral();
                   ui.navigate('patientqueueapp', 'referral/referredPatients');
+                  location.reload();
+              });
+              jq("#referralType").on('change', function() {
+                var response = jq(this).val();
+                if(response === 'Community') {
+                    jq("#communityDiv").show();
+                    jq("#facilityDiv").hide();
+                }
+                if(response === 'Facility') {
+                  jq("#communityDiv").hide();
+                  jq("#facilityDiv").show();
+                }
               });
     });
     function confirmReferral() {
       jq.getJSON('${ ui.actionLink("patientqueueapp", "referral/actualReferral", "savePatientReferral") }', {
-            fromDate: jq("#summaryFromDate-field").val(),
-            toDate: jq("#summaryToDate-field").val()
+            referralType: jq("#referralType").val(),
+            referralCommunityUnit: jq("#referralCommunityUnit").val(),
+            referralCommunityName: jq("#referralCommunityName").val(),
+            referralFacilityLocation: jq("#referralFacilityLocation").val(),
+            referralReason: jq("#referralReason").val(),
+            referralNotes: jq("#referralNotes").val()
         }).success(function (data) {
-            populateBillItemsTable(data);
         });
     }
 </script>
 <div class="ke-panel-frame">
     <div class="ke-panel-heading">Refer Patient from ths facility</div>
     <div class="ke-panel-content">
-        <h2>Facility to refer patient to <span class="important">*</span></h2>
-        <p class="input-position-class">
-            <input type="text" id="referralLocation" name="referralLocation" placeholder="Select facility" size="60" />
-        </p>
-        <h2>Referral Reasons <span class="important">*</span></h2>
+        <h2>Referral Type</h2>
+        <select id="referralType" name="referralType">
+          <option></option>
+          <option value="Community">Community Referral</option>
+          <option value="Facility">Facility Referral</option>
+        </select>
+        <div id="communityDiv" style="display:none">
+          <h2>Community unit to refer patient to</span></h2>
+          <p class="input-position-class">
+              <input type="text" id="referralCommunityUnit" name="referralCommunityUnit" placeholder="Enter Community unit code" size="60" />
+          </p>
+          <h2>Community name to refer patient to</span></h2>
+          <p class="input-position-class">
+              <input type="text" id="referralCommunityName" name="referralCommunityName" placeholder="Enter Community unit name" size="60" />
+          </p>
+        </div>
+        <div id="facilityDiv" style="display:none">
+          <h2>Facility to refer patient to</span></h2>
+          <p class="input-position-class">
+              <input type="text" id="referralFacilityLocation" name="referralFacilityLocation" placeholder="Select facility" size="60" />
+          </p>
+        </div>
+        <h2>Referral Reasons</span></h2>
             <select id="referralReason" name="referralReason">
+              <option value=""></option>
               <% referralReason.each {%>
-                <option>${it.displayString}</option>
+                <option value="${it.conceptId}">${it.displayString}</option>
               <%}%>
             </select>
         <h2>Clinical Notes</h2>
-            <textarea id="deathNotes" name="deathNotes" cols="50" rows="5"></textarea>
+        <textarea id="referralNotes" name="referralNotes" cols="50" rows="5"></textarea>
         <div class="onerow" style="margin-top: 60px">
 
             <a class="button confirm" id="confirmReferralBtn"
                style="float:right; display:inline-block; margin-left: 5px;">
                 <span>Refer</span>
             </a>
-
             <a class="button cancel" onclick="window.location.href = window.location.href"
                style="float:right; display:inline-block;"/>
                 <span>Reset</span>

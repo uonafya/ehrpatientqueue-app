@@ -12,15 +12,7 @@
             selector: '#view-patient-history-dialog',
             actions: {
                 cancel: function () {
-                    jq.getJSON('${ui.actionLink("patientqueueapp", "referral/referralHistory", "getObservationPerEncounter")}',
-                        {
-                            encounterId: jq("#encounterId").val()
-                        }
-                    ).success(function (data) {
-                        populateTableHistorySummary(data);
-                        patientHistoryDialog.close();
-                        location.reload();
-                    });
+                  patientHistoryDialog.close();
                 }
             }
         });
@@ -29,6 +21,7 @@
               e.preventDefault();
               var values = tbl.row(this).data();
               jQuery('#encounterId').val(values[0]);
+              getHistoricalDetails();
               patientHistoryDialog.show();
         });
     });
@@ -36,17 +29,22 @@
         jQuery("#historySummary").DataTable().clear().destroy();
 
         jQuery("#historySummaryItems").empty();
-
         data.map((item) => {
-
-          jQuery("#historySummaryItems").append("<tr><td>" + item.question + "</td><td>" + item.response + "</td><td>"+ item.comments +"</td></tr>");
+          jQuery("#historySummaryItems").append("<tr><td>" + item.question + "</td><td>" + item.response + "</td></tr>");
         });
     }
+    function getHistoricalDetails() {
+          jq.getJSON('${ ui.actionLink("patientqueueapp", "referral/referralHistory", "getObservationPerEncounter") }', {
+                encounterId: jq("#encounterId").val()
+            }).success(function (data) {
+              populateTableHistorySummary(data);
+            });
+        }
 </script>
 <div class="ke-panel-frame">
     <div class="ke-panel-heading">Patient Clinical History</div>
     <div class="ke-panel-content" style="background-color: #F3F9FF;">
-        <table id="shrHistoryTbl">
+        <table id="shrHistoryTbl" width="100%">
             <thead>
               <tr>
                   <th style="display: none;">ID</th>
@@ -71,7 +69,7 @@
             </tbody>
         </table>
     </div>
-    <div id="view-patient-history-dialog" class="dialog" style="display:none;">
+    <div id="view-patient-history-dialog" class="dialog" style="display:none;  height: auto !important; width: 600px; !important;">
         <div class="dialog-header">
             <i class="icon-folder-open"></i>
             <h3>Patient Encounter History</h3>
@@ -84,7 +82,6 @@
                   <tr>
                       <th>Question</th>
                       <th>Observation</th>
-                      <th>Comments</th>
                   </tr>
                   </thead>
                   <tbody id="historySummaryItems"></tbody>
