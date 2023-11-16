@@ -28,7 +28,7 @@
               jq("#confirmReferralBtn").on('click', function () {
                   confirmReferral();
                   ui.navigate('patientqueueapp', 'referral/referredPatients');
-                  jq().toastmessage('showSuccessToast', 'Patient referral created successfully!');
+                  jq().toastmessage('showSuccessToast', 'Patient referral created successfully Posted!');
               });
               jq("#referralType").on('change', function() {
                 var response = jq(this).val();
@@ -49,7 +49,8 @@
             referralCommunityName: jq("#referralCommunityName").val(),
             referralFacilityLocation: jq("#referralFacilityLocation").val(),
             referralReason: jq("#referralReason").val(),
-            referralNotes: jq("#referralNotes").val()
+            referralNotes: jq("#referralNotes").val(),
+            patient: jq("#patientId").val(),
         }).success(function (data) {
         });
     }
@@ -57,12 +58,12 @@
 <div class="ke-panel-frame">
     <div class="ke-panel-heading">Refer Patient from ths facility</div>
     <div class="ke-panel-content">
+      <input type="hidden" id="patientId" name="patient" />
         <h2>Referral Type</h2>
         <select id="referralType" name="referralType">
-          <option></option>
-          <% referralType.each {%>
-            <option value="${it.conceptId}">${it.displayString}</option>
-          <%}%>
+          <option value="">--- Select an option----</option>
+            <option value="Facility">Health facility</option>
+            <option value="Community">Community unit</option>
         </select>
         <div id="communityDiv" style="display:none">
           <h2>Community unit to refer patient to</span></h2>
