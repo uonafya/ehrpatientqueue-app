@@ -58,7 +58,7 @@
 <div class="ke-panel-frame">
     <div class="ke-panel-heading">Refer Patient from ths facility</div>
     <div class="ke-panel-content">
-      <input type="hidden" id="patientId" name="patient" />
+      <input type="hidden" id="patientId" name="patient" value="${patient}" />
         <h2>Referral Type</h2>
         <select id="referralType" name="referralType">
           <option value="">--- Select an option----</option>
@@ -83,7 +83,7 @@
         </div>
         <h2>Referral Reasons</span></h2>
             <select id="referralReason" name="referralReason">
-              <option value=""></option>
+              <option value="">--- Select an option----</option>
               <% referralReason.each {%>
                 <option value="${it.conceptId}">${it.displayString}</option>
               <%}%>
