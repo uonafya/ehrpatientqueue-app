@@ -69,7 +69,7 @@
             </tbody>
         </table>
     </div>
-    <div id="view-patient-history-dialog" class="dialog" style="display:none;  height: auto !important; width: 600px; !important;">
+    <div id="view-patient-history-dialog" class="dialog" style="display:none;  height: auto !important; width: 650px; !important;">
         <div class="dialog-header">
             <i class="icon-folder-open"></i>
             <h3>Patient Encounter History</h3>

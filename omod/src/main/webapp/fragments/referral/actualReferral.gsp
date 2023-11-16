@@ -1,7 +1,7 @@
 <script>
     var jq = jQuery;
     jq(function () {
-      jq("#referralFacilityLocation").on("focus.autocomplete", function () {
+        jq("#referralFacilityLocation").on("focus.autocomplete", function () {
                   jq(this).autocomplete({
                       source: function(request, response) {
                               jq.getJSON('${ ui.actionLink("patientqueueapp", "referral/actualReferral", "getEncounterLocation") }', {
@@ -24,11 +24,11 @@
                               jq(this).val(ui.item.label);
                             }
                   });
-              });
+        });
               jq("#confirmReferralBtn").on('click', function () {
                   confirmReferral();
                   ui.navigate('patientqueueapp', 'referral/referredPatients');
-                  location.reload();
+                  jq().toastmessage('showSuccessToast', 'Patient referral created successfully!');
               });
               jq("#referralType").on('change', function() {
                 var response = jq(this).val();
@@ -60,8 +60,9 @@
         <h2>Referral Type</h2>
         <select id="referralType" name="referralType">
           <option></option>
-          <option value="Community">Community Referral</option>
-          <option value="Facility">Facility Referral</option>
+          <% referralType.each {%>
+            <option value="${it.conceptId}">${it.displayString}</option>
+          <%}%>
         </select>
         <div id="communityDiv" style="display:none">
           <h2>Community unit to refer patient to</span></h2>

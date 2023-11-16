@@ -2,8 +2,10 @@ package org.openmrs.module.patientqueueapp.fragment.controller.referral;
 
 import org.openmrs.Concept;
 import org.openmrs.ConceptAnswer;
+import org.openmrs.EncounterType;
 import org.openmrs.Location;
 import org.openmrs.Patient;
+import org.openmrs.api.EncounterService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.hospitalcore.HospitalCoreService;
 import org.openmrs.ui.framework.SimpleObject;
@@ -12,6 +14,7 @@ import org.openmrs.ui.framework.fragment.FragmentModel;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
@@ -20,6 +23,7 @@ public class ActualReferralFragmentController {
     public void controller(FragmentModel model, @RequestParam(value = "patientId", required = false) Patient patient) {
         Concept referralReasonCoded = Context.getConceptService().getConceptByUuid("1887AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
         model.addAttribute("referralReason", getReferralReasons(referralReasonCoded));
+        model.addAttribute("referralType", referralTypeConceptsList());
     }
 
     private List<Concept> getReferralReasons(Concept concept) {
@@ -45,7 +49,15 @@ public class ActualReferralFragmentController {
                                     @RequestParam(value = "referralNotes", required = false) String referralNotes
                                     ){
 
+        EncounterService encounterService = Context.getEncounterService();
+        EncounterType referralEncounterType = encounterService.getEncounterTypeByUuid("ee366157-d40b-4204-8de8-c24262c65b5a");
 
+    }
 
+    private List<Concept> referralTypeConceptsList() {
+        return Arrays.asList(
+                Context.getConceptService().getConceptByUuid(""),
+                Context.getConceptService().getConceptByUuid("")
+        );
     }
 }
