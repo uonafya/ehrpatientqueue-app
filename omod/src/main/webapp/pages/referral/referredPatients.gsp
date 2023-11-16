@@ -22,8 +22,8 @@
 <div class="ke-page-content">
     <div id="ftabs">
             <ul>
-                <li id="fFacilitiesR"><a href="#fromFacilitiesReferrals">From other facilities</a></li>
                 <li id="tFacilitiesR"><a href="#toFacilitiesReferrals">To other facilities</a></li>
+                <li id="fFacilitiesR"><a href="#fromFacilitiesReferrals">From other facilities</a></li>
             </ul>
 
             <div id="toFacilitiesReferrals">

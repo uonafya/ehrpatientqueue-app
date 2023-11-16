@@ -6,6 +6,7 @@ import org.openmrs.ConceptAnswer;
 import org.openmrs.Encounter;
 import org.openmrs.EncounterType;
 import org.openmrs.Location;
+import org.openmrs.Obs;
 import org.openmrs.Patient;
 import org.openmrs.api.EncounterService;
 import org.openmrs.api.LocationService;
@@ -31,7 +32,6 @@ public class ActualReferralFragmentController {
     public void controller(FragmentModel model, @RequestParam(value = "patientId", required = false) Patient patient) {
         Concept referralReasonCoded = Context.getConceptService().getConceptByUuid("1887AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
         model.addAttribute("referralReason", getReferralReasons(referralReasonCoded));
-        model.addAttribute("referralType", referralTypeConceptsList());
         model.addAttribute("patient", patient.getPatientId());
     }
 
@@ -65,7 +65,7 @@ public class ActualReferralFragmentController {
         //referral type 160481AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
         //community unit code 8c55b6c9-f2c8-45a7-9d5e-cc900a8fa8f7
         //community unit name 3806ee11-4f21-4176-82da-1a27be1aeaaf
-        //facility referred to
+        //facility referred to 159495AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
         //reason for referral 1887AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
         //referral notes 159395AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
         EhrReferralComponent ehrReferralComponent;
@@ -90,6 +90,8 @@ public class ActualReferralFragmentController {
             }
             ehrReferralComponent.setCreatedOn(new Date());
             ehrReferralComponent.setCreatorBy(Context.getAuthenticatedUser());
+            ehrReferralComponent.setPatient(patient);
+
             //save the component and persist
             hospitalCoreService.createEhrReferralComponent(ehrReferralComponent);
             //add an encounter creation and attach obs to it
@@ -102,6 +104,21 @@ public class ActualReferralFragmentController {
             referralEncounter.setLocation(Context.getService(KenyaEmrService.class).getDefaultLocation());
             referralEncounter.setVisit(EhrConfigsUtils.getLastVisitForPatient(patient));
             referralEncounter.setDateCreated(new Date());
+
+            //start building observations
+            Obs referralTypeObs = new Obs();
+            referralTypeObs.setPerson(patient);
+            referralTypeObs.setObsDatetime(new Date());
+            referralTypeObs.setEncounter(referralEncounter);
+            referralTypeObs.setLocation(Context.getService(KenyaEmrService.class).getDefaultLocation());
+            referralTypeObs.setDateCreated(new Date());
+            referralTypeObs.setCreator(Context.getAuthenticatedUser());
+            referralTypeObs.setConcept(Context.getConceptService().getConceptByUuid("160481AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"));
+            referralTypeObs.setValueCoded(referralType(referralType));
+
+            //add this obs to the encounter
+            referralEncounter.addObs(referralTypeObs);
+
             //referralEncounter.setObs(); //supply the observations with this line
             //save the encounter
             encounterService.saveEncounter(referralEncounter);
@@ -111,10 +128,15 @@ public class ActualReferralFragmentController {
 
     }
 
-    private List<Concept> referralTypeConceptsList() {
-        return Arrays.asList(
-                Context.getConceptService().getConceptByUuid("1537AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"),
-                Context.getConceptService().getConceptByUuid("4fcf003e-71cf-47a5-a967-47d24aa61092")
-        );
+    private Concept referralType(String value) {
+        if(value.equals("facility")){
+            return Context.getConceptService().getConceptByUuid("1537AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        }
+        else if(value.equals("community")){
+            return Context.getConceptService().getConceptByUuid("4fcf003e-71cf-47a5-a967-47d24aa61092");
+        }
+        else {
+            return  null;
+        }
     }
 }

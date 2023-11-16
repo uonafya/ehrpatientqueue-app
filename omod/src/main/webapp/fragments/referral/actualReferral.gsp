@@ -62,8 +62,8 @@
         <h2>Referral Type</h2>
         <select id="referralType" name="referralType">
           <option value="">--- Select an option----</option>
-            <option value="Facility">Health facility</option>
-            <option value="Community">Community unit</option>
+            <option value="facility">Health facility</option>
+            <option value="community">Community unit</option>
         </select>
         <div id="communityDiv" style="display:none">
           <h2>Community unit to refer patient to</span></h2>
