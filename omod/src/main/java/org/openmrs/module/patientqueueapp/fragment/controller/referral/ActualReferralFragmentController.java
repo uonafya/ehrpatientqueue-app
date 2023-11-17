@@ -56,44 +56,27 @@ public class ActualReferralFragmentController {
                                     @RequestParam(value = "referralFacilityLocation", required = false) String referralFacilityLocation,
                                     @RequestParam(value = "referralReason", required = false) Concept referralReason,
                                     @RequestParam(value = "referralNotes", required = false) String referralNotes,
-                                    @RequestParam(value = "patientId", required = false) Patient patient
+                                    @RequestParam(value = "patient", required = false) Patient patient
                                     ){
 
         EncounterService encounterService = Context.getEncounterService();
         HospitalCoreService hospitalCoreService = Context.getService(HospitalCoreService.class);
         EncounterType referralEncounterType = encounterService.getEncounterTypeByUuid("ee366157-d40b-4204-8de8-c24262c65b5a");
-        //referral type 160481AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        //community unit code 8c55b6c9-f2c8-45a7-9d5e-cc900a8fa8f7
-        //community unit name 3806ee11-4f21-4176-82da-1a27be1aeaaf
-        //facility referred to 159495AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        ////////referral type 160481AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        //////community unit code 8c55b6c9-f2c8-45a7-9d5e-cc900a8fa8f7
+        /////community unit name 3806ee11-4f21-4176-82da-1a27be1aeaaf
+        ////facility referred to 159495AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
         //reason for referral 1887AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
         //referral notes 159395AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
         EhrReferralComponent ehrReferralComponent;
+        Obs referralCommunityUnitCodeObs = null;
+        Obs referralCommunityNameObs = null;
+        Obs referralFacilityLocationObs = null;
+        Obs referralReasonObs = null;
+        Obs referralNotesObs = null;
         if(referralType != null) {
             ehrReferralComponent = new EhrReferralComponent();
             ehrReferralComponent.setReferralType(referralType);
-            if(StringUtils.isNotBlank(referralCommunityUnit)) {
-                ehrReferralComponent.setReferralCommunityUnit(referralCommunityUnit);
-            }
-            if(StringUtils.isNotBlank(referralCommunityName)){
-                ehrReferralComponent.setReferralCommunityName(referralCommunityName);
-            }
-            if(StringUtils.isNotBlank(referralFacilityLocation)) {
-                String mflCode = hospitalCoreService.getMflCodeFromLocationAttribute(Context.getLocationService().getLocation(referralFacilityLocation));
-                ehrReferralComponent.setReferralFacilityLocation(referralFacilityLocation+"-"+mflCode);
-            }
-            if(referralReason != null) {
-                ehrReferralComponent.setReferralReason(referralReason);
-            }
-            if(StringUtils.isNotBlank(referralNotes)) {
-                ehrReferralComponent.setReferralNotes(referralNotes);
-            }
-            ehrReferralComponent.setCreatedOn(new Date());
-            ehrReferralComponent.setCreatorBy(Context.getAuthenticatedUser());
-            ehrReferralComponent.setPatient(patient);
-
-            //save the component and persist
-            hospitalCoreService.createEhrReferralComponent(ehrReferralComponent);
             //add an encounter creation and attach obs to it
             Encounter referralEncounter = new Encounter();
             referralEncounter.setPatient(patient);
@@ -105,7 +88,7 @@ public class ActualReferralFragmentController {
             referralEncounter.setVisit(EhrConfigsUtils.getLastVisitForPatient(patient));
             referralEncounter.setDateCreated(new Date());
 
-            //start building observations
+            //start building observations referral type
             Obs referralTypeObs = new Obs();
             referralTypeObs.setPerson(patient);
             referralTypeObs.setObsDatetime(new Date());
@@ -116,8 +99,84 @@ public class ActualReferralFragmentController {
             referralTypeObs.setConcept(Context.getConceptService().getConceptByUuid("160481AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"));
             referralTypeObs.setValueCoded(referralType(referralType));
 
+            if(StringUtils.isNotBlank(referralCommunityUnit)) {
+                ehrReferralComponent.setReferralCommunityUnit(referralCommunityUnit);
+                //referral community unit code
+                referralCommunityUnitCodeObs = new Obs();
+                referralCommunityUnitCodeObs.setPerson(patient);
+                referralCommunityUnitCodeObs.setObsDatetime(new Date());
+                referralCommunityUnitCodeObs.setEncounter(referralEncounter);
+                referralCommunityUnitCodeObs.setLocation(Context.getService(KenyaEmrService.class).getDefaultLocation());
+                referralCommunityUnitCodeObs.setDateCreated(new Date());
+                referralCommunityUnitCodeObs.setCreator(Context.getAuthenticatedUser());
+                referralCommunityUnitCodeObs.setConcept(Context.getConceptService().getConceptByUuid("8c55b6c9-f2c8-45a7-9d5e-cc900a8fa8f7"));
+                referralCommunityUnitCodeObs.setValueText(referralCommunityUnit);
+            }
+            if(StringUtils.isNotBlank(referralCommunityName)){
+                ehrReferralComponent.setReferralCommunityName(referralCommunityName);
+                referralCommunityNameObs = new Obs();
+                referralCommunityNameObs.setPerson(patient);
+                referralCommunityNameObs.setObsDatetime(new Date());
+                referralCommunityNameObs.setEncounter(referralEncounter);
+                referralCommunityNameObs.setLocation(Context.getService(KenyaEmrService.class).getDefaultLocation());
+                referralCommunityNameObs.setDateCreated(new Date());
+                referralCommunityNameObs.setCreator(Context.getAuthenticatedUser());
+                referralCommunityNameObs.setConcept(Context.getConceptService().getConceptByUuid("3806ee11-4f21-4176-82da-1a27be1aeaaf"));
+                referralCommunityNameObs.setValueText(referralCommunityName);
+            }
+            if(StringUtils.isNotBlank(referralFacilityLocation)) {
+                String mflCode = hospitalCoreService.getMflCodeFromLocationAttribute(Context.getLocationService().getLocation(referralFacilityLocation));
+                ehrReferralComponent.setReferralFacilityLocation(referralFacilityLocation+"-"+mflCode);
+                referralFacilityLocationObs = new Obs();
+                referralFacilityLocationObs.setPerson(patient);
+                referralFacilityLocationObs.setObsDatetime(new Date());
+                referralFacilityLocationObs.setEncounter(referralEncounter);
+                referralFacilityLocationObs.setLocation(Context.getService(KenyaEmrService.class).getDefaultLocation());
+                referralFacilityLocationObs.setDateCreated(new Date());
+                referralFacilityLocationObs.setCreator(Context.getAuthenticatedUser());
+                referralFacilityLocationObs.setConcept(Context.getConceptService().getConceptByUuid("159495AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"));
+                referralFacilityLocationObs.setValueText(Context.getLocationService().getLocation(referralFacilityLocation).getUuid());
+            }
+            if(referralReason != null) {
+                ehrReferralComponent.setReferralReason(referralReason);
+                referralReasonObs = new Obs();
+                referralReasonObs.setPerson(patient);
+                referralReasonObs.setObsDatetime(new Date());
+                referralReasonObs.setEncounter(referralEncounter);
+                referralReasonObs.setLocation(Context.getService(KenyaEmrService.class).getDefaultLocation());
+                referralReasonObs.setDateCreated(new Date());
+                referralReasonObs.setCreator(Context.getAuthenticatedUser());
+                referralReasonObs.setConcept(Context.getConceptService().getConceptByUuid("1887AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"));
+                referralReasonObs.setValueCoded(referralReason);
+            }
+            if(StringUtils.isNotBlank(referralNotes)) {
+                ehrReferralComponent.setReferralNotes(referralNotes);
+                referralNotesObs = new Obs();
+                referralNotesObs.setPerson(patient);
+                referralNotesObs.setObsDatetime(new Date());
+                referralNotesObs.setEncounter(referralEncounter);
+                referralNotesObs.setLocation(Context.getService(KenyaEmrService.class).getDefaultLocation());
+                referralNotesObs.setDateCreated(new Date());
+                referralNotesObs.setCreator(Context.getAuthenticatedUser());
+                referralNotesObs.setConcept(Context.getConceptService().getConceptByUuid("159395AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"));
+                referralNotesObs.setValueText(referralNotes);
+            }
+            ehrReferralComponent.setCreatedOn(new Date());
+            ehrReferralComponent.setCreatorBy(Context.getAuthenticatedUser());
+            ehrReferralComponent.setPatient(patient);
+
+            //save the component and persist
+            hospitalCoreService.createEhrReferralComponent(ehrReferralComponent);
+
+
+
             //add this obs to the encounter
             referralEncounter.addObs(referralTypeObs);
+            referralEncounter.addObs(referralCommunityUnitCodeObs);
+            referralEncounter.addObs(referralCommunityNameObs);
+            referralEncounter.addObs(referralFacilityLocationObs);
+            referralEncounter.addObs(referralReasonObs);
+            referralEncounter.addObs(referralNotesObs);
 
             //referralEncounter.setObs(); //supply the observations with this line
             //save the encounter

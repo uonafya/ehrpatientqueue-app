@@ -11,7 +11,7 @@ import org.openmrs.ui.framework.fragment.FragmentModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ToFacilitiesReferralFragmentController {
+public class ToCommunityUnitsFragmentController {
 
     public void controller(FragmentModel model) {
         HospitalCoreService hospitalCoreService = Context.getService(HospitalCoreService.class);
@@ -25,8 +25,8 @@ public class ToFacilitiesReferralFragmentController {
             patientReferralObject.setReferralReason(ehrReferralComponent.getReferralReason().getDisplayString());
             patientReferralObject.setDateCreated(DateUtils.getDateFromDateAsString(ehrReferralComponent.getCreatedOn(), "yyyy-mm-dd hh:mm"));
             patientReferralObject.setCreator(ehrReferralComponent.getCreatorBy().getGivenName()+" "+ehrReferralComponent.getCreatorBy().getFamilyName());
-            patientReferralObject.setFacilityCodeReferredTo(hospitalCoreService.getMflCodeFromLocationAttribute(Context.getLocationService().getLocation(ehrReferralComponent.getReferralFacilityLocation())));
-            patientReferralObject.setFacilityNameReferredTo(ehrReferralComponent.getReferralFacilityLocation());
+            patientReferralObject.setCommunityUnitCodeReferredTo(ehrReferralComponent.getReferralCommunityUnit());
+            patientReferralObject.setReferralCommunityName(ehrReferralComponent.getReferralCommunityName());
             patientReferralObject.setReferralNotes(ehrReferralComponent.getReferralNotes());
 
             patientReferralObjectList.add(patientReferralObject);

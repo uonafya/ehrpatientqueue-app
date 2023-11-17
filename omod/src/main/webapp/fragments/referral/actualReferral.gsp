@@ -32,11 +32,11 @@
               });
               jq("#referralType").on('change', function() {
                 var response = jq(this).val();
-                if(response === 'Community') {
+                if(response === 'community') {
                     jq("#communityDiv").show();
                     jq("#facilityDiv").hide();
                 }
-                if(response === 'Facility') {
+                if(response === 'facility') {
                   jq("#communityDiv").hide();
                   jq("#facilityDiv").show();
                 }
