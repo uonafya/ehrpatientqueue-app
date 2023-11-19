@@ -76,6 +76,13 @@
 
 			<groupId>org.openmrs.module</groupId>
 
+			<artifactId>kenyaemrIL-api</artifactId>
+
+		</dependency>
+		<dependency>
+
+			<groupId>org.openmrs.module</groupId>
+
 			<artifactId>kenyaemr-api</artifactId>
 
 		</dependency>

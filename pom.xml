@@ -44,6 +44,9 @@
 		<appframeworkVersion>2.9</appframeworkVersion>
 		<hospitalcoreVersion>2.0.3-SNAPSHOT</hospitalcoreVersion>
 		<ehrconfigsVersion>2.0.1-SNAPSHOT</ehrconfigsVersion>
+		<kenyaemrILVersion>1.3.0</kenyaemrILVersion>
+		<fhir2Version>1.3.0</fhir2Version>
+		<fhir-core.version>5.4.0</fhir-core.version>
 	</properties>
 
 	<dependencyManagement>
@@ -136,6 +139,33 @@
 				<artifactId>kenyaemr-api</artifactId>
 				<version>${kenyaemrVersion}</version>
 				<scope>provided</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>org.openmrs.module</groupId>
+				<artifactId>kenyaemrIL-api</artifactId>
+				<version>${kenyaemrILVersion}</version>
+				<scope>provided</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>org.openmrs.module</groupId>
+				<artifactId>kenyaemrIL-omod</artifactId>
+				<version>${kenyaemrILVersion}</version>
+				<scope>provided</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>ca.uhn.hapi.fhir</groupId>
+				<artifactId>org.hl7.fhir.r4</artifactId>
+				<version>${fhir-core.version}</version>
+				<scope>provided</scope>
+				<exclusions>
+					<exclusion>
+						<groupId>ca.uhn.hapi.fhir</groupId>
+						<artifactId>hapi-fhir-base</artifactId>
+					</exclusion>
+				</exclusions>
 			</dependency>
 
 			<!-- Begin OpenMRS core -->

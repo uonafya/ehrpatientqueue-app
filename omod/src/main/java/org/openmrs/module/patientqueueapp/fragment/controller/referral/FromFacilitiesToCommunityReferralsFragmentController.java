@@ -26,7 +26,7 @@ public class FromFacilitiesToCommunityReferralsFragmentController {
             patientReferralObject.setDateCreated(DateUtils.getDateFromDateAsString(ehrReferralComponent.getCreatedOn(), "yyyy-mm-dd hh:mm"));
             patientReferralObject.setCreator(ehrReferralComponent.getCreatorBy().getGivenName()+" "+ehrReferralComponent.getCreatorBy().getFamilyName());
             patientReferralObject.setCommunityUnitCodeReferredTo(ehrReferralComponent.getReferralCommunityUnit());
-            patientReferralObject.setReferralCommunityName(ehrReferralComponent.getReferralCommunityName());
+            patientReferralObject.setCommunityUnitNameReferredTo(ehrReferralComponent.getReferralCommunityName());
             patientReferralObject.setReferralNotes(ehrReferralComponent.getReferralNotes());
 
             patientReferralObjectList.add(patientReferralObject);
