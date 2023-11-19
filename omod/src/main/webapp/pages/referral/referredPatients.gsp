@@ -47,15 +47,58 @@
       });
       var activeReferralsTbl = jq('#activeReferralsTbl').DataTable();
       var completedReferralsTbl = jq('#completedReferralsTbl').DataTable();
+      populateTableBodyForActiveReferralSummaryItems(${activeReferralList});
+      populateTableBodyForServicedReferralSummaryItems(${completedReferralList});
+
+      jq('#activeReferralsTbl tbody').on( 'click', 'tr', function (e) {
+            e.preventDefault();
+            var values = tbl.row(this).data();
+            console.log(values);
+            jQuery('#activeId').val(values[5]);
+            getClientShrDetails();
+            //patientHistoryDialog.show();
+      });
     });
+    function populateTableBodyForActiveReferralSummaryItems(data) {
+    jQuery("#activeReferralsTbl").DataTable().clear().destroy();
+      data.map((item) => {
+        jQuery("#activeReferralTbody").append("<tr><td>" + item.givenName+ "</td><td>" + item.middleName + "</td><td>" + item.familyName+ "</td><td>" + item.gender +"</td><td>" + item.birthdate +"</td><td>" + item.nupi +"</td><td>" + item.dateReferred
+ +"</td><td>" + item.referredFrom + "</td></tr>");
+      });
+    }
+    function populateTableBodyForServicedReferralSummaryItems(data) {
+      jQuery("#completedReferralsTbl").DataTable().clear().destroy();
+          data.map((item) => {
+            jQuery("#servicedReferralTbody").append("<tr><td>" + item.givenName+ "</td><td>" + item.middleName + "</td><td>" + item.familyName+ "</td><td>" + item.gender +"</td><td>" + item.birthdate +"</td><td>" + item.nupi +"</td><td>" + item.dateReferred
+     +"</td><td>" + item.referredFrom + "</td></tr>");
+          });
+    }
+    function getClientShrDetails(){
+      jq.getJSON('${ ui.actionLink("patientqueueapp", "referral/referralHistory", "getPatientShrHistory") }', {
+                      activeId: jq("#activeId").val()
+                  }).success(function (data) {
+                    //populateTableHistorySummary(data);
+                    console.log("Waiting for input from user");
+                  });
+    }
 </script>
 <div class="ke-page-sidebar">
     ${ ui.includeFragment("kenyaui", "widget/panelMenu", [ heading: "Tasks", items: menuItems ]) }
 </div>
 <div class="ke-page-content">
+    <br />
     <div style="float: right;">
-        <button id="getReferrals" class="ui-state-default">Pull Referrals</button>
+        <ul>
+            <li id="getReferrals" class="ui-state-default">
+                <a class="button confirm" style="color:#fff">
+                    <i class="icon-refresh"></i>
+                    Pull Referrals
+                </a>
+            </li>
+        </ul>
     </div>
+    <br />
+    <div>&nbsp;</div>
     <div id="ftabs">
       <ul>
           <li id="activefTFacilitiesR"><a href="#afToFacilitiesReferrals">Active referral to this facility</a></li>

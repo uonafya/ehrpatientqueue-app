@@ -68,4 +68,26 @@ public class ReferralHistoryFragmentController {
         }
         return SimpleObject.fromCollection(obsSimplifierList, ui, "question", "response", "comments");
     }
+
+    public List<SimpleObject> getPatientShrHistory(@RequestParam(value = "activeId", required = false) Patient patient, UiUtils ui) {
+        /*Set<Obs> obsSet = null;
+        List<ObsSimplifier> obsSimplifierList = new ArrayList<ObsSimplifier>();
+        ObsSimplifier obsSimplifier;
+        if(encounter != null) {
+            obsSet = new HashSet<Obs>(encounter.getAllObs());
+            for(Obs obs: obsSet){
+                obsSimplifier = new ObsSimplifier();
+                obsSimplifier.setQuestion(obs.getConcept().getDisplayString());
+                obsSimplifier.setResponse(EhrConfigsUtils.getObsValues(obs));
+                if(obs.getComment() != null) {
+                    obsSimplifier.setComments(obs.getComment());
+                }
+                else {
+                    obsSimplifier.setComments("");
+                }
+                obsSimplifierList.add(obsSimplifier);
+            }
+        }*/
+        return null;//SimpleObject.fromCollection(obsSimplifierList, ui, "question", "response", "comments");
+    }
 }
