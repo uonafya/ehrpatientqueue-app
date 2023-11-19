@@ -1,7 +1,6 @@
 <div class="ke-panel-frame">
     <div class="ke-panel-heading">Active Referrals</div>
     <div class="ke-panel-content" style="background-color: #F3F9FF;">
-            <input type="text" id="activeId" name="activeId" />
             <table id="activeReferralsTbl" width="100%">
                 <thead>
                   <tr>

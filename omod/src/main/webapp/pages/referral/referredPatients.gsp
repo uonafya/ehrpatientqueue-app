@@ -39,14 +39,37 @@
       var completedReferralsTbl = jq('#completedReferralsTbl').DataTable();
       populateTableBodyForActiveReferralSummaryItems(${activeReferralList});
       populateTableBodyForServicedReferralSummaryItems(${completedReferralList});
-
+      var patientShrDetailsDialog = emr.setupConfirmationDialog({
+          dialogOpts: {
+              overlayClose: false,
+              close: true
+          },
+          selector: '#view-patient-shr-details-dialog',
+          actions: {
+              confirm: function () {
+                  jq.getJSON('${ui.actionLink("patientqueueapp", "referral/referralHistory", "addPatientLocallyAndRedirect")}',
+                      {
+                          activeId: jq("#activeId").val()
+                      }
+                  ).success(function (data) {
+                     //redirect the page to initial patient queue app
+                  });
+              },
+              cancel: function () {
+                  patientShrDetailsDialog.close();
+                  location.reload();
+              }
+          }
+      });
       jq('#activeReferralsTbl tbody').on( 'click', 'tr', function (e) {
             e.preventDefault();
+            patientShrDetailsDialog.show();
             var values = activeReferralsTbl.row(this).data();
-            console.log(values);
+            //console.log(values.nipi);
             //jQuery('#activeId').val(values[5]);
             //getClientShrDetails();
             //patientHistoryDialog.show();
+
       });
     });
     function populateTableBodyForActiveReferralSummaryItems(data) {
@@ -66,10 +89,10 @@
     function getClientShrDetails(){
       jq.getJSON('${ ui.actionLink("patientqueueapp", "referral/referralHistory", "getPatientShrHistory") }', {
                       activeId: jq("#activeId").val()
-                  }).success(function (data) {
-                    //populateTableHistorySummary(data);
-                    console.log("Waiting for input from user");
-                  });
+      }).success(function (data) {
+        //populateTableHistorySummary(data);
+        console.log("Waiting for input from user");
+      });
     }
 </script>
 <div class="ke-page-sidebar">
@@ -109,4 +132,34 @@
         ${ ui.includeFragment("patientqueueapp", "referral/fromFacilitiesToCommunityReferrals") }
       </div>
     </div>
+
+    <div id="view-patient-shr-details-dialog" class="dialog" style="display:none;  height: auto !important; width: 650px; !important;">
+            <div class="dialog-header">
+                <i class="icon-folder-open"></i>
+                <h3>Patient SHR Details</h3>
+            </div>
+            <input type="text" id="activeId" name="activeId" />
+            <div class="dialog-content">
+                <div>
+                  <table border="0" cellpadding="0" cellspacing="0" id="patientShrDtls" width="100%">
+                      <tr>
+                          <td>Category</td>
+                          <td>&nbsp;</td>
+                      </tr>
+                      <tr>
+                          <td>Reason for referral</td>
+                          <td>&nbsp;</td>
+                      </tr>
+                      <tr>
+                          <td>Clinical notes</td>
+                          <td>&nbsp;</td>
+                      </tr>
+                  </table>
+                </div>
+                <div class="onerow">
+                    <button class="button confirm right">Confirm</button>
+                    <button class="button cancel">Cancel</button>
+                </div>
+            </div>
+        </div>
 </div>

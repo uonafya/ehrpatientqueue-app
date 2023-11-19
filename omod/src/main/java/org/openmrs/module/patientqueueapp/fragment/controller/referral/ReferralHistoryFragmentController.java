@@ -90,4 +90,8 @@ public class ReferralHistoryFragmentController {
         }*/
         return null;//SimpleObject.fromCollection(obsSimplifierList, ui, "question", "response", "comments");
     }
+
+    public List<SimpleObject> addPatientLocallyAndRedirect(@RequestParam(value = "activeId", required = false) Patient patient, UiUtils ui) {
+        return null;
+    }
 }
