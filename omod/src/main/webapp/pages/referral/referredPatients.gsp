@@ -20,22 +20,12 @@
         jq("#ftabs").tabs();
        jq("#getReferrals").on("click", function (e) {
        			e.preventDefault();
-       			//Run the fetch tasks
-      console.log('Starting the fetch task!');
       jQuery.getJSON('${ ui.actionLink("kenyaemrIL", "referralsDataExchange", "pullCommunityReferralsFromFhir")}')
              .success(function (data) {
               if(data.status === "Success") {
-                  // Hide spinner
-                  //display_loading_spinner(false, 'wait-loading');
-                  console.log("Data ==>"+data);
-                  console.log(data.message);
                   setTimeout(function (){
                       location.reload();
                   }, 2000);
-
-
-
-
               }else{
                   console.log("Data ==>"+data);
               }
@@ -52,10 +42,10 @@
 
       jq('#activeReferralsTbl tbody').on( 'click', 'tr', function (e) {
             e.preventDefault();
-            var values = tbl.row(this).data();
+            var values = activeReferralsTbl.row(this).data();
             console.log(values);
-            jQuery('#activeId').val(values[5]);
-            getClientShrDetails();
+            //jQuery('#activeId').val(values[5]);
+            //getClientShrDetails();
             //patientHistoryDialog.show();
       });
     });
