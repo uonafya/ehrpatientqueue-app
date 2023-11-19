@@ -8,11 +8,10 @@
                           iconProvider: "patientqueueapp",
                           icon: "ehr_referrals_facility.png"
                       ],
-                      [
-                          label: "Community referrals",
-                          href: ui.pageLink("patientqueueapp", "referral/communityReferredPatients"),
-                          iconProvider: "patientqueueapp",
-                          icon: "community_referral.png"
+                      [ label: "Back to home",
+                        iconProvider: "kenyaui",
+                        icon: "buttons/back.png",
+                        href: ui.pageLink("kenyaemr", "userHome")
                       ]
               ]
 %>

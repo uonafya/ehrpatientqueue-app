@@ -125,8 +125,7 @@ public class ActualReferralFragmentController {
                 referralCommunityNameObs.setValueText(referralCommunityName);
             }
             if(StringUtils.isNotBlank(referralFacilityLocation)) {
-                String mflCode = hospitalCoreService.getMflCodeFromLocationAttribute(Context.getLocationService().getLocation(referralFacilityLocation));
-                ehrReferralComponent.setReferralFacilityLocation(referralFacilityLocation+"-"+mflCode);
+                ehrReferralComponent.setReferralFacilityLocation(referralFacilityLocation);
                 referralFacilityLocationObs = new Obs();
                 referralFacilityLocationObs.setPerson(patient);
                 referralFacilityLocationObs.setObsDatetime(new Date());

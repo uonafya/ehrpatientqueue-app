@@ -21,7 +21,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                    <% toFacilityReferrals.each { %>
+                    <% toCommunityReferrals.each { %>
                         <tr>
                             <td>${it.patientIdentifier}</td>
                             <td>${it.patientNames}</td>
