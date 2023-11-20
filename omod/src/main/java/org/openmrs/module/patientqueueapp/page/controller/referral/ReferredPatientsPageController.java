@@ -24,56 +24,20 @@ import java.util.List;
 
 @AppPage(PatientQueueConstants.APP_PATIENT_REFERRAL)
 public class ReferredPatientsPageController {
-    public static final String NUPI = "f85081e2-b4be-4e48-b3a4-7994b69bb101";
     public void controller(@SpringBean KenyaUiUtils kenyaUi, UiUtils ui, PageModel model) throws JsonProcessingException, ParseException {
         KenyaEMRILService ilService = Context.getService(KenyaEMRILService.class);
         FhirConfig fhirConfig = Context.getRegisteredComponents(FhirConfig.class).get(0);
 
 // Filter all community referrals with active referral status
-        List<ExpectedTransferInPatients> activeCommunityReferralsList = ilService.getCommunityReferrals("COMMUNITY","ACTIVE");
+
 
         // Filter all community referrals with completed referral status
         List<ExpectedTransferInPatients> completedCommunityReferralsList = ilService.getCommunityReferrals("COMMUNITY","COMPLETED");
 
-        List<SimpleObject> activeReferrals = new ArrayList<SimpleObject>();
+
         List<SimpleObject> completedReferrals = new ArrayList<SimpleObject>();
 
-        for (ExpectedTransferInPatients expectedTransferInPatients : activeCommunityReferralsList) {
-            IParser parser = fhirConfig.getFhirContext().newJsonParser().setPrettyPrint(true);
-            ServiceRequest serviceRequest = parser.parseResource(ServiceRequest.class, expectedTransferInPatients.getPatientSummary());
-            String requester = "";
-            if (serviceRequest.hasRequester()) {
-                if (serviceRequest.getRequester().getDisplay() != null) {
-                    Location location = ILUtils.getLocationByMflCode(serviceRequest.getRequester().getDisplay());
-                    if (location != null) {
-                        requester = location.getName();
-                    } else {
-                        requester = "Community";
-                    }
 
-                } else if (serviceRequest.getRequester().getIdentifier() != null && serviceRequest.getRequester().getIdentifier().getValue() != null) {
-                    Location location = ILUtils.getLocationByMflCode(serviceRequest.getRequester().getIdentifier().getValue());
-                    if (location != null) {
-                        requester = location.getName();
-                    } else {
-                        requester = "Community";
-                    }
-                }
-            }
-
-            SimpleObject activeReferralsObject = SimpleObject.create("id", expectedTransferInPatients.getId(),
-                    "uuid", expectedTransferInPatients.getUuid(),
-                    "nupi", expectedTransferInPatients.getNupiNumber(),
-                    "dateReferred", serviceRequest.getAuthoredOn() != null? new SimpleDateFormat("yyyy-MM-dd").format(serviceRequest.getAuthoredOn()):"",
-                    "referredFrom", requester,
-                    "givenName", expectedTransferInPatients.getClientFirstName() != null ? expectedTransferInPatients.getClientFirstName() : "",
-                    "middleName", expectedTransferInPatients.getClientMiddleName() != null ? expectedTransferInPatients.getClientMiddleName() : "",
-                    "familyName", expectedTransferInPatients.getClientLastName() != null ? expectedTransferInPatients.getClientLastName() : "",
-                    "birthdate", kenyaUi.formatDate(expectedTransferInPatients.getClientBirthDate()),
-                    "gender", expectedTransferInPatients.getClientGender(),
-                    "status", expectedTransferInPatients.getReferralStatus());
-            activeReferrals.add(activeReferralsObject);
-        }
         for (ExpectedTransferInPatients expectedTransferInPatients : completedCommunityReferralsList) {
             IParser parser = fhirConfig.getFhirContext().newJsonParser().setPrettyPrint(true);
             ServiceRequest serviceRequest = parser.parseResource(ServiceRequest.class, expectedTransferInPatients.getPatientSummary());
@@ -99,7 +63,7 @@ public class ReferredPatientsPageController {
             completedReferrals.add(completedReferralsObject);
         }
 
-        model.put("activeReferralList", ui.toJson(activeReferrals));
+
         //model.put("activeReferralListSize", activeReferrals.size());
         model.put("completedReferralList", ui.toJson(completedReferrals));
         //model.put("completedReferralListSize", completedReferrals.size());
