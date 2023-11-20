@@ -78,26 +78,37 @@ jq(document).ready(function () {
 <div id="view-patient-shr-details-dialog" class="dialog" style="display:none;  height: auto !important; width: 650px; !important;">
     <div class="dialog-header">
         <i class="icon-folder-open"></i>
-        <h3>Patient SHR Details</h3>
+        <h3>Patient SHR Details of <span id="pDetails"></span></h3>
     </div>
-    <input type="text" id="activeId" name="activeId" />
+    <input type="hidden" id="activeId" name="activeId" />
+    <input type="hidden" id="nupiNumber" name="nupiNumber" />
+    <input type="hidden" id="firstName" name="firstName" />
+    <input type="hidden" id="middleName" name="middleName" />
+    <input type="hidden" id="familyName" name="familyName" />
+    <input type="hidden" id="sex" name="sex" />
+    <input type="hidden" id="dob" name="dob" />
     <div class="dialog-content">
         <div>
           <table border="0" cellpadding="0" cellspacing="0" id="patientShrDtls" width="100%">
               <tr>
+                  <td>Date of Referral</td>
+                  <td><span id="dateOfReferral"</span></td>
+              </tr>
+              <tr>
                   <td>Category</td>
-                  <td>&nbsp;</td>
+                  <td><span id="category"</span></td>
               </tr>
               <tr>
                   <td>Reason for referral</td>
-                  <td>&nbsp;</td>
+                  <td><span id="reason"</span></td>
               </tr>
               <tr>
                   <td>Clinical notes</td>
-                  <td>&nbsp;</td>
+                  <td><span id="notes"</span></td>
               </tr>
           </table>
         </div>
+        <br />
         <div class="onerow">
             <button class="button confirm right">Serve Client</button>
             <button class="button cancel">Cancel</button>

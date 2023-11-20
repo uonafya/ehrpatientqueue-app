@@ -2,6 +2,7 @@ package org.openmrs.module.patientqueueapp.fragment.controller.referral;
 
 import ca.uhn.fhir.parser.IParser;
 import com.google.common.base.Strings;
+import org.apache.commons.lang3.StringUtils;
 import org.hl7.fhir.r4.model.CodeableConcept;
 import org.hl7.fhir.r4.model.Coding;
 import org.hl7.fhir.r4.model.Observation;
@@ -12,9 +13,16 @@ import org.openmrs.Encounter;
 import org.openmrs.EncounterType;
 import org.openmrs.Obs;
 import org.openmrs.Patient;
+import org.openmrs.PatientIdentifier;
+import org.openmrs.PatientIdentifierType;
+import org.openmrs.PersonName;
 import org.openmrs.api.EncounterService;
+import org.openmrs.api.PatientService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.ehrconfigs.utils.EhrConfigsUtils;
+import org.openmrs.module.hospitalcore.util.DateUtils;
+import org.openmrs.module.idgen.service.IdentifierSourceService;
+import org.openmrs.module.kenyaemr.api.KenyaEmrService;
 import org.openmrs.module.kenyaemrIL.api.KenyaEMRILService;
 import org.openmrs.module.kenyaemrIL.api.shr.FhirConfig;
 import org.openmrs.module.kenyaemrIL.programEnrollment.ExpectedTransferInPatients;
@@ -28,6 +36,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -92,7 +101,7 @@ public class ReferralHistoryFragmentController {
         SimpleObject referralsDetailsObject = null;
         List<SimpleObject> list = new ArrayList<SimpleObject>();
         if (patientReferral != null) {
-
+            System.out.println("Service referral NOT empty>>"+patientReferral);
             serviceRequest = parser.parseResource(ServiceRequest.class, patientReferral.getPatientSummary());
 
             Set<String> category = new HashSet<String>();
@@ -169,18 +178,76 @@ public class ReferralHistoryFragmentController {
                 note = serviceRequest.getNoteFirstRep().getText();
             }
 
-            referralsDetailsObject = SimpleObject.create("category", String.join(",  ", category),
+            referralsDetailsObject = SimpleObject.create(
+                    "category", String.join(",  ", category),
                     "reasonCode", String.join(", ", reasons),
                     "referralDate", referralDate,
-                    "clinicalNote", note,
-                    "cancerReferral", list
+                    "clinicalNote", note
             );
 
         }
         return referralsDetailsObject;
     }
 
-    public List<SimpleObject> addPatientLocallyAndRedirect(@RequestParam(value = "activeId", required = false) Patient patient, UiUtils ui) {
-        return null;
+    public SimpleObject addPatientLocallyAndRedirect(
+            @RequestParam(value = "nupiNumber", required = false) String nupiNumber,
+            @RequestParam(value = "firstName", required = false) String firstName,
+            @RequestParam(value = "middleName", required = false) String middleName,
+            @RequestParam(value = "familyName", required = false) String familyName,
+            @RequestParam(value = "sex", required = false) String sex,
+            @RequestParam(value = "dob", required = false) String dob,
+            UiUtils ui) {
+        PatientService patientService = Context.getPatientService();
+        //find if this patient already exist to avoid duplicates
+        List<Patient> patientList = patientService.getPatients(nupiNumber);
+        SimpleObject simpleObject = null;
+        if(!patientList.isEmpty()) {
+            PersonName personName = new PersonName();
+            if (StringUtils.isNotBlank(firstName)) {
+                personName.setGivenName(firstName);
+            }
+            if (StringUtils.isNotBlank(familyName)) {
+                personName.setFamilyName(familyName);
+            }
+            if (StringUtils.isNotBlank(middleName)) {
+                personName.setMiddleName(middleName);
+            }
+            PatientIdentifierType nupiType = Context.getPatientService().getPatientIdentifierTypeByUuid("f85081e2-b4be-4e48-b3a4-7994b69bb101");
+            PatientIdentifierType openmrsIdType = Context.getPatientService().getPatientIdentifierTypeByUuid("dfacd928-0370-4315-99d7-6ec1c9f7ae76");
+
+            String generatedOpenMrsId = Context.getService(IdentifierSourceService.class).generateIdentifier(openmrsIdType, "Registration");
+
+            PatientIdentifier nupiIdentifier = new PatientIdentifier();
+            nupiIdentifier.setIdentifier(nupiNumber);
+            nupiIdentifier.setIdentifierType(nupiType);
+            nupiIdentifier.setLocation(Context.getService(KenyaEmrService.class).getDefaultLocation());
+            nupiIdentifier.setCreator(Context.getAuthenticatedUser());
+            nupiIdentifier.setDateCreated(new Date());
+
+            PatientIdentifier ormIdentifier = new PatientIdentifier();
+            ormIdentifier.setIdentifier(generatedOpenMrsId);
+            ormIdentifier.setIdentifierType(openmrsIdType);
+            ormIdentifier.setLocation(Context.getService(KenyaEmrService.class).getDefaultLocation());
+            ormIdentifier.setCreator(Context.getAuthenticatedUser());
+            ormIdentifier.setPreferred(true);
+            ormIdentifier.setDateCreated(new Date());
+
+            Set<PatientIdentifier> patientIdentifierSet = new HashSet<PatientIdentifier>();
+            patientIdentifierSet.add(nupiIdentifier);
+            patientIdentifierSet.add(ormIdentifier);
+
+            Patient patient = new Patient();
+            patient.setGender(sex);
+            patient.setBirthdate(DateUtils.getDateFromStr(dob));
+            patient.setIdentifiers(patientIdentifierSet);
+            patient.setCreator(Context.getAuthenticatedUser());
+            patient.setDateCreated(new Date());
+            patient.addName(personName);
+
+            Patient savedPatient = Context.getPatientService().savePatient(patient);
+
+            simpleObject = SimpleObject.create("id", savedPatient.getPatientId());
+        }
+            return simpleObject;
     }
 }

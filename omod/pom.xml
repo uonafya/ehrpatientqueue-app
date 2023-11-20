@@ -53,6 +53,10 @@
 
 		</dependency>
 		<dependency>
+			<groupId>org.openmrs.module</groupId>
+			<artifactId>idgen-api</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>ca.uhn.hapi.fhir</groupId>
 			<artifactId>org.hl7.fhir.r4</artifactId>
 		</dependency>

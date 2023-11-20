@@ -32,40 +32,11 @@ public class ReferredPatientsPageController {
 
 
         // Filter all community referrals with completed referral status
-        List<ExpectedTransferInPatients> completedCommunityReferralsList = ilService.getCommunityReferrals("COMMUNITY","COMPLETED");
 
-
-        List<SimpleObject> completedReferrals = new ArrayList<SimpleObject>();
-
-
-        for (ExpectedTransferInPatients expectedTransferInPatients : completedCommunityReferralsList) {
-            IParser parser = fhirConfig.getFhirContext().newJsonParser().setPrettyPrint(true);
-            ServiceRequest serviceRequest = parser.parseResource(ServiceRequest.class, expectedTransferInPatients.getPatientSummary());
-            String requester = "";
-            if (serviceRequest.hasRequester()) {
-                if (serviceRequest.getRequester().getDisplay() != null) {
-                    requester = serviceRequest.getRequester().getDisplay();
-                }
-            }
-
-
-            SimpleObject completedReferralsObject = SimpleObject.create("id", expectedTransferInPatients.getId(),
-                    "uuid", expectedTransferInPatients.getUuid(),
-                    "nupi", expectedTransferInPatients.getNupiNumber(),
-                    "dateReferred", serviceRequest.getAuthoredOn() != null? new SimpleDateFormat("yyyy-MM-dd").format(serviceRequest.getAuthoredOn()):"",
-                    "referredFrom", requester,
-                    "givenName", expectedTransferInPatients.getClientFirstName() != null ? expectedTransferInPatients.getClientFirstName() : "",
-                    "middleName", expectedTransferInPatients.getClientMiddleName() != null ? expectedTransferInPatients.getClientMiddleName() : "",
-                    "familyName", expectedTransferInPatients.getClientLastName() != null ? expectedTransferInPatients.getClientLastName() : "",
-                    "birthdate", kenyaUi.formatDate(expectedTransferInPatients.getClientBirthDate()),
-                    "gender", expectedTransferInPatients.getClientGender(),
-                    "status", expectedTransferInPatients.getReferralStatus());
-            completedReferrals.add(completedReferralsObject);
-        }
 
 
         //model.put("activeReferralListSize", activeReferrals.size());
-        model.put("completedReferralList", ui.toJson(completedReferrals));
+        //model.put("completedReferralList", ui.toJson(completedReferrals));
         //model.put("completedReferralListSize", completedReferrals.size());
     }
 }

@@ -11,10 +11,17 @@ var patientShrDetailsDialog = emr.setupConfirmationDialog({
           confirm: function () {
               jq.getJSON('${ui.actionLink("patientqueueapp", "referral/referralHistory", "addPatientLocallyAndRedirect")}',
                   {
-                      activeId: jq("#activeId").val()
+                      nupiNumber: jq("#nupiNumber").val(),
+                      firstName: jq("#firstName").val(),
+                      middleName: jq("#middleName").val(),
+                      familyName: jq("#familyName").val(),
+                      sex: jq("#sex").val(),
+                      dob: jq("#dob").val()
                   }
               ).success(function (data) {
-                 //redirect the page to initial patient queue app
+                 if(data) {
+                    ui.navigate('initialpatientqueueapp', 'patientCategory', {patientId: data.id});
+                 }
               });
           },
           cancel: function () {
@@ -28,6 +35,13 @@ var patientShrDetailsDialog = emr.setupConfirmationDialog({
           var values = activeReferralsTbl.row(this).data();
           console.log(values);
           jQuery('#activeId').val(values[0]);
+          jQuery('#nupiNumber').val(values[6]);
+          jQuery('#firstName').val(values[1]);
+          jQuery('#middleName').val(values[2]);
+          jQuery('#familyName').val(values[3]);
+          jQuery('#sex').val(values[4]);
+          jQuery('#dob').val(values[5]);
+          jq("#pDetails").text(values[6]);
           getClientShrDetails();
           patientShrDetailsDialog.show();
 
@@ -38,14 +52,10 @@ function getClientShrDetails(){
                       activeId: jq("#activeId").val()
       }).success(function (data) {
         if(data) {
-              if(data.cancerReferral.length > 0) {
-                  for (var i = 0; i < data.cancerReferral.length; i++) {
-                    console.log(data);
-                  }
-              }
-              else {
-                console.log("Data ==>"+data);
-              }
+             jq("#dateOfReferral").text(data.referralDate);
+             jq("#category").text(data.category);
+             jq("#reason").text(data.reasonCode);
+             jq("#notes").text(data.clinicalNote);
         }
 
       });
