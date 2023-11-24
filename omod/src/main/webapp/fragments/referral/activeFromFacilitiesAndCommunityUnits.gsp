@@ -16,7 +16,8 @@ var patientShrDetailsDialog = emr.setupConfirmationDialog({
                       middleName: jq("#middleName").val(),
                       familyName: jq("#familyName").val(),
                       sex: jq("#sex").val(),
-                      dob: jq("#dob").val()
+                      dob: jq("#dob").val(),
+                      activeId: jq("#activeId").val()
                   }
               ).success(function (data) {
                  if(data) {

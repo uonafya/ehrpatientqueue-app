@@ -19,23 +19,55 @@ jq(document).ready(function () {
   jq("#ftabs").tabs();
   jq("#getReferrals").on("click", function (e) {
         e.preventDefault();
+        jq("#pull-msgBox").hide();
+        display_loading_spinner(true, 'wait-loading');
   jQuery.getJSON('${ ui.actionLink("kenyaemrIL", "referralsDataExchange", "pullCommunityReferralsFromFhir")}')
          .success(function (data) {
           if(data.status === "Success") {
-              setTimeout(function (){
-                  location.reload();
-              }, 2000);
+            display_loading_spinner(false, 'wait-loading');
+            jq("#pull-msgBox").text(data.message + 'The page will refresh shortly');
+            jq("#pull-msgBox").show();
+            jQuery("#pull-msgBox").toggleClass("success-message-text", true);
+            jQuery("#pull-msgBox").toggleClass("error-message-text", false);
+            setTimeout(function (){
+                location.reload();
+            }, 2000);
           }else{
               console.log("Data ==>"+data);
+              display_loading_spinner(false, 'wait-loading');
+              jq("#pull-msgBox").text(data.message);
+              jq("#pull-msgBox").show();
           }
          })
       .fail(function (err) {
+          display_loading_spinner(false, 'wait-loading');
           console.log("Error fetching referral records: " + JSON.stringify(err));
+          jq("#pull-msgBox").text("There was an error pulling referrals. Error: " + JSON.stringify(err));
+          jq("#pull-msgBox").show();
           }
       )
   });
 });
+var loadingImageURL = ui.resourceLink("kenyaemr", "images/loading.gif");
+var showLoadingImage = '<span style="padding:2px; display:inline-block;"> <img src="' + loadingImageURL + '" /> </span>';
+function display_loading_spinner(status, targetElementClass) {
+    if(status) {
+        jq("." + targetElementClass).empty();
+        jq("." + targetElementClass).append(showLoadingImage);
+    } else {
+        jq("." + targetElementClass).empty();
+    }
+}
 </script>
+<style type="text/css">
+.success-message-text {
+    color: green;
+}
+
+.error-message-text {
+    color: red;
+}
+</style>
 <div class="ke-page-sidebar">
     ${ ui.includeFragment("kenyaui", "widget/panelMenu", [ heading: "Tasks", items: menuItems ]) }
 </div>
@@ -73,8 +105,11 @@ jq(document).ready(function () {
         ${ ui.includeFragment("patientqueueapp", "referral/fromFacilitiesToCommunityReferrals") }
       </div>
     </div>
+    <br />
+    <div class="wait-loading" style="float: center;"></div>
+    <br />
+    <div class="text-wrap" align="left" id="pull-msgBox"></div>
 </div>
-
 <div id="view-patient-shr-details-dialog" class="dialog" style="display:none;  height: auto !important; width: 650px; !important;">
     <div class="dialog-header">
         <i class="icon-folder-open"></i>

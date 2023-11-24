@@ -196,12 +196,15 @@ public class ReferralHistoryFragmentController {
             @RequestParam(value = "familyName", required = false) String familyName,
             @RequestParam(value = "sex", required = false) String sex,
             @RequestParam(value = "dob", required = false) String dob,
+            @RequestParam(value = "activeId", required = false) Integer activeId,
             UiUtils ui) {
         PatientService patientService = Context.getPatientService();
+        KenyaEMRILService service = Context.getService(KenyaEMRILService.class);
+        ExpectedTransferInPatients referred = service.getCommunityReferralsById(activeId);
         //find if this patient already exist to avoid duplicates
         List<Patient> patientList = patientService.getPatients(nupiNumber);
         SimpleObject simpleObject = null;
-        if(!patientList.isEmpty()) {
+        if(patientList.isEmpty()) {
             PersonName personName = new PersonName();
             if (StringUtils.isNotBlank(firstName)) {
                 personName.setGivenName(firstName);
@@ -235,18 +238,31 @@ public class ReferralHistoryFragmentController {
             Set<PatientIdentifier> patientIdentifierSet = new HashSet<PatientIdentifier>();
             patientIdentifierSet.add(nupiIdentifier);
             patientIdentifierSet.add(ormIdentifier);
-
             Patient patient = new Patient();
             patient.setGender(sex);
-            patient.setBirthdate(DateUtils.getDateFromStr(dob));
-            patient.setIdentifiers(patientIdentifierSet);
+            patient.setBirthdate(DateUtils.getDateFromStrWithAnyFormat(dob, "dd-MMM-yyyy"));
+            patient.addIdentifiers(patientIdentifierSet);
             patient.setCreator(Context.getAuthenticatedUser());
             patient.setDateCreated(new Date());
             patient.addName(personName);
 
             Patient savedPatient = Context.getPatientService().savePatient(patient);
+            if(referred != null) {
+                referred.setReferralStatus("COMPLETED");
+                referred.setPatient(savedPatient);
+                service.createPatient(referred);
+            }
 
             simpleObject = SimpleObject.create("id", savedPatient.getPatientId());
+        }
+        else {
+            Patient existingPatient = patientList.get(0);
+            if(referred != null) {
+                referred.setReferralStatus("COMPLETED");
+                referred.setPatient(existingPatient);
+                service.createPatient(referred);
+            }
+            simpleObject = SimpleObject.create("id", existingPatient.getPatientId());
         }
             return simpleObject;
     }
