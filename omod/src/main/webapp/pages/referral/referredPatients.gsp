@@ -150,3 +150,38 @@ function display_loading_spinner(status, targetElementClass) {
         </div>
     </div>
 </div>
+
+<div id="view-completed-patient-shr-details-dialog" class="dialog" style="display:none;  height: auto !important; width: 650px; !important;">
+    <div class="dialog-header">
+        <i class="icon-folder-open"></i>
+        <h3>Patient SHR Details of <span id="servedPDetails"></span></h3>
+    </div>
+    <input type="text" id="servedActiveId" name="servedActiveId" />
+    <div class="dialog-content">
+        <div>
+          <table border="0" cellpadding="0" cellspacing="0" id="completedReferralsTbl" width="100%">
+              <tr>
+                  <td>Date of Referral</td>
+                  <td><span id="servedDateOfReferral"</span></td>
+              </tr>
+              <tr>
+                  <td>Category</td>
+                  <td><span id="servedCategory"</span></td>
+              </tr>
+              <tr>
+                  <td>Reason for referral</td>
+                  <td><span id="servedReason"</span></td>
+              </tr>
+              <tr>
+                  <td>Clinical notes</td>
+                  <td><span id="servedNotes"</span></td>
+              </tr>
+          </table>
+        </div>
+        <br />
+        <div class="onerow">
+            <button class="button confirm right">Update SHR</button>
+            <button class="button cancel">Cancel</button>
+        </div>
+    </div>
+</div>
