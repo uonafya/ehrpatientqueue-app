@@ -1,7 +1,54 @@
 <script type="text/javascript">
 jq(document).ready(function () {
   var completedReferralsTbl = jq('#completedReferralsTbl').DataTable();
+  var servedPatientShrDetailsDialog = emr.setupConfirmationDialog({
+        dialogOpts: {
+            overlayClose: false,
+            close: true
+        },
+        selector: '#view-completed-patient-shr-details-dialog',
+        actions: {
+            confirm: function () {
+                jq.getJSON('${ui.actionLink("kenyaemrIL", "referralsDataExchange", "updateShrReferral")}',
+                    {
+                        patientId: jq("#servedActiveId").val()
+                    }
+                ).success(function (data) {
+                   if(data) {
+                      location.reload();
+                   }
+                });
+            },
+            cancel: function () {
+                servedPatientShrDetailsDialog.close();
+                //location.reload();
+            }
+        }
+    });
+
+  jq('#completedReferralsTbl tbody').on( 'click', 'tr', function (e) {
+    e.preventDefault();
+    var servedPatientValues = completedReferralsTbl.row(this).data();
+    jq("#servedPDetails").text(servedPatientValues[6]);
+    jq("#servedActiveId").val(servedPatientValues[0]);
+    getServedClientShrDetails();
+    servedPatientShrDetailsDialog.show();
+    });
 });
+function getServedClientShrDetails(){
+      jq.getJSON('${ ui.actionLink("patientqueueapp", "referral/referralHistory", "getPatientShrHistory") }', {
+                      servedActiveId: jq("#servedActiveId").val()
+      }).success(function (data) {
+        console.log(data);
+        if(data) {
+             jq("#servedDateOfReferral").text(data.referralDate);
+             jq("#servedCategory").text(data.category);
+             jq("#servedReason").text(data.reasonCode);
+             jq("#servedNotes").text(data.clinicalNote);
+        }
+
+      });
+}
 </script>
 <div class="ke-panel-frame">
     <div class="ke-panel-heading">Serviced Referrals</div>

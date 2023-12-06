@@ -90,10 +90,9 @@ public class ReferralHistoryFragmentController {
         return SimpleObject.fromCollection(obsSimplifierList, ui, "question", "response", "comments");
     }
 
-    public SimpleObject getPatientShrHistory(@RequestParam(value = "activeId", required = false) Integer activeId, UiUtils ui) {
+    public SimpleObject getPatientShrHistory(@RequestParam(value = "servedActiveId", required = false) Integer activeId, UiUtils ui) {
         //Update  referral category and reasons
         FhirConfig fhirConfig = Context.getRegisteredComponents(FhirConfig.class).get(0);
-
         ExpectedTransferInPatients patientReferral = Context.getService(KenyaEMRILService.class).getCommunityReferralsById(activeId);
         IParser parser = fhirConfig.getFhirContext().newJsonParser().setPrettyPrint(true);
 
@@ -101,7 +100,6 @@ public class ReferralHistoryFragmentController {
         SimpleObject referralsDetailsObject = null;
         List<SimpleObject> list = new ArrayList<SimpleObject>();
         if (patientReferral != null) {
-            System.out.println("Service referral NOT empty>>"+patientReferral);
             serviceRequest = parser.parseResource(ServiceRequest.class, patientReferral.getPatientSummary());
 
             Set<String> category = new HashSet<String>();
@@ -124,7 +122,7 @@ public class ReferralHistoryFragmentController {
                 }
             }
             if (serviceRequest.getAuthoredOn() != null) {
-                referralDate = new SimpleDateFormat("yyyy-MM-dd").format(serviceRequest.getAuthoredOn());
+                referralDate = new SimpleDateFormat("yyyy-MM-dd hh:mm").format(serviceRequest.getAuthoredOn());
             }
 
             if (!serviceRequest.getSupportingInfo().isEmpty()) {

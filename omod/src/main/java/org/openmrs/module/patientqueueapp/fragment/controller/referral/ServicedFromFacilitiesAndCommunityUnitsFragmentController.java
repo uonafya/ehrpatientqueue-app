@@ -44,7 +44,7 @@ public class ServicedFromFacilitiesAndCommunityUnitsFragmentController {
             serviceRequestSimplifier.setId(expectedTransferInPatients.getId());
             serviceRequestSimplifier.setUuid(expectedTransferInPatients.getUuid());
             serviceRequestSimplifier.setNupi(expectedTransferInPatients.getNupiNumber());
-            serviceRequestSimplifier.setDateReferred(serviceRequest.getAuthoredOn() != null? new SimpleDateFormat("yyyy-MM-dd").format(serviceRequest.getAuthoredOn()):"");
+            serviceRequestSimplifier.setDateReferred(serviceRequest.getAuthoredOn() != null? new SimpleDateFormat("yyyy-MM-dd hh:mm").format(serviceRequest.getAuthoredOn()):"");
             serviceRequestSimplifier.setReferredFrom(requester);
             serviceRequestSimplifier.setGivenName(expectedTransferInPatients.getClientFirstName() != null ? expectedTransferInPatients.getClientFirstName() : "");
             serviceRequestSimplifier.setMiddleName(expectedTransferInPatients.getClientMiddleName() != null ? expectedTransferInPatients.getClientMiddleName() : "");
