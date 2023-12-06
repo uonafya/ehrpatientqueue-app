@@ -156,7 +156,7 @@ function display_loading_spinner(status, targetElementClass) {
         <i class="icon-folder-open"></i>
         <h3>Patient SHR Details of <span id="servedPDetails"></span></h3>
     </div>
-    <input type="text" id="servedActiveId" name="servedActiveId" />
+    <input type="hidden" id="servedActiveId" name="servedActiveId" />
     <div class="dialog-content">
         <div>
           <table border="0" cellpadding="0" cellspacing="0" id="completedReferralsTbl" width="100%">

@@ -21,7 +21,7 @@ jq(document).ready(function () {
             },
             cancel: function () {
                 servedPatientShrDetailsDialog.close();
-                location.reload();
+                //location.reload();
             }
         }
     });
@@ -30,7 +30,7 @@ jq(document).ready(function () {
     e.preventDefault();
     var servedPatientValues = completedReferralsTbl.row(this).data();
     jq("#servedPDetails").text(servedPatientValues[6]);
-    jq("#servedActiveId").text(servedPatientValues[0]);
+    jq("#servedActiveId").val(servedPatientValues[0]);
     getServedClientShrDetails();
     servedPatientShrDetailsDialog.show();
     });

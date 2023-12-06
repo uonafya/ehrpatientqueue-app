@@ -27,14 +27,14 @@ var patientShrDetailsDialog = emr.setupConfirmationDialog({
           },
           cancel: function () {
               patientShrDetailsDialog.close();
-              location.reload();
+              //location.reload();
           }
       }
   });
   jq('#activeReferralsTbl tbody').on( 'click', 'tr', function (e) {
           e.preventDefault();
           var values = activeReferralsTbl.row(this).data();
-          console.log(values);
+          //console.log(values);
           jQuery('#activeId').val(values[0]);
           jQuery('#nupiNumber').val(values[6]);
           jQuery('#firstName').val(values[1]);
@@ -50,8 +50,9 @@ var patientShrDetailsDialog = emr.setupConfirmationDialog({
 });
 function getClientShrDetails(){
       jq.getJSON('${ ui.actionLink("patientqueueapp", "referral/referralHistory", "getPatientShrHistory") }', {
-                      activeId: jq("#activeId").val()
+                      servedActiveId: jq("#activeId").val()
       }).success(function (data) {
+          //console.log(data);
         if(data) {
              jq("#dateOfReferral").text(data.referralDate);
              jq("#category").text(data.category);
