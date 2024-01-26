@@ -25,7 +25,6 @@ var getPatientsFromSystem = function() {
         }),
         success: function (data) {
             updateSearchResultsFromSystem(data);
-			console.log(data);
         },
         error: function (xhr, ajaxOptions, thrownError) {
             console.log("error!");
