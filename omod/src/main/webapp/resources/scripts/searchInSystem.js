@@ -83,7 +83,6 @@ var isInSystemTableEmpty = function(){
 
 jq(function(){
 	var $inputs = jq(':input', '#patient-search-form,.advanced-search').not("#search-in-db");
-	console.log($inputs);
 	var $selectInputs = jq('select');
 	jq('#search-in-db').on("change", function (){
 		if ( this.checked ) {

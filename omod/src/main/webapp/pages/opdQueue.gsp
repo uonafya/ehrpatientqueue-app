@@ -61,6 +61,10 @@
 			jq("#queue-choice").val(jq.session.get("selected-option-opd")).change();
 		}
 		jq(".dashboard-tabs").tabs();
+    populatePatientSummary();
+		jq("#opdFilter").click(function () {
+        populatePatientSummary();
+    });
 	});
 	
 	jQuery.fn.clearForm = function() {
@@ -82,16 +86,39 @@
 		jq('#dashboard').find('input:text').val('');
 		jq('#dashboard').find('select option:first-child').attr("selected", "selected");
     }
+    function populatePatientSummary() {
+        jQuery("#patientTbody").empty();
+        jQuery("#patientTbody").append("<span>" + fetchPatientsByProviderInDateRange().size + "</span>");
+    }
+    function fetchPatientsByProviderInDateRange() {
+      var toReturn;
+      jQuery.ajax({
+        type: "GET",
+        url: '${ui.actionLink("patientdashboardapp", "providerWorkload", "fetchPatientsPerProviderEntry")}',
+        dataType: "json",
+        global: false,
+        async: false,
+        data: {
+          fromDate: jq("#summaryFromDate-field").val(),
+          toDate: jq('#summaryToDate-field').val()
+        },
+        success: function (data) {
+          toReturn = data;
+        }
+      });
+      return toReturn;
+    }
+
     function ShowDashboard() {
-		if (jq('#search-in-db').is(':checked')) {
-			jq('#dashboard').toggle(500);
-			jq('#dashboard').find('input:text').val('');
-			jq('#dashboard').find('select option:first-child').attr("selected", "selected");
-		}
-		else {
-			jq().toastmessage('showErrorToast', "Advanced Search can only be used when searching a patient in the System.",true);
-			HideDashboard();
-		}
+          if (jq('#search-in-db').is(':checked')) {
+            jq('#dashboard').toggle(500);
+            jq('#dashboard').find('input:text').val('');
+            jq('#dashboard').find('select option:first-child').attr("selected", "selected");
+          }
+          else {
+            jq().toastmessage('showErrorToast', "Advanced Search can only be used when searching a patient in the System.",true);
+            HideDashboard();
+          }
     }
 </script>
 
