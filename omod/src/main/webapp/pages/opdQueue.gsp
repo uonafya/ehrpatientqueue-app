@@ -11,6 +11,7 @@
 	ui.includeJavascript("patientqueueapp", "searchInSystem.js")
 	ui.includeJavascript("patientqueueapp", "jquery.session.js")
 	ui.includeJavascript("ehrconfigs", "emr.js")
+  ui.includeJavascript("ehrconfigs", "popper.min.js")
 
 %>
 <script type="text/javascript">
@@ -62,8 +63,10 @@
 		}
 		jq(".dashboard-tabs").tabs();
     populatePatientSummary();
+    populateTableBodyForClinicalFinalDiagnosisSummary("160249AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "ba45c278-f290-11ea-9666-1b3e6e848887");
 		jq("#opdFilter").click(function () {
         populatePatientSummary();
+    populateTableBodyForClinicalFinalDiagnosisSummary("160249AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "ba45c278-f290-11ea-9666-1b3e6e848887");
     });
 	});
 	
@@ -107,6 +110,33 @@
         }
       });
       return toReturn;
+    }
+        function fetchClinicalSummariesByDateRange(uuid, encounterType) {
+          var toReturn;
+          jQuery.ajax({
+            type: "GET",
+            url: '${ui.actionLink("financials", "generalSummaries", "fetchClinicalSummariesByDateRange")}',
+            dataType: "json",
+            global: false,
+            async: false,
+            data: {
+              fromDate: jq("#summaryFromDate-field").val(),
+              toDate: jq('#summaryToDate-field').val(),
+              uuid: uuid,
+              enType: encounterType,
+              provider: "yes"
+            },
+            success: function (data) {
+              toReturn = data;
+            }
+          });
+          return toReturn;
+        }
+    function populateTableBodyForClinicalFinalDiagnosisSummary(uuid, enType) {
+        jQuery("#fDiagnosisDetails").empty();
+        fetchClinicalSummariesByDateRange(uuid, enType).map((item) => {
+        jQuery("#fDiagnosisDetails").append("<li>" + item.conceptName +"  "+"<span class='badge badge-info'>"+ item.listSize + "</span></li>");
+      });
     }
 
     function ShowDashboard() {
